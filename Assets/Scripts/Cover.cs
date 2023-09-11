@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoofCover : MonoBehaviour
+public class Cover : MonoBehaviour
 {
 
     public Collider ColliderFalse;

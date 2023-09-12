@@ -8,7 +8,7 @@ public class AddPoint : MonoBehaviour
     public ScoreCounter scoreCounter;
    
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         scoreCounter.score += score;
     }

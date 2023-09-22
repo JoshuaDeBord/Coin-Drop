@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class DropTheCoin  : MovingLeftAndRight
+public class DropTheCoin : MovingLeftAndRight
 {
     // Start is called before the first frame update
 
     private Rigidbody rbCoin;
-    private bool isntDropped = true;
+
+    public bool dropButtonPressed = false;
     private void Start()
     {
         rbCoin = GetComponent<Rigidbody>();
@@ -13,11 +14,12 @@ public class DropTheCoin  : MovingLeftAndRight
     public void DropCoin()
     {
 
+        dropButtonPressed = true;
         rbCoin.useGravity = true;
 
         rbCoin.constraints = RigidbodyConstraints.None;
         rbCoin.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-        
+
 
     }
 }

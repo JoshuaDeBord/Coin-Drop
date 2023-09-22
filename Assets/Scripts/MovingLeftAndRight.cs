@@ -6,7 +6,8 @@ public class MovingLeftAndRight : MonoBehaviour
     public float speed = 5f;
     private bool moveRight = false;
     private bool moveLeft = false;
-    private readonly Rigidbody rb;
+    public Rigidbody rb;
+    public DropTheCoin coinDrop;
     public void MovingCoinLeft()
     {
         moveLeft = true;
@@ -38,12 +39,12 @@ public class MovingLeftAndRight : MonoBehaviour
 
     private void Update()
     {
-        if (moveLeft)
+        if (moveLeft && transform.position.x > -5.38 && !coinDrop.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y);
         }
 
-        else if (moveRight)
+        else if (moveRight && transform.position.x < 25.82 && !coinDrop.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y);
         }

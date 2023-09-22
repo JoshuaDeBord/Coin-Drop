@@ -11,5 +11,6 @@ public class AddPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         scoreCounter.score += score;
+        other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
 }

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class DropTheCoin : MovingLeftAndRight
 {
-    // Start is called before the first frame update
-
-    private Rigidbody rbCoin;
+    
+    
+    public Rigidbody rbCoin;
+    
 
     public bool dropButtonPressed = false;
     private void Start()
@@ -13,7 +14,7 @@ public class DropTheCoin : MovingLeftAndRight
     }
     public void DropCoin()
     {
-
+        
         dropButtonPressed = true;
         rbCoin.useGravity = true;
 

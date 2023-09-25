@@ -11,7 +11,7 @@ public class MovingLeftAndRight : MonoBehaviour
     public void MovingCoinLeft()
     {
         moveLeft = true;
-        
+
 
     }
 
@@ -25,26 +25,33 @@ public class MovingLeftAndRight : MonoBehaviour
     public void MovingCoinLeftStop()
     {
         moveLeft = false;
-        rb.constraints = RigidbodyConstraints.FreezePosition;
+        if (!coinDrop.dropButtonPressed)
+        {
 
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
     }
 
     public void MovingCoinRightStop()
     {
         moveRight = false;
-        rb.constraints = RigidbodyConstraints.FreezePosition;
+        if (!coinDrop.dropButtonPressed)
+        {
+
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
     }
 
-    
+
 
     private void Update()
     {
-        if (moveLeft && transform.position.x > -5.38 && !coinDrop.dropButtonPressed)
+        if (moveLeft && transform.position.x > -18.9 && !coinDrop.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y);
         }
 
-        else if (moveRight && transform.position.x < 25.82 && !coinDrop.dropButtonPressed)
+        else if (moveRight && transform.position.x < 12.3 && !coinDrop.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y);
         }

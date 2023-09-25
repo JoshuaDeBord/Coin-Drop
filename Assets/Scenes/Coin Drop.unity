@@ -9109,6 +9109,7 @@ MonoBehaviour:
   speed: 5
   rb: {fileID: 0}
   coinDrop: {fileID: 1106949800}
+  rbCoin: {fileID: 0}
   dropButtonPressed: 0
 --- !u!4 &1106949803 stripped
 Transform:
@@ -13525,7 +13526,7 @@ Transform:
   m_GameObject: {fileID: 1760712669}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.76, y: 15.99, z: 0.5}
+  m_LocalPosition: {x: -1.43, y: 15.99, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13560,13 +13561,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ff74c1e75b8664d8950c543656d4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPosition: {fileID: 0}
-  speed: 5
-  rb: {fileID: 0}
-  coinDrop: {fileID: 0}
-  dropButtonPressed: 0
-  respawnPos: {x: 10.07, y: -2.5417454, z: 0.35135}
+  respawnPos: {x: 0, y: 0, z: 0}
   CoinMain: {fileID: 1106949803}
+  DropTheCoin: {fileID: 1106949800}
+  Cover: {fileID: 1474562502}
+  left: {fileID: 1742371289}
+  right: {fileID: 245666269}
 --- !u!1 &1775365142
 GameObject:
   m_ObjectHideFlags: 0
@@ -15788,7 +15788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 69e570a331da80d4f9bb60a69b974919, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 69e570a331da80d4f9bb60a69b974919, type: 3}
       propertyPath: m_LocalPosition.y

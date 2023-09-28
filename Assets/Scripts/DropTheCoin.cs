@@ -19,7 +19,7 @@ public class DropTheCoin : MovingLeftAndRight
         rbCoin.useGravity = true;
 
         rbCoin.constraints = RigidbodyConstraints.None;
-        rbCoin.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        rbCoin.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
 
 
     }

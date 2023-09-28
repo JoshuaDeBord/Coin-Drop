@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovingLeftAndRight : MonoBehaviour
 {
@@ -8,18 +9,21 @@ public class MovingLeftAndRight : MonoBehaviour
     private bool moveLeft = false;
     public Rigidbody rb;
     public DropTheCoin coinDrop;
+    public bool rightLeftPressed = false;
+    public Button dropButtonAfterPress;
     public void MovingCoinLeft()
     {
         moveLeft = true;
-
-
+        rightLeftPressed = true;
+        dropButtonAfterPress.interactable = true;
     }
 
     public void MovingCoinRight()
     {
 
         moveRight = true;
-
+        rightLeftPressed = true;
+        dropButtonAfterPress.interactable = true;
     }
 
     public void MovingCoinLeftStop()
@@ -42,6 +46,7 @@ public class MovingLeftAndRight : MonoBehaviour
         }
     }
 
+    
 
 
     private void Update()

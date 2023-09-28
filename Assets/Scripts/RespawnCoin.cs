@@ -9,17 +9,18 @@ public class RespawnCoin : MonoBehaviour
     public Transform CoinMain;
     public DropTheCoin DropTheCoin;
     public Cover Cover;
-    public AddPoint AddPoint;
+    private MovingLeftAndRight MovingLAR;
+    
     public Button left, right;
     void Start()
     {
         respawnPos = transform.position;
-        
+        MovingLAR = GetComponent<MovingLeftAndRight>();
     }
 
    public void RespawnTheCoin()
     {
-        if (AddPoint.coinEnter = true)
+        if (AddPoint.coinEnter == true)
         {
             transform.position = respawnPos;
             CoinMain.position = respawnPos;
@@ -32,6 +33,7 @@ public class RespawnCoin : MonoBehaviour
             Cover.RendererEnabler.enabled = false;
             left.interactable = true;
             right.interactable = true;
+            MovingLAR.dropButtonAfterPress.interactable = false;
             AddPoint.coinEnter = false;
         }
         

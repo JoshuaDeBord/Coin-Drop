@@ -10,6 +10,7 @@ public class RespawnCoin : MonoBehaviour
     public DropTheCoin DropTheCoin;
     public Cover Cover;
     private MovingLeftAndRight MovingLAR;
+    public static PauseMenu PM;
     
     public Button left, right;
     void Start()
@@ -35,6 +36,7 @@ public class RespawnCoin : MonoBehaviour
             right.interactable = true;
             MovingLAR.dropButtonAfterPress.interactable = false;
             AddPoint.coinEnter = false;
+            AddPoint.coinEntered = false;
         }
         
 

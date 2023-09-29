@@ -5,7 +5,7 @@ public class DropTheCoin : MovingLeftAndRight
     
     
     public Rigidbody rbCoin;
-    
+    public bool useGravityIf = false;
 
     public bool dropButtonPressed = false;
     private void Start()
@@ -17,6 +17,7 @@ public class DropTheCoin : MovingLeftAndRight
         
         dropButtonPressed = true;
         rbCoin.useGravity = true;
+        
 
         rbCoin.constraints = RigidbodyConstraints.None;
         rbCoin.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;

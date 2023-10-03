@@ -51,12 +51,12 @@ public class MovingLeftAndRight : MonoBehaviour
 
     private void Update()
     {
-        if (moveLeft && transform.position.x > -18.9 && !coinDrop.dropButtonPressed)
+        if (moveLeft && transform.position.x > -548.45 && !coinDrop.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y);
         }
 
-        else if (moveRight && transform.position.x < 12.3 && !coinDrop.dropButtonPressed)
+        else if (moveRight && transform.position.x < 698 && !coinDrop.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y);
         }

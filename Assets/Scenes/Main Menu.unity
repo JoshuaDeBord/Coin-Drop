@@ -179,6 +179,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 61524892}
   OnOffLabel: {fileID: 2094117291}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!114 &61524891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,6 +996,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 510528218}
   OnOffLabel: {fileID: 1866707568}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!114 &510528217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,7 +1108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &596060371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1181,7 +1183,6 @@ GameObject:
   - component: {fileID: 608973234}
   - component: {fileID: 608973233}
   - component: {fileID: 608973232}
-  - component: {fileID: 608973236}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -1225,6 +1226,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 608973234}
   OnOffLabel: {fileID: 1818905871}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!114 &608973233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,33 +1321,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608973230}
   m_CullTransparentMesh: 1
---- !u!54 &608973236
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608973230}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &653369239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,6 +1377,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 653369243}
   OnOffLabel: {fileID: 1423148963}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!114 &653369242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2055,6 +2031,7 @@ GameObject:
   - component: {fileID: 970262179}
   - component: {fileID: 970262178}
   - component: {fileID: 970262177}
+  - component: {fileID: 970262180}
   m_Layer: 5
   m_Name: Play Button
   m_TagString: Untagged
@@ -2126,7 +2103,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1753015771}
+      - m_Target: {fileID: 970262180}
         m_TargetAssemblyTypeName: ManagerOfTheScenes, Assembly-CSharp
         m_MethodName: SceneChange
         m_Mode: 1
@@ -2176,6 +2153,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970262175}
   m_CullTransparentMesh: 1
+--- !u!114 &970262180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970262175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5222e411cf19cb4f8f5bb119535a3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: CoinDrop
 --- !u!1 &1048818792
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2313,7 @@ GameObject:
   - component: {fileID: 1086945724}
   - component: {fileID: 1086945723}
   - component: {fileID: 1086945722}
+  - component: {fileID: 1086945727}
   - component: {fileID: 1086945726}
   m_Layer: 5
   m_Name: Button (1)
@@ -2367,6 +2358,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 1086945724}
   OnOffLabel: {fileID: 2121617760}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!114 &1086945723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,6 +2406,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1086945722}
         m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
         m_MethodName: ColorOffOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1086945726}
+        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+        m_MethodName: HighGravitySetting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2474,6 +2478,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CoinMain: {fileID: 0}
+  GravityHigh: 1
+  BouncyCoin: {fileID: 0}
+  DropTheCoin: {fileID: 0}
+--- !u!114 &1086945727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086945720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58496fa3641870941ba57139a29d0755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings: {fileID: 0}
 --- !u!1 &1145169293
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,6 +3910,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 1479815013}
   OnOffLabel: {fileID: 168735052}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!114 &1479815012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5045,7 +5066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2051530881
 RectTransform:
   m_ObjectHideFlags: 0

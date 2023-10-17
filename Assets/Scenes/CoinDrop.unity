@@ -5089,7 +5089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &647399945
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6488,6 +6488,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 802300911}
   OnOffLabel: {fileID: 1816992479}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!4 &803103936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 18f8ef486b33178429d099e8b963152c, type: 3}
@@ -7396,7 +7397,6 @@ GameObject:
   - component: {fileID: 883202206}
   - component: {fileID: 883202205}
   - component: {fileID: 883202204}
-  - component: {fileID: 883202208}
   m_Layer: 5
   m_Name: Overlay
   m_TagString: Untagged
@@ -7487,18 +7487,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &883202208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883202203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812cf38d623bdd04a91054f5169281be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &930789948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 18f8ef486b33178429d099e8b963152c, type: 3}
@@ -10800,7 +10788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1361009153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12232,6 +12220,7 @@ GameObject:
   - component: {fileID: 1502019717}
   - component: {fileID: 1502019716}
   - component: {fileID: 1502019720}
+  - component: {fileID: 1502019721}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -12275,6 +12264,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 1502019718}
   OnOffLabel: {fileID: 1735688901}
   isOn: 1
+  DropTheCoin: {fileID: 1106949800}
 --- !u!114 &1502019717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12395,6 +12385,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoinMain: {fileID: 1106949792}
   GravityHigh: 1
+  BouncyCoin: {fileID: 13400000, guid: 7c1856f6b082999418d91a30983d2afa, type: 2}
+  DropTheCoin: {fileID: 1106949800}
+--- !u!114 &1502019721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502019714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58496fa3641870941ba57139a29d0755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings: {fileID: 1502019720}
 --- !u!1 &1507570635
 GameObject:
   m_ObjectHideFlags: 0
@@ -14477,6 +14482,7 @@ MonoBehaviour:
   ButtonSettings: {fileID: 1668020100}
   OnOffLabel: {fileID: 1383552880}
   isOn: 1
+  DropTheCoin: {fileID: 0}
 --- !u!1 &1707469440
 GameObject:
   m_ObjectHideFlags: 0
@@ -18617,7 +18623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -111.19995, y: -94}
+  m_AnchoredPosition: {x: -111.200195, y: -94}
   m_SizeDelta: {x: 134.3999, y: 133.19995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2124582079

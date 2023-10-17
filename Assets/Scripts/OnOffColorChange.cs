@@ -13,7 +13,7 @@ public class OnOffColorChange : MonoBehaviour
     public void ColorOffOn()
     {
         isOn = !isOn;
-        Thread.Sleep(100);
+        Thread.Sleep(50);
 
         if (isOn == true && ButtonSettings.color != new Color32(15, 255, 0, 255))
         {

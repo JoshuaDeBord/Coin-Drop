@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CupCover : MonoBehaviour
 {
-    public bool used = true;
+    public bool used = false;
     public Collider ColliderFalse;
     public MeshRenderer RendererEnabler;
     

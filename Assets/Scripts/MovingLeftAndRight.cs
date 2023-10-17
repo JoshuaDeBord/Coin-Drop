@@ -11,7 +11,7 @@ public class MovingLeftAndRight : MonoBehaviour
     public DropTheCoin coinDrop;
     public bool rightLeftPressed = false;
     public Button dropButtonAfterPress;
-    private float movementSpeed = 1f;
+    
     
     public void MovingCoinLeft()
     {

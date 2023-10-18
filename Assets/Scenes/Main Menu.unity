@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 61524893}
   - component: {fileID: 61524892}
   - component: {fileID: 61524891}
-  - component: {fileID: 61524890}
+  - component: {fileID: 61524894}
   m_Layer: 5
   m_Name: Button (5)
   m_TagString: Untagged
@@ -164,22 +164,6 @@ RectTransform:
   m_AnchoredPosition: {x: 423, y: -0.49998474}
   m_SizeDelta: {x: 334.69, y: 237.02}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &61524890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61524888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc66f2cf1926c994dac519ca86c39e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonSettings: {fileID: 61524892}
-  OnOffLabel: {fileID: 2094117291}
-  isOn: 1
-  DropTheCoin: {fileID: 0}
 --- !u!114 &61524891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +208,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 61524890}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
         m_MethodName: ColorOffOn
         m_Mode: 1
@@ -274,6 +258,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61524888}
   m_CullTransparentMesh: 1
+--- !u!114 &61524894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61524888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8bdc5736768d142bc97e48c06ebfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonSettings: {fileID: 0}
+  OnOffLabel: {fileID: 0}
+  isOn: 1
 --- !u!1 &88990030
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +951,7 @@ GameObject:
   - component: {fileID: 510528219}
   - component: {fileID: 510528218}
   - component: {fileID: 510528217}
-  - component: {fileID: 510528216}
+  - component: {fileID: 510528220}
   m_Layer: 5
   m_Name: Button (4)
   m_TagString: Untagged
@@ -981,22 +980,6 @@ RectTransform:
   m_AnchoredPosition: {x: 423, y: 246.49997}
   m_SizeDelta: {x: 334.69, y: 237.02}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &510528216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510528214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc66f2cf1926c994dac519ca86c39e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonSettings: {fileID: 510528218}
-  OnOffLabel: {fileID: 1866707568}
-  isOn: 1
-  DropTheCoin: {fileID: 0}
 --- !u!114 &510528217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1041,7 +1024,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 510528216}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
         m_MethodName: ColorOffOn
         m_Mode: 1
@@ -1091,6 +1074,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510528214}
   m_CullTransparentMesh: 1
+--- !u!114 &510528220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510528214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8bdc5736768d142bc97e48c06ebfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonSettings: {fileID: 0}
+  OnOffLabel: {fileID: 0}
+  isOn: 1
 --- !u!1 &596060370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &596060371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1182,7 +1180,7 @@ GameObject:
   - component: {fileID: 608973235}
   - component: {fileID: 608973234}
   - component: {fileID: 608973233}
-  - component: {fileID: 608973232}
+  - component: {fileID: 608973236}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -1211,22 +1209,6 @@ RectTransform:
   m_AnchoredPosition: {x: -516.00006, y: -0.49998474}
   m_SizeDelta: {x: 334.69, y: 237.02}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &608973232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608973230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc66f2cf1926c994dac519ca86c39e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonSettings: {fileID: 608973234}
-  OnOffLabel: {fileID: 1818905871}
-  isOn: 1
-  DropTheCoin: {fileID: 0}
 --- !u!114 &608973233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,7 +1253,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 608973232}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
         m_MethodName: ColorOffOn
         m_Mode: 1
@@ -1321,6 +1303,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608973230}
   m_CullTransparentMesh: 1
+--- !u!114 &608973236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608973230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8bdc5736768d142bc97e48c06ebfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonSettings: {fileID: 0}
+  OnOffLabel: {fileID: 0}
+  isOn: 1
 --- !u!1 &653369239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1330,7 @@ GameObject:
   - component: {fileID: 653369244}
   - component: {fileID: 653369243}
   - component: {fileID: 653369242}
-  - component: {fileID: 653369241}
+  - component: {fileID: 653369245}
   m_Layer: 5
   m_Name: Button (3)
   m_TagString: Untagged
@@ -1362,22 +1359,6 @@ RectTransform:
   m_AnchoredPosition: {x: -516.00006, y: -246.5}
   m_SizeDelta: {x: 334.69, y: 237.02}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &653369241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653369239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc66f2cf1926c994dac519ca86c39e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonSettings: {fileID: 653369243}
-  OnOffLabel: {fileID: 1423148963}
-  isOn: 1
-  DropTheCoin: {fileID: 0}
 --- !u!114 &653369242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,7 +1403,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 653369241}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
         m_MethodName: ColorOffOn
         m_Mode: 1
@@ -1472,6 +1453,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653369239}
   m_CullTransparentMesh: 1
+--- !u!114 &653369245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653369239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8bdc5736768d142bc97e48c06ebfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonSettings: {fileID: 0}
+  OnOffLabel: {fileID: 0}
+  isOn: 1
 --- !u!1 &770496811
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,9 +2308,8 @@ GameObject:
   - component: {fileID: 1086945725}
   - component: {fileID: 1086945724}
   - component: {fileID: 1086945723}
-  - component: {fileID: 1086945722}
-  - component: {fileID: 1086945727}
-  - component: {fileID: 1086945726}
+  - component: {fileID: 1086945729}
+  - component: {fileID: 1086945730}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -2343,22 +2338,6 @@ RectTransform:
   m_AnchoredPosition: {x: -516, y: 246.49997}
   m_SizeDelta: {x: 334.69, y: 237.02}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1086945722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086945720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc66f2cf1926c994dac519ca86c39e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonSettings: {fileID: 1086945724}
-  OnOffLabel: {fileID: 2121617760}
-  isOn: 1
-  DropTheCoin: {fileID: 0}
 --- !u!114 &1086945723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,9 +2382,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1086945722}
-        m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
-        m_MethodName: ColorOffOn
+      - m_Target: {fileID: 1086945729}
+        m_TargetAssemblyTypeName: SettingsMainMenu, Assembly-CSharp
+        m_MethodName: HighGravitySetting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2415,9 +2394,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1086945726}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: HighGravitySetting
+      - m_Target: {fileID: 1086945730}
+        m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
+        m_MethodName: ColorOffOn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2465,7 +2444,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086945720}
   m_CullTransparentMesh: 1
---- !u!114 &1086945726
+--- !u!114 &1086945729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2474,14 +2453,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086945720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2507c8a85852a6f4084a2e6343d7bd61, type: 3}
+  m_Script: {fileID: 11500000, guid: a9447b524292316418525a5b1aa8180b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoinMain: {fileID: 0}
-  GravityHigh: 1
-  BouncyCoin: {fileID: 0}
-  DropTheCoin: {fileID: 0}
---- !u!114 &1086945727
+  SettingsMerge: {fileID: 0}
+--- !u!114 &1086945730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2490,10 +2466,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086945720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58496fa3641870941ba57139a29d0755, type: 3}
+  m_Script: {fileID: 11500000, guid: de8bdc5736768d142bc97e48c06ebfcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Settings: {fileID: 0}
+  ButtonSettings: {fileID: 1086945724}
+  OnOffLabel: {fileID: 2121617760}
+  isOn: 1
 --- !u!1 &1145169293
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3844,7 @@ GameObject:
   - component: {fileID: 1479815014}
   - component: {fileID: 1479815013}
   - component: {fileID: 1479815012}
-  - component: {fileID: 1479815011}
+  - component: {fileID: 1479815015}
   m_Layer: 5
   m_Name: Button (6)
   m_TagString: Untagged
@@ -3895,22 +3873,6 @@ RectTransform:
   m_AnchoredPosition: {x: 423, y: -246.5}
   m_SizeDelta: {x: 334.69, y: 237.02}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1479815011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479815009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc66f2cf1926c994dac519ca86c39e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonSettings: {fileID: 1479815013}
-  OnOffLabel: {fileID: 168735052}
-  isOn: 1
-  DropTheCoin: {fileID: 0}
 --- !u!114 &1479815012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3955,7 +3917,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1479815011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OnOffColorChange, Assembly-CSharp
         m_MethodName: ColorOffOn
         m_Mode: 1
@@ -4005,6 +3967,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479815009}
   m_CullTransparentMesh: 1
+--- !u!114 &1479815015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479815009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8bdc5736768d142bc97e48c06ebfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonSettings: {fileID: 0}
+  OnOffLabel: {fileID: 0}
+  isOn: 1
 --- !u!1 &1489935241
 GameObject:
   m_ObjectHideFlags: 0
@@ -5066,7 +5043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2051530881
 RectTransform:
   m_ObjectHideFlags: 0

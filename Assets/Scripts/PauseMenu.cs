@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Rigidbody CoinMain;
-    public static DropTheCoin DropTheCoin;
+    private bool isPause = false;
 
     public void GravityYesOrNeh()
     {
 
-
-        Time.timeScale = 0;
+        if (isPause == true)
+        {
+            Time.timeScale = 0;
+            isPause = false;
+        }
+        else if (isPause == false)
+        {
+            Time.timeScale = 1;
+            isPause = true;
+        }
     }
 
 

@@ -9,10 +9,10 @@ public class OnOffColorChange : MonoBehaviour
 {
     public Image ButtonSettings;
     public TextMeshProUGUI OnOffLabel;
-    public Image ButtonSettingsMainMenu;
+
     public TextMeshProUGUI OnOffLabelMainMenu;
     public bool isOn = true;
-    
+
     public void ColorOffOn()
     {
         isOn = !isOn;
@@ -24,8 +24,7 @@ public class OnOffColorChange : MonoBehaviour
             OnOffLabel.SetText("ON");
             OnOffLabel.fontSize = 191.76f;
 
-            OnOffLabelMainMenu.SetText("ON");
-            OnOffLabelMainMenu.fontSize = 191.76f;
+            
 
         }
         else if (isOn == false && ButtonSettings.color != new Color32(255, 0, 2, 255))
@@ -34,8 +33,8 @@ public class OnOffColorChange : MonoBehaviour
             OnOffLabel.SetText("OFF");
             OnOffLabel.fontSize = 150;
 
-            OnOffLabelMainMenu.SetText("OFF");
-            OnOffLabelMainMenu.fontSize = 150;
+            
+
 
         }
     }

@@ -9,7 +9,7 @@ public class AddPoint : MonoBehaviour
     public ScoreCounter scoreCounter;
     public static bool coinEnter = false;
     public static bool coinEntered = false;
-
+public GameManager gameManager;
     private void OnTriggerEnter(Collider other)
     {
         if (coinEntered == false)
@@ -17,6 +17,7 @@ public class AddPoint : MonoBehaviour
             coinEnter = true;
             coinEntered = true;
             scoreCounter.score += score;
+            gameManager.pointsAssign += score;
             Thread.Sleep(400);
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }

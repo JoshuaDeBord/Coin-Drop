@@ -7,7 +7,7 @@ public class ScoreCounter : MonoBehaviour
 {
     public int score = 0;
     public TextMeshProUGUI scoreLabel;
-
+    
     
     
     void Start()
@@ -20,9 +20,6 @@ public class ScoreCounter : MonoBehaviour
     {
         scoreLabel.text = score.ToString();
     }
-    public void AddScore(int scoreAdd)
-    {
-        score += scoreAdd;
-    }
+    
 }
 

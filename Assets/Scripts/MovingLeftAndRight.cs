@@ -5,10 +5,11 @@ public class MovingLeftAndRight : MonoBehaviour
 {
     public Transform coinPosition;
     public float speed = 5f;
-    private bool moveRight = false;
-    private bool moveLeft = false;
+    public bool moveRight = false;
+    public bool moveLeft = false;
     public Rigidbody rb;
     public DropTheCoin coinDrop;
+    public GameManager manager;
     public bool rightLeftPressed = false;
     public Button dropButtonAfterPress;
     
@@ -31,7 +32,7 @@ public class MovingLeftAndRight : MonoBehaviour
     public void MovingCoinLeftStop()
     {
         moveLeft = false;
-        if (!coinDrop.dropButtonPressed)
+        if (!manager.dropButtonPressed)
         {
 
             rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
@@ -42,7 +43,7 @@ public class MovingLeftAndRight : MonoBehaviour
     public void MovingCoinRightStop()
     {
         moveRight = false;
-        if (!coinDrop.dropButtonPressed)
+        if (!manager.dropButtonPressed)
         {
 
             rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
@@ -54,15 +55,19 @@ public class MovingLeftAndRight : MonoBehaviour
 
     private void Update()
     {
-        if (moveLeft && transform.position.x > -44 && !coinDrop.dropButtonPressed)
+        
+        if (moveLeft && transform.position.x > -44 && !manager.dropButtonPressed)
         {
+            
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
 
-        else if (moveRight && transform.position.x < 79.94f && !coinDrop.dropButtonPressed)
+        else if (moveRight && transform.position.x < 79.94f && !manager.dropButtonPressed)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
+
+        
     }
 
 }

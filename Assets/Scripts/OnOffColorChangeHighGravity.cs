@@ -6,17 +6,24 @@ using UnityEngine.UI;
 public class OnOffColorChangeHighGravity : MonoBehaviour
 {
     public Image ButtonSettings;
+    public Button ButtonSetting;
     public TextMeshProUGUI OnOffLabel;
     
     
     public bool isOn = true;
     public DropTheCoin DropTheCoin;
+    public GameManager GameManager;
+
+    private void Start()
+    {
+        
+    }
     public void ColorOffOn()
     {
         isOn = !isOn;
         Thread.Sleep(50);
 
-        if (isOn == true && ButtonSettings.color != new Color32(15, 255, 0, 255) && DropTheCoin.dropButtonPressed == false)
+        if (ButtonSettings.color != new Color32(15, 255, 0, 255) && GameManager.dropButtonPressed == false)
         {
             ButtonSettings.color = new Color32(15, 255, 0, 255);
             OnOffLabel.SetText("ON");
@@ -24,7 +31,7 @@ public class OnOffColorChangeHighGravity : MonoBehaviour
             
             
         }
-        else if (isOn == false && ButtonSettings.color != new Color32(255, 0, 2, 255) && DropTheCoin.dropButtonPressed == false)
+        else if (ButtonSettings.color != new Color32(255, 0, 2, 255) && GameManager.dropButtonPressed == false)
         {
             ButtonSettings.color = new Color32(255, 0, 2, 255);
             OnOffLabel.SetText("OFF");

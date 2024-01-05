@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.UI;
+
 using UnityEngine;
 
 
@@ -22,14 +22,14 @@ public class ShopPoints : MonoBehaviour
 
     void Update()
     {
-        
-        
-            TotalPoints = gameManager.pointsAssign;
-            TPoints.text = TPointsText;
 
-            TPointsText = $"Total Points:  {TotalPoints}";
-            Debug.Log("Points assigned to shop");
-        
+
+        TotalPoints = gameManager.pointsAssign;
+        TPoints.text = TPointsText;
+
+        TPointsText = $"Total Points:  {TotalPoints}";
+        Debug.Log("Points assigned to shop");
+
     }
 
 }

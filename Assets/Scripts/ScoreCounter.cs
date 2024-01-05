@@ -6,12 +6,16 @@ using TMPro;
 public class ScoreCounter : MonoBehaviour
 {
     public int score = 0;
+    public int pointsAssign = 0;
+    
     public TextMeshProUGUI scoreLabel;
+    public GameManager gameManager;
     
     
     
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
     }
 
@@ -19,7 +23,10 @@ public class ScoreCounter : MonoBehaviour
     void Update()
     {
         scoreLabel.text = score.ToString();
+        
     }
     
+
+   
 }
 

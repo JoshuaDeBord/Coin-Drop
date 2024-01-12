@@ -17,19 +17,19 @@ public class Settings : MonoBehaviour
         if (GameManager.dropButtonPressed == false)
         {
             OnOffButton.interactable = true;
-
+            
         }
         else
         {
             OnOffButton.interactable = false;
             if (GravityHigh == true)
             {
-                OnOffColorChange.ButtonSettings.color = new Color32(255, 0, 2, 255);
+                OnOffColorChange.ButtonSettings.color = new Color32(15, 255, 0, 255);
                 
             }
             else if (GravityHigh == false)
             {
-                OnOffColorChange.ButtonSettings.color = new Color32(15, 255, 0, 255);
+                OnOffColorChange.ButtonSettings.color = new Color32(255, 0, 2, 255);
             }
         }
     }

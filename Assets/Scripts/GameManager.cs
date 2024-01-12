@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     public bool dropButtonPressed = false;
 
 
-    public int[] gainedSkins;
+
     public GameObject[] modelSelect;
     public Rigidbody[] rbCoin;
 
@@ -30,8 +31,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         try { LoadPLayer(); }
-        catch {}
-        
+        catch { }
+
     }
 
     void Update()
@@ -42,9 +43,28 @@ public class GameManager : MonoBehaviour
         }
         else BackSettingsButton.SetActive(true);
 
-        
+
         scoreCounter.score = pointsAssign;
 
+
+        if (gainedSkins[0] == true)
+        {
+
+            sphereGained = true;
+            SphereText.text = "TOGGLE";
+            SphereText.fontSize = 82.9f;
+        }
+
+        if (modelSelected == 2)
+        {
+            modelSelect[1].SetActive(false);
+            modelSelect[0].SetActive(true);
+        }
+        else if (modelSelected == 1)
+        {
+            modelSelect[1].SetActive(true);
+            modelSelect[1].SetActive(false);
+        }
     }
 
 
@@ -86,6 +106,14 @@ public class GameManager : MonoBehaviour
         MovingLAR = GameObject.Find("MovingLeftAndRightAndRespawnPoint").GetComponent<MovingLeftAndRight>();
         Time.timeScale = 1f;
         Debug.Log("Game Time is UnPaused");
+        if (modelSelected == 1)
+        {
+            CoinMain.SetActive(true);
+        }
+        else if (modelSelected == 2)
+        {
+            SphereGem.SetActive(true);
+        }
     }
 
     public void PauseGame()
@@ -93,6 +121,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         MovingLAR.moveLeft = false; MovingLAR.moveRight = false;
         Debug.Log("Game Time is Paused");
+        CoinMain.SetActive(false);
+        SphereGem.SetActive(false);
     }
 
     public void DropCoin()
@@ -112,7 +142,7 @@ public class GameManager : MonoBehaviour
         if (modelSelect[1].gameObject.activeInHierarchy == true)
         {
             rbCoin[1].constraints = RigidbodyConstraints.None;
-            rbCoin[1].constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+            rbCoin[1].constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             rbCoin[1].useGravity = true;
 
         }
@@ -120,20 +150,12 @@ public class GameManager : MonoBehaviour
 
 
     }
-    
-    public void ShopBuyItemPentegon()
-    {
-        if (ShopPoints.TotalPoints >= 200)
-        {
-            pointsAssign -= 200;
-            Debug.Log("Pentagon has been bought from the shop. 200 points reducted");
-        }
 
-    } 
+    public bool[] gainedSkins;
     public void SavePlayer()
     {
         SaveSystem.SaveData(scoreCounter, this);
-        
+
     }
 
     public void LoadPLayer()
@@ -142,13 +164,16 @@ public class GameManager : MonoBehaviour
         {
             PlayerData data = SaveSystem.LoadPlayer();
 
-            
+
             gainedSkins = data.gainedSkins;
 
             pointsAssign = data.pointsAssign;
             Debug.Log($"loaded save Points: {pointsAssign}");
+
+
+            gainedSkins = data.gainedSkins;
         }
-        catch {}
+        catch { }
     }
 
     public void Reset()
@@ -159,5 +184,47 @@ public class GameManager : MonoBehaviour
             File.Delete(path);
             SceneManager.LoadScene("CoinDrop");
         }
+    }
+
+
+
+    public bool sphereGained = false;
+    public int modelSelected = 1;
+    public GameObject CoinMain, SphereGem;
+    public TextMeshProUGUI SphereText;
+    public GameObject checkmarkcoin, checkmarksphere, sphereequipt, coinequipt;
+    public void ShopBuyItemSphere()
+    {
+        if (sphereGained == false && ShopPoints.TotalPoints >= 200)
+        {
+            pointsAssign -= 200;
+            Debug.Log("Pentagon has been bought from the shop. 200 points reducted");
+            sphereGained = true;
+            SphereText.text = "TOGGLE";
+            SphereText.fontSize = 82.9f;
+            gainedSkins[0] = true;
+
+            SavePlayer();
+        }
+        else if (sphereGained == true)
+        {
+            modelSelected = 2;
+            checkmarksphere.SetActive(true);
+            checkmarkcoin.SetActive(false);
+            sphereequipt.SetActive(true);
+            coinequipt.SetActive(false);
+        }
+
+    }
+
+
+    public void CoinSelect()
+    {
+        modelSelected = 1;
+        checkmarksphere.SetActive(false);
+        checkmarkcoin.SetActive(true);
+        coinequipt.SetActive(true);
+        sphereequipt.SetActive(false);
+        SavePlayer();
     }
 }

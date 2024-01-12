@@ -8,7 +8,8 @@ public class PlayerData
 {
     
     public int pointsAssign; // Cuurent Score
-    public int[] gainedSkins;
+    public bool[] gainedSkins;
+    
 
 
 

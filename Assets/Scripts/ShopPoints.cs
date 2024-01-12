@@ -22,12 +22,10 @@ public class ShopPoints : MonoBehaviour
 
     void Update()
     {
-
+        TPointsText = TotalPoints.ToString("N0");
 
         TotalPoints = gameManager.pointsAssign;
-        TPoints.text = TPointsText;
-
-        TPointsText = $"Total Points:  {TotalPoints}";
+        TPoints.text = $"Total Points: \n{TPointsText}";    
         Debug.Log("Points assigned to shop");
 
     }

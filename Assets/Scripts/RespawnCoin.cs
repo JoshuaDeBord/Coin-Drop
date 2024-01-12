@@ -18,15 +18,16 @@ public class RespawnCoin : MonoBehaviour
         MovingLAR = GetComponent<MovingLeftAndRight>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        
+
     }
 
-    
+
 
     public void RespawnTheCoin()
     {
-        if (AddPoint.coinEnter == true)
+        if (gameManager.dropButtonPressed == true)
         {
+            Debug.Log("Coin Reseted");
             RestartGame();
         }
 
@@ -35,16 +36,17 @@ public class RespawnCoin : MonoBehaviour
 
     public void RestartGame()
     {
-        
 
-        
-        CoinMain.GetComponent<Rigidbody>().useGravity = false;
+
+
+
         gameManager.dropButtonPressed = false;
         CoinMain.GetComponent<Rigidbody>().velocity = Vector3.zero;
         try
         {
+            CoinMain.GetComponent<Rigidbody>().useGravity = false;
             transform.position = respawnPos;
-            gameManager.modelSelect[0].transform.localPosition = new Vector3(0,0,0);
+            gameManager.modelSelect[0].transform.localPosition = new Vector3(0, 0, 0);
             gameManager.rbCoin[0].constraints = RigidbodyConstraints.FreezePosition;
             gameManager.rbCoin[0].constraints = RigidbodyConstraints.FreezeRotation;
         }
@@ -52,9 +54,13 @@ public class RespawnCoin : MonoBehaviour
         {
             try
             {
+                gameManager.rbCoin[1].useGravity = false;
+                gameManager.rbCoin[1].velocity = Vector3.zero;
                 gameManager.modelSelect[1].transform.position = respawnPos;
                 gameManager.rbCoin[1].constraints = RigidbodyConstraints.FreezePosition;
                 gameManager.rbCoin[1].constraints = RigidbodyConstraints.FreezeRotation;
+                gameManager.rbCoin[1].transform.localRotation = Quaternion.Euler(0, 0, 0);
+
             }
             finally
             {

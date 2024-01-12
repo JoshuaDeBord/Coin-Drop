@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopItemSpin : MonoBehaviour
+public class ShopItemSpinSphere : MonoBehaviour
 {
 
-    public int spinspeed;
+    public float spinSpeed;
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        transform.Rotate(0,0, spinspeed * Time.deltaTime);
+        transform.Rotate(0, spinSpeed, 0 * Time.deltaTime);
     }
 
 }

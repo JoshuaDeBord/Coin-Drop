@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -55,16 +56,7 @@ public class GameManager : MonoBehaviour
             SphereText.fontSize = 82.9f;
         }
 
-        if (modelSelected == 2)
-        {
-            modelSelect[1].SetActive(false);
-            modelSelect[0].SetActive(true);
-        }
-        else if (modelSelected == 1)
-        {
-            modelSelect[1].SetActive(true);
-            modelSelect[1].SetActive(false);
-        }
+
     }
 
 
@@ -123,6 +115,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Time is Paused");
         CoinMain.SetActive(false);
         SphereGem.SetActive(false);
+    }
+
+    public void DropCoinCall(InputAction.CallbackContext context)
+    {
+        if (MovingLAR.rightLeftPressed == true)
+        {
+            DropCoin();
+        }
+
     }
 
     public void DropCoin()

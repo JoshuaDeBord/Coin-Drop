@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+
 
 public class MovingLeftAndRight : MonoBehaviour
 {
@@ -12,8 +14,29 @@ public class MovingLeftAndRight : MonoBehaviour
     public GameManager manager;
     public bool rightLeftPressed = false;
     public Button dropButtonAfterPress;
-    
-    
+
+    public void MoveCoin(InputAction.CallbackContext context)
+    {
+        if (context.performed == true && context.ReadValue<Vector2>().x > 0)
+        {
+            MovingCoinRight();
+            MovingCoinLeftStop();
+        }
+
+        if (context.performed == true && context.ReadValue<Vector2>().x < 0)
+        {
+            MovingCoinLeft();
+            MovingCoinRightStop();
+        }
+
+        
+
+        if (context.canceled == true)
+        {
+            MovingCoinLeftStop();
+            MovingCoinRightStop();
+        }
+    }
     public void MovingCoinLeft()
     {
         moveLeft = true;
@@ -36,7 +59,7 @@ public class MovingLeftAndRight : MonoBehaviour
         {
 
             rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-            
+
         }
     }
 
@@ -50,15 +73,15 @@ public class MovingLeftAndRight : MonoBehaviour
         }
     }
 
-    
+
 
 
     private void Update()
     {
-        
+
         if (moveLeft && transform.position.x > -44 && !manager.dropButtonPressed)
         {
-            
+
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
 
@@ -67,7 +90,7 @@ public class MovingLeftAndRight : MonoBehaviour
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
 
-        
+
     }
 
 }

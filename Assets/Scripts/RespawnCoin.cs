@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class RespawnCoin : MonoBehaviour
@@ -21,7 +22,11 @@ public class RespawnCoin : MonoBehaviour
 
     }
 
-
+    public void RespawnTheCoinCall(InputAction.CallbackContext context)
+    {
+        RespawnTheCoin();
+        MovingLAR.rightLeftPressed = false;
+    }
 
     public void RespawnTheCoin()
     {

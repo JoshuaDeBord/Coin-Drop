@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7806356263536994101
 Transform:
   m_ObjectHideFlags: 0
@@ -214,10 +214,12 @@ MonoBehaviour:
   speed: 10
   moveRight: 0
   moveLeft: 0
-  rb: {fileID: 0}
+  rapidSpawn: 0
+  rb: {fileID: 9144673800777214907}
   coinDrop: {fileID: 7670104438470519263}
+  manager: {fileID: 0}
   rightLeftPressed: 0
   dropButtonAfterPress: {fileID: 0}
+  modelSelect: []
   rbCoin: {fileID: 0}
   useGravityIf: 0
-  dropButtonPressed: 0

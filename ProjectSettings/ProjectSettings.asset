@@ -728,11 +728,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: CoinDrop
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: Green Country Technology Center
+  metroCertificateIssuer: Green Country Technology Center
+  metroCertificateNotAfter: 8051a2088d73db01
   metroApplicationDescription: Coin Drop
   wsaImages: {}
   metroTileShortName: Coin Drop

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -30,23 +31,52 @@ public class RespawnCoin : MonoBehaviour
 
     public void RespawnTheCoin()
     {
-        if (gameManager.dropButtonPressed == true)
-        {
-            Debug.Log("Coin Reseted");
-            RestartGame();
-        }
+
+
+        Debug.Log("Coin Reseted");
+        RestartGame();
+
 
 
     }
 
+    public IEnumerator ClearObjectsFromLists()
+    {
+        yield return new WaitForSeconds(.1f);
+        if (gameManager.SpawnedInCoins.Count > 0)
+        {
+            gameManager.SpawnedInCoins.Clear();
+        }
+        if (gameManager.SpawnedInSpheres.Count > 0)
+        {
+            gameManager.SpawnedInSpheres.Clear();
+
+        }
+        StopCoroutine(ClearObjectsFromLists());
+    }
     public void RestartGame()
     {
+        Destroy(GameObject.FindGameObjectWithTag("Dropped Coin"));
+        foreach (GameObject obj in gameManager.SpawnedInCoins)
+        {
+            Destroy(obj);
+            
 
+        }
+        foreach (GameObject obj in gameManager.SpawnedInSpheres)
+        {
+            Destroy(obj);
 
-
+        }
+        StartCoroutine(ClearObjectsFromLists());
 
         gameManager.dropButtonPressed = false;
-        CoinMain.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        left.interactable = true;
+        right.interactable = true;
+        MovingLAR.dropButtonAfterPress.interactable = false;
+        AddPoint.coinEnter = false;
+        AddPoint.coinEntered = false;
+        /*CoinMain.GetComponent<Rigidbody>().velocity = Vector3.zero;
         try
         {
             CoinMain.GetComponent<Rigidbody>().useGravity = false;
@@ -75,6 +105,6 @@ public class RespawnCoin : MonoBehaviour
                 AddPoint.coinEnter = false;
                 AddPoint.coinEntered = false;
             }
-        }
+        }*/
     }
 }

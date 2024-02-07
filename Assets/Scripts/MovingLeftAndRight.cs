@@ -9,7 +9,6 @@ public class MovingLeftAndRight : MonoBehaviour
     public float speed = 5f;
     public bool moveRight = false;
     public bool moveLeft = false;
-    public bool rapidSpawn = false;
     public Rigidbody rb;
     public DropTheCoin coinDrop;
     public GameManager manager;
@@ -27,24 +26,19 @@ public class MovingLeftAndRight : MonoBehaviour
     private void Update()
     {
 
-        if (moveLeft && transform.position.x > -44 && !manager.dropButtonPressed || moveLeft && transform.position.x > -44 && rapidSpawn == true)
+        if (moveLeft && transform.position.x > -44 && !manager.dropButtonPressed || moveLeft && transform.position.x > -44 && manager.rapidSpawn == true)
         {
 
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
 
-        else if (moveRight && transform.position.x < 79.94f && !manager.dropButtonPressed || moveLeft && transform.position.x > -44 && rapidSpawn == true)
+        else if (moveRight && transform.position.x < 79.94f && !manager.dropButtonPressed || moveLeft && transform.position.x > -44 && manager.rapidSpawn == true)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
         
         
-        if (transform.localPosition != new Vector3(1.9f, 47.41266f, 3.794189f))
-        {
-            rightLeftPressed = true;
-            dropButtonAfterPress.interactable = true;
-            Debug.Log("CoinMoved!!!!!");
-        }
+        
     }
     
     

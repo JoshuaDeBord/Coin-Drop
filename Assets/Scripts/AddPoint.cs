@@ -17,14 +17,13 @@ public GameManager gameManager;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (coinEntered == false)
+        if (coinEntered == false || gameManager.rapidSpawn == true)
         {
             coinEnter = true;
             coinEntered = true;
-            
+            Destroy(other.gameObject);
             gameManager.pointsAssign += scoreToAdd;
             Debug.Log("POINTS ARE ADDED!!");
-            Thread.Sleep(400);
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             gameManager.SavePlayer();
             Debug.Log("Saved Player");

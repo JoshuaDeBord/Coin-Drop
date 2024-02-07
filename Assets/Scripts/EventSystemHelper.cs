@@ -114,7 +114,12 @@ public class EventSystemHelper : MonoBehaviour
 
 
 
-
+if (settingsBackButton.gameObject.activeInHierarchy == true)
+        {
+            xboxBackIcon.SetActive(false);
+            goBackText.lineSpacing = -67.7f;
+            
+        }
     }
 
 #elif UNITY_ANDROID || UNITY_IOS
@@ -127,23 +132,19 @@ public class EventSystemHelper : MonoBehaviour
     }
     private void Update()
     {
+#if UNITY_ANDROID
+
+        if (EventSystem.current.currentSelectedGameObject == CheatBox)
+        {
+            
+            
+        }
+
         
-        if (PI.currentControlScheme == "Keyboard&Mouse" && EventSystem.current.currentSelectedGameObject == CheatBox)
-        {
-            
-            
-        }
-
-        if (settingsBackButton.gameObject.activeInHierarchy == true)
-        {
-            xboxBackIcon.SetActive(false);
-            goBackText.lineSpacing = -67.7f;
-            
-        }
-
+#endif
     }
 #endif
-    public IEnumerator ResetColorLoop()
+        public IEnumerator ResetColorLoop()
     {
 
         while (isOnReset == true)

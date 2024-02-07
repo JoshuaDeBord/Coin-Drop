@@ -235,11 +235,33 @@
                 },
                 {
                     "name": "",
+                    "id": "bda21ede-b4ff-45f3-b2ad-bda6a96dcae7",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c9036863-2ffa-4aea-b74e-6d1e3bce6296",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "904f1a7f-842d-4ad7-ba56-72cb1362fafd",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -740,7 +762,18 @@
                 },
                 {
                     "name": "",
-                    "id": "d919e65b-e398-4f11-a888-254ee77f039b",
+                    "id": "f20156c6-9117-4426-b0c2-331d67583d25",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c9701ff-871e-475f-8ab9-abfd6aa24eeb",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -866,6 +899,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1fe45fff-20e5-4908-9335-1efa90daa67a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "RightClick",
                     "isComposite": false,
                     "isPartOfComposite": false

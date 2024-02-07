@@ -9,7 +9,7 @@ public class Cheats : MonoBehaviour
     public string inputedCheatCode;
     public TMP_InputField CheatBox;
     public GameManager gameManager;
-    
+    public bool cupCoverIsOn = false;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class Cheats : MonoBehaviour
 
     void Update()
     {
-        
+
 
     }
 
@@ -32,23 +32,53 @@ public class Cheats : MonoBehaviour
         if (inputedCheatCode == "give1000")
         {
             gameManager.pointsAssign += 1000;
-            StartCoroutine(CheatCodeDelay());
+            StartCoroutine(CheatCodeActivate());
         }
         else if (inputedCheatCode == "pride")
         {
             if (gameManager.prideIsOn == false)
             {
-                StartCoroutine(CheatCodeDelay());
+                StartCoroutine(CheatCodeActivate());
                 gameManager.prideIsOn = true;
             }
             else
             {
                 gameManager.prideIsOn = false;
-                StartCoroutine(CheatCodeDelay());
+                StartCoroutine(CheatCodeActivate());
             }
         }
-        else if (inputedCheatCode == "") { }
-        
+        else if (inputedCheatCode == "rapidspawn")
+        {
+            gameManager.rapidSpawn = true;
+            StartCoroutine(CheatCodeActivate());
+        }
+        else if (inputedCheatCode == "covercups")
+        {
+            if (cupCoverIsOn == false)
+            {
+                cupCoverIsOn = true;
+                gameManager.isFloorCovered = true;
+                gameManager.cupCover.SetActive(true);
+                StartCoroutine(CheatCodeActivate());
+            }
+            else
+            {
+                cupCoverIsOn = false;
+                gameManager.cupCover.SetActive(false);
+                StartCoroutine(CheatCodeDeactivate());
+            }
+        }
+
+
+
+
+
+        else if (inputedCheatCode == "")
+        {
+
+            StartCoroutine(CheatCodeActivate());
+        }
+
 
         else
         {
@@ -56,9 +86,16 @@ public class Cheats : MonoBehaviour
         }
     }
 
-    public IEnumerator CheatCodeDelay()
+    public IEnumerator CheatCodeActivate()
     {
         CheatBox.text = "<i> Cheat Activated...</i>";
+        yield return new WaitForSeconds(2);
+        CheatBox.text = string.Empty;
+    }
+
+    public IEnumerator CheatCodeDeactivate()
+    {
+        CheatBox.text = "<i> Cheat Deactivated...</i>";
         yield return new WaitForSeconds(2);
         CheatBox.text = string.Empty;
     }
@@ -74,5 +111,5 @@ public class Cheats : MonoBehaviour
     {
         CheatBox.text = string.Empty;
     }
-    
+
 }

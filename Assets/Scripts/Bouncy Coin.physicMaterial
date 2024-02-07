@@ -7,7 +7,7 @@ PhysicMaterial:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bouncy Coin
-  dynamicFriction: 8.79
+  dynamicFriction: 0
   staticFriction: 0.33
   bounciness: 0.55
   frictionCombine: 1

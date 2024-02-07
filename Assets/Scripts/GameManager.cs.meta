@@ -3,7 +3,32 @@ guid: 65e737330862db042944d21b976bff7d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - MainMenuPanel: {instanceID: 0}
+  - MainGamePanel: {instanceID: 0}
+  - Settings: {instanceID: 0}
+  - settingsOption1: {instanceID: 0}
+  - ShopPanel: {instanceID: 0}
+  - CreditsPanel: {instanceID: 0}
+  - CreditsScreenButton: {instanceID: 0}
+  - CreditsMMButton: {instanceID: 0}
+  - CheatBox: {instanceID: 0}
+  - SpawnedListObject: {instanceID: 0}
+  - BackSettingsButton: {instanceID: 0}
+  - MainMenuPlayButton: {instanceID: 0}
+  - cheats: {instanceID: 0}
+  - MovingLAR: {instanceID: 0}
+  - ShopPoints: {instanceID: 0}
+  - RespawnCoin: {instanceID: 0}
+  - scoreCounter: {instanceID: 0}
+  - coinMainLight: {instanceID: 0}
+  - CoinMain: {instanceID: 0}
+  - SphereGem: {instanceID: 0}
+  - SphereText: {instanceID: 0}
+  - checkmarkcoin: {instanceID: 0}
+  - checkmarksphere: {instanceID: 0}
+  - sphereequipt: {instanceID: 0}
+  - coinequipt: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

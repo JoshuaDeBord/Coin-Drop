@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Cheats : MonoBehaviour
@@ -32,24 +33,28 @@ public class Cheats : MonoBehaviour
         if (inputedCheatCode == "give1000")
         {
             gameManager.pointsAssign += 1000;
+            EventSystem.current.SetSelectedGameObject(null);
             StartCoroutine(CheatCodeActivate());
         }
         else if (inputedCheatCode == "pride")
         {
             if (gameManager.prideIsOn == false)
             {
+                EventSystem.current.SetSelectedGameObject(null);
                 StartCoroutine(CheatCodeActivate());
                 gameManager.prideIsOn = true;
             }
             else
             {
                 gameManager.prideIsOn = false;
+                EventSystem.current.SetSelectedGameObject(null);
                 StartCoroutine(CheatCodeActivate());
             }
         }
         else if (inputedCheatCode == "rapidspawn")
         {
             gameManager.rapidSpawn = true;
+            EventSystem.current.SetSelectedGameObject(null);
             StartCoroutine(CheatCodeActivate());
         }
         else if (inputedCheatCode == "covercups")
@@ -59,12 +64,14 @@ public class Cheats : MonoBehaviour
                 cupCoverIsOn = true;
                 gameManager.isFloorCovered = true;
                 gameManager.cupCover.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(null);
                 StartCoroutine(CheatCodeActivate());
             }
             else
             {
                 cupCoverIsOn = false;
                 gameManager.cupCover.SetActive(false);
+                EventSystem.current.SetSelectedGameObject(null);
                 StartCoroutine(CheatCodeDeactivate());
             }
         }
@@ -75,13 +82,14 @@ public class Cheats : MonoBehaviour
 
         else if (inputedCheatCode == "")
         {
-
+            EventSystem.current.SetSelectedGameObject(null);
             StartCoroutine(CheatCodeActivate());
         }
 
 
         else
         {
+            EventSystem.current.SetSelectedGameObject(null);
             StartCoroutine(CheatCodeDelayBadCode());
         }
     }

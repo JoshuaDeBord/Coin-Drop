@@ -17,7 +17,7 @@ public class EventSystemHelper : MonoBehaviour
     public TextMeshProUGUI goBackText;
     public RectTransform settingsBackButtonRect;
     public bool isOnReset = false;
-
+    public Vector3 CheatBoxOGSpawnLocation;
     public PlayerInput PI;
     public float resetSpeed;
 
@@ -128,7 +128,9 @@ if (settingsBackButton.gameObject.activeInHierarchy == true)
         EventSystem.current.firstSelectedGameObject = null;
         gameManager = GetComponent<GameManager>();
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(null);
+
+
+        CheatBoxOGSpawnLocation = cheatBox.transform.localPosition;
     }
     private void Update()
     {
@@ -136,15 +138,21 @@ if (settingsBackButton.gameObject.activeInHierarchy == true)
 
         if (EventSystem.current.currentSelectedGameObject == CheatBox)
         {
-            
-            
+
+            CheatBox.transform.localPosition = new Vector3(-1044.1f, 796.46f, -40);
+
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            CheatBox.transform.localPosition = CheatBoxOGSpawnLocation;
         }
 
-        
+
 #endif
     }
 #endif
-        public IEnumerator ResetColorLoop()
+    public IEnumerator ResetColorLoop()
     {
 
         while (isOnReset == true)
@@ -158,7 +166,7 @@ if (settingsBackButton.gameObject.activeInHierarchy == true)
         }
     }
 
-    
+
 
 
 

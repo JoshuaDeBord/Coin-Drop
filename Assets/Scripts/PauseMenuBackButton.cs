@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PauseMenuBackButton : MonoBehaviour
 {
-    private DropTheCoin DropTheCoin;
+    private PrideColorLoop DropTheCoin;
     public Rigidbody CoinMain;
     
 

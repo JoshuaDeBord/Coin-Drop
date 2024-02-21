@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Cheats : MonoBehaviour
@@ -9,6 +10,7 @@ public class Cheats : MonoBehaviour
     public string inputedCheatCode;
     public TMP_InputField CheatBox;
     public GameManager gameManager;
+    public EventSystemHelper esh;
     public bool cupCoverIsOn = false;
 
     void Start()
@@ -27,31 +29,37 @@ public class Cheats : MonoBehaviour
     {
         inputedCheatCode = CheatBox.text;
         Debug.Log("Cheat Code Entered: " + inputedCheatCode);
-
+        EventSystem.current.SetSelectedGameObject(null);
+        esh.CheatBox.transform.localPosition = esh.CheatBoxOGSpawnLocation;
 
         if (inputedCheatCode == "give1000")
         {
             gameManager.pointsAssign += 1000;
             StartCoroutine(CheatCodeActivate());
         }
+        
         else if (inputedCheatCode == "pride")
         {
             if (gameManager.prideIsOn == false)
             {
-                StartCoroutine(CheatCodeActivate());
                 gameManager.prideIsOn = true;
+                StartCoroutine(CheatCodeActivate());
+                StartCoroutine(gameManager.PrideLoopColor());
             }
             else
             {
                 gameManager.prideIsOn = false;
+                StopCoroutine(gameManager.PrideLoopColor());
                 StartCoroutine(CheatCodeActivate());
             }
         }
-        else if (inputedCheatCode == "rapidspawn")
+        
+        else if (inputedCheatCode == "rapidfire")
         {
             gameManager.rapidSpawn = true;
             StartCoroutine(CheatCodeActivate());
         }
+        
         else if (inputedCheatCode == "covercups")
         {
             if (cupCoverIsOn == false)
@@ -86,6 +94,11 @@ public class Cheats : MonoBehaviour
         }
     }
 
+    public void ResetText()
+    {
+        StopAllCoroutines();
+        CheatBox.text = string.Empty;
+    }
     public IEnumerator CheatCodeActivate()
     {
         CheatBox.text = "<i> Cheat Activated...</i>";

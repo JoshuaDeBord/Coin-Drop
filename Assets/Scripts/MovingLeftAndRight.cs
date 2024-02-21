@@ -10,7 +10,7 @@ public class MovingLeftAndRight : MonoBehaviour
     public bool moveRight = false;
     public bool moveLeft = false;
     public Rigidbody rb;
-    public DropTheCoin coinDrop;
+    public PrideColorLoop coinDrop;
     public GameManager manager;
     
     public bool rightLeftPressed = false;
@@ -26,13 +26,13 @@ public class MovingLeftAndRight : MonoBehaviour
     private void Update()
     {
 
-        if (moveLeft && transform.position.x > -44 && !manager.dropButtonPressed || moveLeft && transform.position.x > -44 && manager.rapidSpawn == true)
+        if (moveLeft && transform.localPosition.x > -52.9f && !manager.dropButtonPressed || moveLeft && transform.localPosition.x > -52.9f && manager.rapidSpawn == true)
         {
 
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
 
-        else if (moveRight && transform.position.x < 79.94f && !manager.dropButtonPressed || moveLeft && transform.position.x > -44 && manager.rapidSpawn == true)
+        else if (moveRight && transform.localPosition.x < 67.98f && !manager.dropButtonPressed || moveRight && transform.localPosition.x < 67.98f && manager.rapidSpawn == true)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }

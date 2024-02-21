@@ -16,10 +16,12 @@ public class EventSystemHelper : MonoBehaviour
     public GameObject CheatBox, settingsBackButton, xboxBackIcon;
     public TextMeshProUGUI goBackText;
     public RectTransform settingsBackButtonRect;
+    public Vector3 CheatBoxOGSpawnLocation;
     public bool isOnReset = false;
 
     public PlayerInput PI;
     public float resetSpeed;
+
 
     public GameManager gameManager;
 
@@ -114,12 +116,7 @@ public class EventSystemHelper : MonoBehaviour
 
 
 
-if (settingsBackButton.gameObject.activeInHierarchy == true)
-        {
-            xboxBackIcon.SetActive(false);
-            goBackText.lineSpacing = -67.7f;
-            
-        }
+
     }
 
 #elif UNITY_ANDROID || UNITY_IOS
@@ -129,18 +126,35 @@ if (settingsBackButton.gameObject.activeInHierarchy == true)
         gameManager = GetComponent<GameManager>();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(null);
+        CheatBoxOGSpawnLocation = cheatBox.transform.localPosition;
+
     }
     private void Update()
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
 
-        if (EventSystem.current.currentSelectedGameObject == CheatBox)
+
+        if (settingsBackButton.gameObject.activeInHierarchy == true)
         {
-            
+            xboxBackIcon.SetActive(false);
+            goBackText.lineSpacing = -67.7f;
             
         }
+        if (EventSystem.current.currentSelectedGameObject == CheatBox)
+        {
 
-        
+            CheatBox.transform.localPosition = new Vector3(-1044.1f, 796.46f, -40);
+
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            CheatBox.transform.localPosition = CheatBoxOGSpawnLocation;
+
+
+        }
+
+
 #endif
     }
 #endif

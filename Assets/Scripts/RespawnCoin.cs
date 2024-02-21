@@ -1,4 +1,8 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,10 +11,10 @@ public class RespawnCoin : MonoBehaviour
 {
     public Vector3 respawnPos;
     public Transform CoinMain;
-    public DropTheCoin DropTheCoin;
+    public PrideColorLoop DropTheCoin;
     public GameManager gameManager;
     private MovingLeftAndRight MovingLAR;
-
+    public PrideColorLoop PCL;
 
     public Button left, right, drop;
 
@@ -25,57 +29,80 @@ public class RespawnCoin : MonoBehaviour
 
     public void RespawnTheCoinCall(InputAction.CallbackContext context)
     {
-        RespawnTheCoin();
+        RestartGame();
         MovingLAR.rightLeftPressed = false;
     }
 
-    public void RespawnTheCoin()
-    {
 
-
-        Debug.Log("Coin Reseted");
-        RestartGame();
-
-
-
-    }
 
     public IEnumerator ClearObjectsFromLists()
     {
-        yield return new WaitForSeconds(.1f);
-        if (gameManager.SpawnedInCoins.Count > 0)
+        while (gameManager.SpawnedInObjects.Count > 0)
         {
-            gameManager.SpawnedInCoins.Clear();
-        }
-        if (gameManager.SpawnedInSpheres.Count > 0)
-        {
-            gameManager.SpawnedInSpheres.Clear();
+            yield return new WaitForSeconds(0.01f);
+            gameManager.SpawnedInObjects.RemoveRange(0, gameManager.SpawnedInObjects.Count);
 
-        }
-        StopCoroutine(ClearObjectsFromLists());
-    }
-    public void RestartGame()
-    {
-        Destroy(GameObject.FindGameObjectWithTag("Dropped Coin"));
-        foreach (GameObject obj in gameManager.SpawnedInCoins)
-        {
-            Destroy(obj);
             
 
+
         }
-        foreach (GameObject obj in gameManager.SpawnedInSpheres)
+
+    }
+
+    public IEnumerator RemoveWait(float waittime)
+    {
+        yield return new WaitForSeconds(waittime);
+        gameManager.SpawnedInObjects.Clear();
+    }
+
+    
+    public void RestartGame()
+    {
+        MovingLAR.rightLeftPressed = false;
+
+        if (gameManager.rapidSpawn == false)
         {
-            Destroy(obj);
+            gameManager.dropButtonPressed = false;
+
+            if (gameManager.modelSelected == 1 && gameManager.inMainMenuBool == false)
+            {
+                gameManager.modelSelectedInScene[0].SetActive(true);
+
+            }
+            else if (gameManager.modelSelected == 2 && gameManager.inMainMenuBool == false)
+            {
+                gameManager.modelSelectedInScene[1].SetActive(true);
+
+            }
+            foreach (GameObject obj in gameManager.SpawnedInObjects)
+            {
+                Destroy(obj);
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            }
 
         }
-        StartCoroutine(ClearObjectsFromLists());
 
-        gameManager.dropButtonPressed = false;
+
+
+        StartCoroutine(RemoveWait(0.25f));
+
+        if (gameManager.rapidSpawn == false)
+        {
+            gameManager.dropButtonPressed = false;
+            MovingLAR.dropButtonAfterPress.interactable = false;
+        }
+
         left.interactable = true;
         right.interactable = true;
-        MovingLAR.dropButtonAfterPress.interactable = false;
+
         AddPoint.coinEnter = false;
         AddPoint.coinEntered = false;
+
+
+        Debug.Log("Coin Reseted");
         /*CoinMain.GetComponent<Rigidbody>().velocity = Vector3.zero;
         try
         {

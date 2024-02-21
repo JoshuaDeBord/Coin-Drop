@@ -21,7 +21,9 @@ public GameManager gameManager;
         {
             coinEnter = true;
             coinEntered = true;
+            gameManager.SpawnedInObjects.Remove(other.gameObject);
             Destroy(other.gameObject);
+            
             gameManager.pointsAssign += scoreToAdd;
             Debug.Log("POINTS ARE ADDED!!");
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

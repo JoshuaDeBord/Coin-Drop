@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     public OnOffColorChangeHighGravity OnOffColorChange;
-    public DropTheCoin DropTheCoin;
+    public PrideColorLoop DropTheCoin;
     public GameManager GameManager;
     public Rigidbody CoinMain;
     public bool GravityHigh = true;
@@ -12,6 +12,11 @@ public class Settings : MonoBehaviour
     public Button OnOffButton;
     public ColorBlock ButtonColor;
 
+
+    private void Start()
+    {
+        BouncyCoin.bounciness = 0.55f;
+    }
     private void Update()
     {
         if (GameManager.dropButtonPressed == false)

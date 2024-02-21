@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CheatBoxEnable : MonoBehaviour
 {
     public GameObject cheatTextBox;
-    
+
 
     public bool PauseHeldDownBool = false;
 
@@ -23,20 +23,13 @@ public class CheatBoxEnable : MonoBehaviour
 
     void Update()
     {
-#if UNITY_ANDROID && UNITY_IOS
-        if (CheatCodeBox.isFocused)
-        {
-            CheatCodeBox.transform.localPosition = new Vector3(-1086.6f, 857.75f, 0);
-        }
-        else
-        {
-            CheatCodeBox.transform.localPosition = new Vector3(-1086.6f, -857.75f, 0);
-        }
+#if UNITY_ANDROID || UNITY_IOS
 
-        if (PauseHeldDownBool == true)
-        {
-            StartCoroutine(SettingsHeldDown());
-        }
+
+        
+#else
+        cheatTextBox.SetActive(true);
+        
 #endif
     }
 
@@ -48,14 +41,16 @@ public class CheatBoxEnable : MonoBehaviour
     public void PauseButtonHeldDown()
     {
         PauseHeldDownBool = true;
+        StartCoroutine(SettingsHeldDown());
     }
     public void PauseButtonHeldUp()
     {
         PauseHeldDownBool = false;
+        StopCoroutine(SettingsHeldDown());
+        
     }
 
-
-
+    
 
     public IEnumerator SettingsHeldDown()
     {

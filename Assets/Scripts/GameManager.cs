@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+[System.Serializable]
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject MainMenuPanel, MainGamePanel, Settings, settingsOption1, ShopPanel, CreditsPanel, 
         CreditsScreenButton, CreditsMMButton, CheatBox, SpawnedListObject;
     public GameObject BackSettingsButton, MainMenuPlayButton, cupCover;
+    public Button dropButton;
     public static PlayerInput PI;
     public Cheats cheats;
 
@@ -51,13 +53,15 @@ public class GameManager : MonoBehaviour
     public Light coinMainLight;
 
     public float rainbowColorNumber;
-    public int coinsInSceneCount, spheresInSceneCount, spawnedObjectsMax;
+    public int objectsInScene, spawnedObjectsMax;
 
     public bool prideIsOn = false;
     public bool rapidSpawn = false;
     public bool isFloorCovered = false;
 
-    public List<GameObject> SpawnedInCoins, SpawnedInSpheres;
+    public List<GameObject> SpawnedInObjects;
+
+    
 
     void Start()
     {
@@ -81,8 +85,8 @@ public class GameManager : MonoBehaviour
     {
         movingLARObjectV3 = MovingLAR.gameObject.transform.position;
 
-        coinsInSceneCount = GameObject.FindGameObjectsWithTag("Dropped Coin").Length;
-        spheresInSceneCount = coinsInSceneCount;
+        objectsInScene = GameObject.FindGameObjectsWithTag("Coin Is Dropped").Length;
+        
 
 
         if (modelSelected == 1)
@@ -102,18 +106,15 @@ public class GameManager : MonoBehaviour
         }
         else BackSettingsButton.SetActive(true);
 
-        if (coinsInSceneCount >= spawnedObjectsMax)
+
+
+        if (objectsInScene > spawnedObjectsMax)
         {
-            Destroy(SpawnedInCoins.First());
-            SpawnedInCoins.RemoveAt(0);
+            Destroy(SpawnedInObjects.First());
+            SpawnedInObjects.RemoveAt(0);
             
         }
-        if (spheresInSceneCount >= spawnedObjectsMax)
-        {
-            Destroy(SpawnedInSpheres.First());
-            SpawnedInSpheres.RemoveAt(0);
-
-        }
+        
 
 
         scoreCounter.score = pointsAssign;
@@ -136,19 +137,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("Action map is on Player");
         }
 
-
-        if (prideIsOn == true)
+        if (inMainMenuBool == true)
         {
-
-
-
-            coinMainLight.color = Color.Lerp(coinMainLight.color, Color.HSVToRGB(rainbowColorNumber, 1f, 1f), .02f);
-
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
         }
-        else if (prideIsOn == false)
-        {
-            coinMainLight.color = Color.HSVToRGB(0.15f, 1f, .5f);
-        }
+        
 
     }
 
@@ -178,11 +171,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InMainMenu()
+    public void InMainMenu(RespawnCoin respawnCoin)
     {
+        
         inMainMenuBool = true;
 
 
+        StartCoroutine(respawnCoin.ClearObjectsFromLists());
+        
     }
 
     public void InMainGame()
@@ -265,7 +261,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
         MovingLAR.moveLeft = false; MovingLAR.moveRight = false;
         Debug.Log("Game Time is Paused");
         CoinMain.SetActive(false);
@@ -294,15 +290,19 @@ public class GameManager : MonoBehaviour
 
     public void ClearSpawned()
     {
-        if (SpawnedInCoins.Count > 0)
+        if (SpawnedInObjects.Count != 0)
         {
-            SpawnedInCoins.Clear();
+            SpawnedInObjects.Clear();
         }
-        if (SpawnedInSpheres.Count > 0)
+        foreach (GameObject obj in SpawnedInObjects)
         {
-            SpawnedInSpheres.Clear();
+            Destroy(obj);
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+        }
 
-        }
     }
     public IEnumerator RapidSpawn()
     {
@@ -315,12 +315,12 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("CoinSpawned!");
                 GameObject SpawnedCoin = Instantiate(modelSelect[0], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
-                SpawnedInCoins.Add(SpawnedCoin);
+                SpawnedInObjects.Add(SpawnedCoin);
             }
             else if (modelSelected == 2)
             {
                 GameObject SpawnedSphere = Instantiate(modelSelect[1], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
-                SpawnedInSpheres.Add(SpawnedSphere);
+                SpawnedInObjects.Add(SpawnedSphere);
 
             }
             yield return new WaitForSeconds(0.1f);
@@ -332,13 +332,14 @@ public class GameManager : MonoBehaviour
 
     public void DropCoin()
     {
-
-        if (modelSelected == 1 && dropButtonPressed == false && rapidSpawn == false)
+        
+        if (dropButton.interactable == true && modelSelected == 1 && dropButtonPressed == false && rapidSpawn == false)
         {
-
+            dropButtonPressed = true;
+            modelSelectedInScene[0].SetActive(false);
 
             GameObject SpawnedCoin = Instantiate(modelSelect[0], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
-            SpawnedInCoins.Add(SpawnedCoin);
+            SpawnedInObjects.Add(SpawnedCoin);
 
             Debug.Log("Coin Spawned");
         }
@@ -349,14 +350,15 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (modelSelected == 2 && dropButtonPressed == false && rapidSpawn == false)
+        if (dropButton.interactable == true && modelSelected == 2 && dropButtonPressed == false && rapidSpawn == false)
         {
-
+            dropButtonPressed = true;
+            modelSelectedInScene[1].SetActive(false);
 
             GameObject SpawnedSphere = Instantiate(modelSelect[1], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
-            SpawnedInSpheres.Add(SpawnedSphere);
+            SpawnedInObjects.Add(SpawnedSphere);
 
-            Debug.Log("Coin Spawned");
+            Debug.Log("Sphere Spawned");
         }
         else if (rapidSpawn == true && modelSelected == 2)
         {
@@ -364,10 +366,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(RapidSpawn());
         }
 
-        if (rapidSpawn == false)
-        {
-            dropButtonPressed = true;
-        }
+        
 
     }
 
@@ -469,6 +468,27 @@ public class GameManager : MonoBehaviour
         StopCoroutine(InsufficientFunds());
     }
 
+    public IEnumerator PrideLoopColor()
+    {
+        while(true)
+        {
+            if (prideIsOn == true && modelSelected == 1)
+            {
+                foreach (GameObject obj in SpawnedInObjects)
+                {
+                    obj.GetComponent<Light>().color = Color.Lerp(coinMainLight.color, Color.HSVToRGB(rainbowColorNumber, 1f, 1f), .02f);
+                }
+            }
+            else if (prideIsOn == false)
+            {
+                foreach (GameObject obj in SpawnedInObjects)
+                    obj.GetComponent<Light>().color = Color.HSVToRGB(0.15f, 1f, .5f);
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
+        
+        
+    }
     public void OpenCredits()
     {
         CreditsPanel.SetActive(true);

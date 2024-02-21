@@ -11,7 +11,7 @@ public class OnOffColorChangeHighGravity : MonoBehaviour
     
     
     public bool isOn = true;
-    public DropTheCoin DropTheCoin;
+    public PrideColorLoop DropTheCoin;
     public GameManager GameManager;
 
     private void Start()

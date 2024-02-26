@@ -19,14 +19,14 @@ public class GameManager : MonoBehaviour
 {
 
 
-    public GameObject MainMenuPanel, MainGamePanel, Settings, settingsOption1, ShopPanel, CreditsPanel, 
+    public GameObject MainMenuPanel, MainGamePanel, SettingsPanel, settingsOption1, ShopPanel, CreditsPanel, 
         CreditsScreenButton, CreditsMMButton, CheatBox, SpawnedListObject;
     public GameObject BackSettingsButton, MainMenuPlayButton, cupCover;
     public Button dropButton;
     public static PlayerInput PI;
     public Cheats cheats;
 
-
+    public PlayerData playerData;
     public MovingLeftAndRight MovingLAR;
     public ShopPoints ShopPoints;
     public RespawnCoin RespawnCoin;
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public bool inCredits = false;
     public bool dropButtonHeldDown = false;
     public bool gainedSkins = false;
+    public bool settingIsChanged = false;
 
     public Transform[] SpawnedObjects;
     public Vector3 movingLARObjectV3;
@@ -61,10 +62,14 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> SpawnedInObjects;
 
-    
+    private void Awake()
+    {
+        
+    }
 
     void Start()
     {
+        
         try { LoadPLayer(); }
         catch { }
         PI = gameObject.GetComponent<PlayerInput>();
@@ -157,7 +162,7 @@ public class GameManager : MonoBehaviour
         if (inMainMenuBool == true)
         {
             MainMenuPanel.SetActive(false);
-            Settings.SetActive(true);
+            SettingsPanel.SetActive(true);
             if (PI.currentControlScheme == "Keyboard&Mouse")
             {
                 EventSystem.current.SetSelectedGameObject(CheatBox);
@@ -166,7 +171,7 @@ public class GameManager : MonoBehaviour
         else if (inMainMenuBool == false)
         {
             MainGamePanel.SetActive(false);
-            Settings.SetActive(true);
+            SettingsPanel.SetActive(true);
 
         }
     }
@@ -205,7 +210,7 @@ public class GameManager : MonoBehaviour
     }
     public void OpenSettings()
     {
-        Settings.SetActive(true);
+        SettingsPanel.SetActive(true);
         MainGamePanel.SetActive(false);
         inSettings = true;
     }
@@ -215,7 +220,7 @@ public class GameManager : MonoBehaviour
         if (inSettings == true && inMainMenuBool == false)
         {
             cheats.CheatBox.text = string.Empty;
-            Settings.SetActive(false);
+            SettingsPanel.SetActive(false);
             MainGamePanel.SetActive(true);
             inSettings = false;
             PI.SwitchCurrentActionMap("Player");
@@ -366,8 +371,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(RapidSpawn());
         }
 
-        
 
+        
     }
 
     
@@ -398,15 +403,22 @@ public class GameManager : MonoBehaviour
     public void Reset()
     {
         string path = Application.persistentDataPath + "/player.save";
-        if (File.Exists(path))
+        if (File.Exists(path) || settingIsChanged == true)
         {
+            PlayerSettingsPreferences.SetMasterVolume(0);
+            PlayerSettingsPreferences.SetSFXVolume(-30);
+            PlayerSettingsPreferences.SetMusicVolume(-30);
+            PlayerSettingsPreferences.updated = false;
             File.Delete(path);
             MainGamePanel.SetActive(false);
-            Settings.SetActive(false);
+            SettingsPanel.SetActive(false);
             MainMenuPanel.SetActive(true);
+            
             SceneManager.LoadScene("CoinDrop");
 
+
         }
+        
     }
 
 
@@ -443,7 +455,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    
 
     public void CoinSelect()
     {

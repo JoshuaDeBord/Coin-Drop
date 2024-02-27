@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class EventSystemHelper : MonoBehaviour
 {
     public Button settingsButton1, settingsButton2, settingsButton3, quitButton, resetButton, cheatBoxButtonObject;
+    
     public TMP_InputField cheatBox;
     public GameObject SelectionBox1, SelectionBox2, SelectionBox3, quitSelectionBox, resetSelectionBox, CheatBoxSelection;
     public GameObject CheatBox, settingsBackButton, xboxBackIcon;
@@ -22,7 +23,7 @@ public class EventSystemHelper : MonoBehaviour
     public PlayerInput PI;
     public float resetSpeed;
 
-
+    public AudioManager audioManager;
     public GameManager gameManager;
 
 #if UNITY_WSA
@@ -31,7 +32,7 @@ public class EventSystemHelper : MonoBehaviour
 
     void Start()
     {
-
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class EventSystemHelper : MonoBehaviour
             resetSelectionBox.SetActive(false);
             CheatBoxSelection.SetActive(false);
         }
-        else if (EventSystem.current.currentSelectedGameObject == settingsButton2.gameObject)
+        else if (EventSystem.current.currentSelectedGameObject == audioManager.soundSlider.gameObject)
         {
             Debug.Log("SettingsButton2 Found");
             SelectionBox1.SetActive(false);
@@ -59,7 +60,7 @@ public class EventSystemHelper : MonoBehaviour
             resetSelectionBox.SetActive(false);
             CheatBoxSelection.SetActive(false);
         }
-        else if (EventSystem.current.currentSelectedGameObject == settingsButton3.gameObject)
+        else if (EventSystem.current.currentSelectedGameObject == audioManager.musicSlider.gameObject)
         {
             Debug.Log("SettingsButton3 Found");
             SelectionBox1.SetActive(false);
@@ -115,8 +116,13 @@ public class EventSystemHelper : MonoBehaviour
 
 
 
+        
 
+    }
 
+    public void MoveSliderLeft()
+    {
+        
     }
 
 #elif UNITY_ANDROID || UNITY_IOS

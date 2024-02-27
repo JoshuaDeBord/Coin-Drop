@@ -39,18 +39,19 @@ public class AudioManager : MonoBehaviour
     {
         
         musicSlider.value = PlayerSettingsPreferences.GetMusicVolume();
-        //soundSlider.value = PlayerSettingsPreferences.GetSFXVolume();
+        soundSlider.value = PlayerSettingsPreferences.GetSFXVolume();
 
-        gameManager.SettingsPanel.SetActive(false);
+        
 
         savedMusicVolume = musicAudioS.volume;
         savedSoundVolume = soundAudioS.volume;
         
         masterMixer.SetFloat("MasterVol", PlayerSettingsPreferences.GetMasterVolume());
-        masterMixer.SetFloat("MusicVol",PlayerSettingsPreferences.GetMusicVolume());
-
+        masterMixer.SetFloat("MusicVol", PlayerSettingsPreferences.GetMusicVolume());
+        masterMixer.SetFloat("SFXVol", PlayerSettingsPreferences.GetSFXVolume());
 
         
+       
     }
 
     public void ChangeSoundVolume(float soundLevel)
@@ -104,11 +105,7 @@ public class AudioManager : MonoBehaviour
             sCCMusic.isOn = true;
         }
 
-        if (sCCMusic.isOn == true)
-        {
-            Debug.Log("BOOL IS ON");
-        }
-        else Debug.Log("BOOL IS OFF");
+        
     }
 
 
@@ -119,21 +116,11 @@ public class AudioManager : MonoBehaviour
     {
         foreach (GameObject objInList in gameManager.SpawnedInObjects)
         {
-            objInList.GetComponent<AudioSource>().volume = soundSlider.value;
-            Debug.Log($"Changed Volume of {objInList.name} to {objInList.GetComponent<AudioSource>().volume}");
         }
-        gameManager.modelSelect[0].GetComponent<AudioSource>().volume = soundSlider.value;
+        
 
     }
 
 
-    /*public IEnumerator SetSettingsVolumeLevels()
-    {
-        gameManager.SettingsPanel.SetActive(true);
-        musicSlider.value = PlayerSettingsPreferences.GetMusicVolume();
-        soundSlider.value = PlayerSettingsPreferences.GetSFXVolume();
-        
-        gameManager.SettingsPanel.SetActive(false);
-
-    }*/
+    
 }

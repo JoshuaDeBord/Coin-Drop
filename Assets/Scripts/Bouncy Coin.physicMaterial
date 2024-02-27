@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Bouncy Coin
   dynamicFriction: 0
   staticFriction: 0.33
-  bounciness: 1
+  bounciness: 0.55
   frictionCombine: 1
   bounceCombine: 3

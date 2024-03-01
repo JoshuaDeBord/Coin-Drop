@@ -10,10 +10,10 @@ using UnityEngine.UI;
 
 public class EventSystemHelper : MonoBehaviour
 {
-    public Button settingsButton1, settingsButton2, settingsButton3, quitButton, resetButton, cheatBoxButtonObject;
+    public Button settingsButton1, settingsButton2, settingsButton3, quitButton, resetButton, cheatBoxButtonObject, noResetButton, yesResetButton;
     
     public TMP_InputField cheatBox;
-    public GameObject SelectionBox1, SelectionBox2, SelectionBox3, quitSelectionBox, resetSelectionBox, CheatBoxSelection;
+    public GameObject SelectionBox1, SelectionBox2, SelectionBox3, quitSelectionBox, resetSelectionBox, CheatBoxSelection, noSelectionBox, yesSelectionBox;
     public GameObject CheatBox, settingsBackButton, xboxBackIcon;
     public TextMeshProUGUI goBackText;
     public RectTransform settingsBackButtonRect;
@@ -103,7 +103,32 @@ public class EventSystemHelper : MonoBehaviour
             isOnReset = false;
 
         }
-        
+        else if (EventSystem.current.currentSelectedGameObject == noResetButton.gameObject)
+        {
+            SelectionBox1.SetActive(false);
+            SelectionBox2.SetActive(false);
+            SelectionBox3.SetActive(false);
+            quitSelectionBox.SetActive(false);
+            CheatBoxSelection.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            isOnReset = false;
+            noSelectionBox.SetActive(true);
+            yesSelectionBox.SetActive(false);
+        }
+        else if (EventSystem.current.currentSelectedGameObject == yesResetButton.gameObject)
+        {
+            SelectionBox1.SetActive(false);
+            SelectionBox2.SetActive(false);
+            SelectionBox3.SetActive(false);
+            quitSelectionBox.SetActive(false);
+            CheatBoxSelection.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            isOnReset = false;
+            noSelectionBox.SetActive(false);
+            yesSelectionBox.SetActive(true);
+        }
+
+        Debug.Log(EventSystem.current.currentSelectedGameObject);
 
         try
         {

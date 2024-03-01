@@ -6,6 +6,8 @@ public class PinCollision : MonoBehaviour
 {
     
     public AudioSource hittingPinSound;
+
+    
     void Start()
     {
         
@@ -21,6 +23,7 @@ public class PinCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Pin"))
         {
+            
             hittingPinSound.Play();
         
         }

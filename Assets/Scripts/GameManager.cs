@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject MainMenuPanel, MainGamePanel, SettingsPanel, settingsOption1, ShopPanel, CreditsPanel,
         CreditsScreenButton, CreditsMMButton, CheatBox, SpawnedListObject, shopItem;
     public GameObject BackSettingsButton, MainMenuPlayButton, cupCover;
+    public TextMeshProUGUI noSaveFileFoundText;
     public Button dropButton;
     public static PlayerInput PI;
     public Cheats cheats;
@@ -419,18 +420,24 @@ public class GameManager : MonoBehaviour
             PlayerSettingsPreferences.SetMusicVolume(-30);
             PlayerSettingsPreferences.updated = false;
             File.Delete(path);
-            MainGamePanel.SetActive(false);
-            SettingsPanel.SetActive(false);
-            MainMenuPanel.SetActive(true);
+           
             
             SceneManager.LoadScene("CoinDrop");
 
 
         }
-        
+        else if (!File.Exists(path) || settingIsChanged == false)
+        {
+            StartCoroutine(ResetButtonNoSaveFileFound());
+        }
     }
 
-
+    public IEnumerator ResetButtonNoSaveFileFound()
+    {
+        noSaveFileFoundText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        noSaveFileFoundText.gameObject.SetActive(false);
+    }
 
     public bool sphereGained = false;
     public int modelSelected = 1;

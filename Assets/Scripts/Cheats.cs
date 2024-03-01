@@ -12,7 +12,9 @@ public class Cheats : MonoBehaviour
     public GameManager gameManager;
     public EventSystemHelper esh;
     public bool cupCoverIsOn = false;
+    public bool spinScreen = false;
 
+    public GameObject safeAreaObject;
     void Start()
     {
 
@@ -27,10 +29,10 @@ public class Cheats : MonoBehaviour
 
     public void PullInputedText()
     {
-        inputedCheatCode = CheatBox.text;
+        inputedCheatCode = CheatBox.text.ToLower();
         Debug.Log("Cheat Code Entered: " + inputedCheatCode);
-        EventSystem.current.SetSelectedGameObject(null);
-        esh.CheatBox.transform.localPosition = esh.CheatBoxOGSpawnLocation;
+        
+        
 
         if (inputedCheatCode == "give1000")
         {
@@ -77,6 +79,20 @@ public class Cheats : MonoBehaviour
             }
         }
 
+        else if (inputedCheatCode == "unplayable")
+        {
+            if (spinScreen == false)
+            {
+                StartCoroutine(CheatCodeActivate());
+                StartCoroutine(gameManager.SpinSafeArea());
+                spinScreen = true;
+            }
+            else
+            {
+                StartCoroutine(CheatCodeDeactivate());
+                spinScreen = false;
+            }
+        }
 
 
 
@@ -92,6 +108,12 @@ public class Cheats : MonoBehaviour
         {
             StartCoroutine(CheatCodeDelayBadCode());
         }
+
+        EventSystem.current.SetSelectedGameObject(esh.cheatBoxButtonObject.gameObject);
+
+#if UNITY_IOS || UNITY_ANDROID
+        esh.CheatBox.transform.localPosition = esh.CheatBoxOGSpawnLocation;
+#endif
     }
 
     public void ResetText()
@@ -125,4 +147,5 @@ public class Cheats : MonoBehaviour
         CheatBox.text = string.Empty;
     }
 
+    
 }

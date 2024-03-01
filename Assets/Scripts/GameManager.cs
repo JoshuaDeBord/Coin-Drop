@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 {
 
 
-    public GameObject MainMenuPanel, MainGamePanel, SettingsPanel, settingsOption1, ShopPanel, CreditsPanel, 
-        CreditsScreenButton, CreditsMMButton, CheatBox, SpawnedListObject;
+    public GameObject MainMenuPanel, MainGamePanel, SettingsPanel, settingsOption1, ShopPanel, CreditsPanel,
+        CreditsScreenButton, CreditsMMButton, CheatBox, SpawnedListObject, shopItem;
     public GameObject BackSettingsButton, MainMenuPlayButton, cupCover;
     public Button dropButton;
     public static PlayerInput PI;
@@ -150,6 +150,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public IEnumerator SpinSafeArea()
+    {
+        while (cheats.spinScreen == true)
+        {
+            cheats.safeAreaObject.transform.Rotate(5 * Time.deltaTime, 5 * Time.deltaTime, 5 * Time.deltaTime);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
     public void GetRandomColor()
     {
         rainbowColorNumber = UnityEngine.Random.Range(0f, 1f);
@@ -195,6 +203,7 @@ public class GameManager : MonoBehaviour
     {
         
         inShop = true;
+        EventSystem.current.SetSelectedGameObject(shopItem);
     }
 
     public void InCredits()

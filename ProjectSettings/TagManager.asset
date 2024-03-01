@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dropped Coin
+  - Coin Is Dropped
+  - Pin
   layers:
   - Default
   - TransparentFX

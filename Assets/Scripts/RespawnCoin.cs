@@ -42,7 +42,7 @@ public class RespawnCoin : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             gameManager.SpawnedInObjects.RemoveRange(0, gameManager.SpawnedInObjects.Count);
 
-            
+
 
 
         }
@@ -55,7 +55,7 @@ public class RespawnCoin : MonoBehaviour
         gameManager.SpawnedInObjects.Clear();
     }
 
-    
+
     public void RestartGame()
     {
         MovingLAR.rightLeftPressed = false;
@@ -74,18 +74,18 @@ public class RespawnCoin : MonoBehaviour
                 gameManager.modelSelectedInScene[1].SetActive(true);
 
             }
-            foreach (GameObject obj in gameManager.SpawnedInObjects)
-            {
-                Destroy(obj);
-                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-            }
+
 
         }
 
-
+        foreach (GameObject obj in gameManager.SpawnedInObjects)
+        {
+            Destroy(obj);
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+        }
 
         StartCoroutine(RemoveWait(0.25f));
 

@@ -19,8 +19,12 @@ public class PinCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        hittingPinSound.Play();
-        Debug.Log("Coin sound Activated");
+        if (collision.gameObject.CompareTag("Pin"))
+        {
+            hittingPinSound.Play();
+        
+        }
+       
     }
-
+    
 }

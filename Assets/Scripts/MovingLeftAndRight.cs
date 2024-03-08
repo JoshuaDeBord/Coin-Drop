@@ -6,42 +6,43 @@ using UnityEngine.InputSystem;
 public class MovingLeftAndRight : MonoBehaviour
 {
     public Transform coinPosition;
-    public float speed = 5f;
+    public float speed = 20f;
     public bool moveRight = false;
     public bool moveLeft = false;
     public Rigidbody rb;
     public PrideColorLoop coinDrop;
     public GameManager manager;
-    
+    public GameObject leftBorder, rightBorder;
+
     public bool rightLeftPressed = false;
     public Button dropButtonAfterPress;
-    
 
 
     private void Start()
     {
-        
+
+
     }
 
     private void Update()
     {
 
-        if (moveLeft && transform.localPosition.x > -52.9f && !manager.dropButtonPressed || moveLeft && transform.localPosition.x > -52.9f && manager.rapidSpawn == true)
+        if (moveLeft && transform.position.x > leftBorder.transform.position.x + 3.83f && !manager.dropButtonPressed || moveLeft && transform.position.x > leftBorder.transform.position.x + 3.83f && manager.rapidSpawn == true)
         {
 
             transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
 
-        else if (moveRight && transform.localPosition.x < 67.98f && !manager.dropButtonPressed || moveRight && transform.localPosition.x < 67.98f && manager.rapidSpawn == true)
+        else if (moveRight && transform.position.x < rightBorder.transform.position.x - 3.71f && !manager.dropButtonPressed || moveRight && transform.position.x < rightBorder.transform.position.x - 3.71f && manager.rapidSpawn == true)
         {
             transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
         }
-        
-        
-        
+
+
+
     }
-    
-    
+
+
     public void MoveCoin(InputAction.CallbackContext context)
     {
         if (context.performed == true && context.ReadValue<Vector2>().x > 0)
@@ -56,8 +57,8 @@ public class MovingLeftAndRight : MonoBehaviour
             MovingCoinRightStop();
         }
 
-        
-        
+
+
 
         if (context.canceled == true)
         {
@@ -70,7 +71,7 @@ public class MovingLeftAndRight : MonoBehaviour
         moveLeft = true;
         rightLeftPressed = true;
         dropButtonAfterPress.interactable = true;
-        
+
     }
 
     public void MovingCoinRight()
@@ -105,7 +106,7 @@ public class MovingLeftAndRight : MonoBehaviour
 
 
 
-    
+
 
 }
 

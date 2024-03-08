@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public ShopPoints ShopPoints;
     public RespawnCoin RespawnCoin;
     public int pointsAssign;
+    public int totalHighScore;
     public ScoreCounter scoreCounter;
     public bool inMainMenuBool = true;
 
@@ -122,8 +123,9 @@ public class GameManager : MonoBehaviour
         }
         
 
-
+        
         scoreCounter.score = pointsAssign;
+        
 
 
         if (gainedSkins == true)

@@ -13,6 +13,7 @@ public class RespawnCoin : MonoBehaviour
     public Transform CoinMain;
     public PrideColorLoop DropTheCoin;
     public GameManager gameManager;
+    public LeaderBoard leaderBoard;
     private MovingLeftAndRight MovingLAR;
     public PrideColorLoop PCL;
 
@@ -75,7 +76,17 @@ public class RespawnCoin : MonoBehaviour
 
             }
 
+            if (gameManager.totalHighScore < gameManager.pointsAssign)
+            {
 
+                gameManager.totalHighScore = gameManager.pointsAssign;
+
+            }
+
+            if (gameManager.pointsAssign > 0)
+            {
+                StartCoroutine(leaderBoard.SubmitScoreRoutine(gameManager.totalHighScore));
+            }
         }
 
         foreach (GameObject obj in gameManager.SpawnedInObjects)

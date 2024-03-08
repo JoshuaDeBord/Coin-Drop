@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using LootLocker.Requests;
 
 public class AddPoint : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public GameManager gameManager;
             Destroy(other.gameObject);
             
             gameManager.pointsAssign += scoreToAdd;
+
             Debug.Log("POINTS ARE ADDED!!");
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             gameManager.SavePlayer();

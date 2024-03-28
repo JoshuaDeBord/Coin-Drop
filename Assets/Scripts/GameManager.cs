@@ -1,3 +1,5 @@
+using LootLocker;
+using LootLocker.Requests;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 [System.Serializable]
 
@@ -19,10 +22,11 @@ public class GameManager : MonoBehaviour
 {
 
 
-    public GameObject MainMenuPanel, MainGamePanel, SettingsPanel, settingsOption1, ShopPanel, CreditsPanel,
-        CreditsScreenButton, CreditsMMButton, CheatBox, SpawnedListObject, shopItem;
+    public GameObject MainMenuPanel, MainGamePanel, SettingsPanel, LeaderboardPanel, settingsOption1, ShopPanel, CreditsPanel,
+        CreditsScreenButton, CreditsMMButton, LeaderboardMMButton, CheatBox, SpawnedListObject, shopItem;
     public GameObject BackSettingsButton, MainMenuPlayButton, cupCover;
     public TextMeshProUGUI noSaveFileFoundText;
+    public TMP_InputField nameInputField;
     public Button dropButton;
     public static PlayerInput PI;
     public Cheats cheats;
@@ -31,9 +35,12 @@ public class GameManager : MonoBehaviour
     public MovingLeftAndRight MovingLAR;
     public ShopPoints ShopPoints;
     public RespawnCoin RespawnCoin;
+    public LeaderBoard LeaderBoard;
     public int pointsAssign;
     public int totalHighScore;
+    
     public ScoreCounter scoreCounter;
+    [Header("Bools")]
     public bool inMainMenuBool = true;
 
     public bool isPaused = true;
@@ -41,9 +48,14 @@ public class GameManager : MonoBehaviour
     public bool inSettings = false;
     public bool inShop = false;
     public bool inCredits = false;
+    public bool inLeaderboard = false;
     public bool dropButtonHeldDown = false;
     public bool gainedSkins = false;
     public bool settingIsChanged = false;
+    public bool isCheatsUsed = false;
+    public bool prideIsOn = false;
+    public bool rapidSpawn = false;
+    public bool isFloorCovered = false;
 
     public Transform[] SpawnedObjects;
     public Vector3 movingLARObjectV3;
@@ -58,20 +70,18 @@ public class GameManager : MonoBehaviour
     public float rainbowColorNumber;
     public int objectsInScene, spawnedObjectsMax;
 
-    public bool prideIsOn = false;
-    public bool rapidSpawn = false;
-    public bool isFloorCovered = false;
+
 
     public List<GameObject> SpawnedInObjects;
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
     {
-        
+
         try { LoadPLayer(); }
         catch { }
         PI = gameObject.GetComponent<PlayerInput>();
@@ -79,6 +89,8 @@ public class GameManager : MonoBehaviour
 #if UNITY_WSA
         StartCoroutine(StartGameDelay());
 #endif
+
+
     }
 
     public IEnumerator StartGameDelay()
@@ -93,7 +105,7 @@ public class GameManager : MonoBehaviour
         movingLARObjectV3 = MovingLAR.gameObject.transform.position;
 
         objectsInScene = GameObject.FindGameObjectsWithTag("Coin Is Dropped").Length;
-        
+
 
 
         if (modelSelected == 1)
@@ -105,8 +117,8 @@ public class GameManager : MonoBehaviour
             modelSelectedInScene[0].SetActive(false);
         }
 
-        
-        
+
+
         if (inMainMenuBool == true)
         {
             BackSettingsButton.SetActive(false);
@@ -119,13 +131,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(SpawnedInObjects.First());
             SpawnedInObjects.RemoveAt(0);
-            
-        }
-        
 
-        
+        }
+
+
+
         scoreCounter.score = pointsAssign;
-        
+
 
 
         if (gainedSkins == true)
@@ -149,8 +161,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
         }
-        
 
+#if UNITY_ANDROID || UNITY_IOS
+        if (LeaderboardPanel.activeInHierarchy == false && SettingsPanel.activeInHierarchy == false)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            
+        }
+#endif
     }
 
     public IEnumerator SpinSafeArea()
@@ -189,12 +207,12 @@ public class GameManager : MonoBehaviour
 
     public void InMainMenu(RespawnCoin respawnCoin)
     {
-        
+
         inMainMenuBool = true;
 
 
         StartCoroutine(respawnCoin.ClearObjectsFromLists());
-        
+
     }
 
     public void InMainGame()
@@ -202,9 +220,17 @@ public class GameManager : MonoBehaviour
         inMainMenuBool = false;
     }
 
+    public void GoToLeaderboard()
+    {
+        inLeaderboard = true;
+        LeaderboardPanel.SetActive(true);
+        MainMenuPanel.SetActive(false);
+#if UNITY_WSA
+        StartCoroutine(FlashInputFieldXSquare());
+#endif
+    }
     public void InShop()
     {
-        
         inShop = true;
         EventSystem.current.SetSelectedGameObject(shopItem);
     }
@@ -214,9 +240,21 @@ public class GameManager : MonoBehaviour
         inCredits = true;
     }
 
+    public void UIRefreshLeaderboard()
+    {
+        if (LeaderboardPanel.activeInHierarchy == true)
+        {
+            RefreshLeaderBoard();
+        }
+    }
+    public void RefreshLeaderBoard()
+    {
+        
+        StartCoroutine(LeaderBoard.FetchTopHighscoresRoutine());
+    }
+
     public void OpenSettingsConsole(InputAction.CallbackContext context)
     {
-
         OpenSettings();
         EventSystem.current.SetSelectedGameObject(settingsOption1);
     }
@@ -238,8 +276,6 @@ public class GameManager : MonoBehaviour
             PI.SwitchCurrentActionMap("Player");
             UnPauseGame();
             InMainGame();
-
-
         }
         if (inShop == true)
         {
@@ -256,8 +292,27 @@ public class GameManager : MonoBehaviour
             CreditsPanel.SetActive(false);
             EventSystem.current.SetSelectedGameObject(CreditsMMButton);
         }
+        if (inLeaderboard == true)
+        {
+#if UNITY_WSA || UNITY_PS4
+            StopCoroutine(FlashInputFieldXSquare());
+#endif
+            inLeaderboard = false;
+            LeaderboardPanel.SetActive(false);
+            MainMenuPanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(LeaderboardMMButton);
+
+        }
     }
 
+    public void OpenNameInputField()
+    {
+        if (LeaderboardPanel.activeInHierarchy == true)
+        {
+            nameInputField.ActivateInputField();
+        }
+        
+    }
     public void UnPauseGame()
     {
         MovingLAR = GameObject.Find("MovingLeftAndRightAndRespawnPoint").GetComponent<MovingLeftAndRight>();
@@ -349,7 +404,7 @@ public class GameManager : MonoBehaviour
 
     public void DropCoin()
     {
-        
+
         if (dropButton.interactable == true && modelSelected == 1 && dropButtonPressed == false && rapidSpawn == false)
         {
             dropButtonPressed = true;
@@ -384,10 +439,10 @@ public class GameManager : MonoBehaviour
         }
 
 
-        
+
     }
 
-    
+
     public void SavePlayer()
     {
         SaveSystem.SaveData(scoreCounter, this);
@@ -404,6 +459,10 @@ public class GameManager : MonoBehaviour
             gainedSkins = data.gainedSkins;
 
             pointsAssign = data.pointsAssign;
+
+            totalHighScore = data.highScore;
+
+            isCheatsUsed = data.isCheatsEnabled;
             Debug.Log($"loaded save Points: {pointsAssign}");
 
 
@@ -415,16 +474,19 @@ public class GameManager : MonoBehaviour
     public void Reset()
     {
         string path = Application.persistentDataPath + "/player.save";
-        if (File.Exists(path) || settingIsChanged == true)
+
+        if (File.Exists(path) || settingIsChanged == true || isCheatsUsed == true)
         {
             PlayerSettingsPreferences.SetMasterVolume(0);
-            PlayerSettingsPreferences.SetSFXVolume(-30);
-            PlayerSettingsPreferences.SetMusicVolume(-30);
+            PlayerSettingsPreferences.SetSFXVolume(-40);
+            PlayerSettingsPreferences.SetMusicVolume(-40);
             PlayerSettingsPreferences.updated = false;
             File.Delete(path);
-           
             
-            SceneManager.LoadScene("CoinDrop");
+
+            SceneManager.LoadScene(0);
+            
+            
 
 
         }
@@ -433,7 +495,25 @@ public class GameManager : MonoBehaviour
             StartCoroutine(ResetButtonNoSaveFileFound());
         }
     }
-
+    /*public IEnumerator DeletePlayerFile()
+    {
+        bool done = false;
+        int playerFileId = PlayerPrefs.GetInt("PlayerID");
+        LootLockerSDKManager.DeletePlayerFile(playerFileId, response =>
+    {
+        if (response.success)
+        {
+            done = true;
+            Debug.Log("Successfully deleted player file with id: " + playerFileId);
+        }
+        else
+        {
+            done = true;
+            Debug.Log("Error deleting player file");
+        }
+    });
+        yield return new WaitWhile(() => done == false);
+    }*/
     public IEnumerator ResetButtonNoSaveFileFound()
     {
         noSaveFileFoundText.gameObject.SetActive(true);
@@ -473,7 +553,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
+
 
     public void CoinSelect()
     {
@@ -500,7 +580,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator PrideLoopColor()
     {
-        while(true)
+        while (true)
         {
             if (prideIsOn == true && modelSelected == 1)
             {
@@ -516,8 +596,8 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.01f);
         }
-        
-        
+
+
     }
     public void OpenCredits()
     {
@@ -531,5 +611,17 @@ public class GameManager : MonoBehaviour
     {
         CreditsPanel.SetActive(false);
         MainMenuPanel.SetActive(true);
+    }
+
+    public IEnumerator FlashInputFieldXSquare()
+    {
+        while (LeaderboardPanel.activeInHierarchy == true)
+        {
+            
+            GetComponent<EventSystemHelper>().nameInputFieldOpenIcon.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            GetComponent<EventSystemHelper>().nameInputFieldOpenIcon.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

@@ -14,7 +14,7 @@ public class EventSystemHelper : MonoBehaviour
     
     public TMP_InputField cheatBox;
     public GameObject SelectionBox1, SelectionBox2, SelectionBox3, quitSelectionBox, resetSelectionBox, CheatBoxSelection, noSelectionBox, yesSelectionBox;
-    public GameObject CheatBox, settingsBackButton, xboxBackIcon;
+    public GameObject CheatBox, settingsBackButton, xboxBackIconSettings, xboxBackIconLeaderboard, nameInputFieldOpenIcon;
     public TextMeshProUGUI goBackText;
     public RectTransform settingsBackButtonRect;
     public Vector3 CheatBoxOGSpawnLocation;
@@ -134,21 +134,22 @@ public class EventSystemHelper : MonoBehaviour
         {
 
             goBackText.lineSpacing = -27.8f;
-            xboxBackIcon.SetActive(true);
+            xboxBackIconSettings.SetActive(true);
+        }
+        catch { }
+
+        try
+        {
+            xboxBackIconLeaderboard.SetActive(true);
         }
         catch { }
 
 
-
-
         
 
     }
 
-    public void MoveSliderLeft()
-    {
-        
-    }
+    
 
 #elif UNITY_ANDROID || UNITY_IOS
     public void Start()
@@ -167,7 +168,7 @@ public class EventSystemHelper : MonoBehaviour
 
         if (settingsBackButton.gameObject.activeInHierarchy == true)
         {
-            xboxBackIcon.SetActive(false);
+            xboxBackIconSettings.SetActive(false);
             goBackText.lineSpacing = -67.7f;
             
         }
@@ -179,7 +180,7 @@ public class EventSystemHelper : MonoBehaviour
         }
         else
         {
-            EventSystem.current.SetSelectedGameObject(null);
+            
             CheatBox.transform.localPosition = CheatBoxOGSpawnLocation;
 
 

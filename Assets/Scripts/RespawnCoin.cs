@@ -14,6 +14,7 @@ public class RespawnCoin : MonoBehaviour
     public PrideColorLoop DropTheCoin;
     public GameManager gameManager;
     public LeaderBoard leaderBoard;
+    public Cheats cheats;
     private MovingLeftAndRight MovingLAR;
     public PrideColorLoop PCL;
 
@@ -76,17 +77,12 @@ public class RespawnCoin : MonoBehaviour
 
             }
 
-            if (gameManager.totalHighScore < gameManager.pointsAssign)
-            {
+            
 
-                gameManager.totalHighScore = gameManager.pointsAssign;
-
-            }
-
-            if (gameManager.pointsAssign > 0)
+            /*if (gameManager.pointsAssign > 0 && gameManager.isCheatsUsed == false)
             {
                 StartCoroutine(leaderBoard.SubmitScoreRoutine(gameManager.totalHighScore));
-            }
+            }*/
         }
 
         foreach (GameObject obj in gameManager.SpawnedInObjects)
@@ -98,7 +94,7 @@ public class RespawnCoin : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
         }
 
-        StartCoroutine(RemoveWait(0.25f));
+        StartCoroutine(RemoveWait(1f));
 
         if (gameManager.rapidSpawn == false)
         {

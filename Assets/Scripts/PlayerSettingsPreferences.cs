@@ -14,12 +14,12 @@ public static class PlayerSettingsPreferences
 
     public static float GetMusicVolume()
     {
-        return PlayerPrefs.GetFloat("MusicVolume", -30);
+        return PlayerPrefs.GetFloat("MusicVolume", -40);
     }
 
     public static float GetSFXVolume()
     {
-        return PlayerPrefs.GetFloat("SoundVolume", -30);
+        return PlayerPrefs.GetFloat("SoundVolume", -40);
     }
 
     public static void SetMasterVolume(float soundLevel)

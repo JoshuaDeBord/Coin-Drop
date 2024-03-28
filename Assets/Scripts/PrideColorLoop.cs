@@ -18,6 +18,7 @@ public class PrideColorLoop : MonoBehaviour
     {
         objectLight = GetComponent<Light>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        CoinMaterial.color = Color.yellow;
     }
 
     private void Update()

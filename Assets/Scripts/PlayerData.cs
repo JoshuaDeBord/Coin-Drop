@@ -8,8 +8,10 @@ public class PlayerData
 {
     
     public int pointsAssign; // Cuurent Score
+    public int highScore;
     public bool gainedSkins;
     public bool settingsChanged = false;
+    public bool isCheatsEnabled = false;
 
 
 
@@ -17,8 +19,9 @@ public class PlayerData
     {
         settingsChanged = gameManager.settingIsChanged;
         pointsAssign = gameManager.pointsAssign;
+        highScore = gameManager.totalHighScore;
         gainedSkins = gameManager.gainedSkins;
-
+        isCheatsEnabled = gameManager.isCheatsUsed;
         
     }
 

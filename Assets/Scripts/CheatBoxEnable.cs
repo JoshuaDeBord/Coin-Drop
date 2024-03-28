@@ -10,7 +10,7 @@ public class CheatBoxEnable : MonoBehaviour
     public GameObject cheatTextBox;
 
 
-    public bool PauseHeldDownBool = false;
+    public bool highGravityHeldDown = false;
 
 
     public TMP_InputField CheatCodeBox;
@@ -38,14 +38,14 @@ public class CheatBoxEnable : MonoBehaviour
     {
         CheatCodeBox.ActivateInputField();
     }
-    public void PauseButtonHeldDown()
+    public void hGButtonHeldDown()
     {
-        PauseHeldDownBool = true;
+        highGravityHeldDown = true;
         StartCoroutine(SettingsHeldDown());
     }
-    public void PauseButtonHeldUp()
+    public void hGButtonHeldUp()
     {
-        PauseHeldDownBool = false;
+        highGravityHeldDown = false;
         StopCoroutine(SettingsHeldDown());
         
     }
@@ -55,7 +55,7 @@ public class CheatBoxEnable : MonoBehaviour
     public IEnumerator SettingsHeldDown()
     {
         yield return new WaitForSeconds(2);
-        if (PauseHeldDownBool == true)
+        if (highGravityHeldDown == true)
         {
             cheatTextBox.SetActive(true);
             Debug.Log("CHEATS OPENED!!");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public class Cheats : MonoBehaviour
@@ -13,6 +14,7 @@ public class Cheats : MonoBehaviour
     public EventSystemHelper esh;
     public bool cupCoverIsOn = false;
     public bool spinScreen = false;
+    
 
     public GameObject safeAreaObject;
     void Start()
@@ -23,10 +25,17 @@ public class Cheats : MonoBehaviour
 
     void Update()
     {
-
+        if (gameManager.isCheatsUsed == true)
+        {
+            if(gameManager.playerData.isCheatsEnabled == false)
+            {
+                gameManager.playerData.isCheatsEnabled = true;
+                Debug.Log("Cheats are enabled and saved");
+            }
+        }
 
     }
-
+    
     public void PullInputedText()
     {
         inputedCheatCode = CheatBox.text.ToLower();
@@ -36,6 +45,7 @@ public class Cheats : MonoBehaviour
 
         if (inputedCheatCode == "give1000")
         {
+            gameManager.isCheatsUsed = true;
             gameManager.pointsAssign += 1000;
             StartCoroutine(CheatCodeActivate());
         }
@@ -44,6 +54,7 @@ public class Cheats : MonoBehaviour
         {
             if (gameManager.prideIsOn == false)
             {
+                gameManager.isCheatsUsed = true;
                 gameManager.prideIsOn = true;
                 StartCoroutine(CheatCodeActivate());
                 StartCoroutine(gameManager.PrideLoopColor());
@@ -58,6 +69,7 @@ public class Cheats : MonoBehaviour
         
         else if (inputedCheatCode == "rapidfire")
         {
+            gameManager.isCheatsUsed = true;
             gameManager.rapidSpawn = true;
             StartCoroutine(CheatCodeActivate());
         }
@@ -66,6 +78,7 @@ public class Cheats : MonoBehaviour
         {
             if (cupCoverIsOn == false)
             {
+                gameManager.isCheatsUsed = true;
                 cupCoverIsOn = true;
                 gameManager.isFloorCovered = true;
                 gameManager.cupCover.SetActive(true);
@@ -83,6 +96,7 @@ public class Cheats : MonoBehaviour
         {
             if (spinScreen == false)
             {
+                gameManager.isCheatsUsed = true;
                 StartCoroutine(CheatCodeActivate());
                 StartCoroutine(gameManager.SpinSafeArea());
                 spinScreen = true;

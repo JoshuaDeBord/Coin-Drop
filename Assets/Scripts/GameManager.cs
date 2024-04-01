@@ -36,9 +36,10 @@ public class GameManager : MonoBehaviour
     public ShopPoints ShopPoints;
     public RespawnCoin RespawnCoin;
     public LeaderBoard LeaderBoard;
+    public CheatBoxEnable CheatBoxEnable;
     public int pointsAssign;
     public int totalHighScore;
-    
+
     public ScoreCounter scoreCounter;
     [Header("Bools")]
     public bool inMainMenuBool = true;
@@ -71,6 +72,9 @@ public class GameManager : MonoBehaviour
     public int objectsInScene, spawnedObjectsMax;
 
 
+    public Button enableCheats;
+    public Image cheatsUnabledTextInLeaderboard;
+    public TMP_InputField CheatCodeBox;
 
     public List<GameObject> SpawnedInObjects;
 
@@ -90,7 +94,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartGameDelay());
 #endif
 
-
+        if (isCheatsUsed == true)
+        {
+            CheatCodeBox.gameObject.SetActive(true);
+            enableCheats.gameObject.SetActive(false);
+            cheatsUnabledTextInLeaderboard.gameObject.SetActive(true);
+        }
     }
 
     public IEnumerator StartGameDelay()
@@ -148,14 +157,14 @@ public class GameManager : MonoBehaviour
             SphereText.fontSize = 82.9f;
         }
 
-        if (PI.currentActionMap.name == "UI")
+        /*if (PI.currentActionMap.name == "UI")
         {
             Debug.Log("Action map is on UI");
         }
         else if (PI.currentActionMap.name == "Player")
         {
             Debug.Log("Action map is on Player");
-        }
+        }*/
 
         if (inMainMenuBool == true)
         {
@@ -166,7 +175,7 @@ public class GameManager : MonoBehaviour
         if (LeaderboardPanel.activeInHierarchy == false && SettingsPanel.activeInHierarchy == false)
         {
             EventSystem.current.SetSelectedGameObject(null);
-            
+
         }
 #endif
     }
@@ -249,7 +258,7 @@ public class GameManager : MonoBehaviour
     }
     public void RefreshLeaderBoard()
     {
-        
+
         StartCoroutine(LeaderBoard.FetchTopHighscoresRoutine());
     }
 
@@ -311,7 +320,7 @@ public class GameManager : MonoBehaviour
         {
             nameInputField.ActivateInputField();
         }
-        
+
     }
     public void UnPauseGame()
     {
@@ -482,11 +491,11 @@ public class GameManager : MonoBehaviour
             PlayerSettingsPreferences.SetMusicVolume(-40);
             PlayerSettingsPreferences.updated = false;
             File.Delete(path);
-            
+
 
             SceneManager.LoadScene(0);
-            
-            
+
+
 
 
         }
@@ -617,7 +626,7 @@ public class GameManager : MonoBehaviour
     {
         while (LeaderboardPanel.activeInHierarchy == true)
         {
-            
+
             GetComponent<EventSystemHelper>().nameInputFieldOpenIcon.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             GetComponent<EventSystemHelper>().nameInputFieldOpenIcon.SetActive(false);

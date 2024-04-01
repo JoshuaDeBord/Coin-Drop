@@ -41,15 +41,6 @@ public class PrideColorLoop : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
-    {
-        //if (transform.rotation != Quaternion.Euler(0, transform.rotation.y, 0))
-        //{
-            
-            Debug.Log(gameObject.name + "rotation set");
-        //}
-        
-        
-    }
+    
 
 }

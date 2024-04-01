@@ -51,7 +51,7 @@ public class LeaderBoard : MonoBehaviour
 
             LootLockerLeaderboardMember[] members = response.items;
 
-
+                
 
 
             namesText.text = "Names:";

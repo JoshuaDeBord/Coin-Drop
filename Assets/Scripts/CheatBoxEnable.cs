@@ -12,31 +12,25 @@ public class CheatBoxEnable : MonoBehaviour
 
     public bool highGravityHeldDown = false;
 
+    
 
     public TMP_InputField CheatCodeBox;
 
-    void Start()
+    private GameManager gameManager;
+
+    private void Awake()
     {
-
-    }
-
-
-    void Update()
-    {
-#if UNITY_ANDROID || UNITY_IOS
-
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
-#else
-        cheatTextBox.SetActive(true);
         
-#endif
     }
-
-
+    
+    
     public void OpenCheatBox()
     {
-        CheatCodeBox.ActivateInputField();
+        CheatCodeBox.gameObject.SetActive(true);
+
+        gameManager.isCheatsUsed = true;
     }
     public void hGButtonHeldDown()
     {
@@ -47,10 +41,10 @@ public class CheatBoxEnable : MonoBehaviour
     {
         highGravityHeldDown = false;
         StopCoroutine(SettingsHeldDown());
-        
+
     }
 
-    
+
 
     public IEnumerator SettingsHeldDown()
     {

@@ -36,15 +36,10 @@ public class AddPoint : MonoBehaviour
 
             gameManager.pointsAssign += scoreToAdd;
 
-            if (gameManager.totalHighScore < gameManager.pointsAssign)
-            {
-
-                gameManager.totalHighScore = gameManager.pointsAssign;
-
-            }
+            
             if (gameManager.isCheatsUsed == false)
             {
-                StartCoroutine(leaderBoard.SubmitScoreRoutine(gameManager.totalHighScore));
+                StartCoroutine(leaderBoard.SubmitScoreRoutine(gameManager.pointsAssign));
             }
             Debug.Log("POINTS ARE ADDED!!");
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

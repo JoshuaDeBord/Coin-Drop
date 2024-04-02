@@ -61,6 +61,12 @@ public class RespawnCoin : MonoBehaviour
     public void RestartGame()
     {
         MovingLAR.rightLeftPressed = false;
+        try
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+        }
+        catch { }
 
         if (gameManager.rapidSpawn == false)
         {

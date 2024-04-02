@@ -85,7 +85,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        string playerID = PlayerPrefs.GetString("PlayerID");
+        Debug.Log(playerID);
         try { LoadPLayer(); }
         catch { }
         PI = gameObject.GetComponent<PlayerInput>();
@@ -115,7 +116,10 @@ public class GameManager : MonoBehaviour
 
         objectsInScene = GameObject.FindGameObjectsWithTag("Coin Is Dropped").Length;
 
-
+        if (GameObject.Find("CoinMain(Clone)") == true && rapidSpawn == false)
+        {
+            DropButtonPressed();
+        }
 
         if (modelSelected == 1)
         {
@@ -413,16 +417,17 @@ public class GameManager : MonoBehaviour
 
     public void DropCoin()
     {
-
+        
         if (dropButton.interactable == true && modelSelected == 1 && dropButtonPressed == false && rapidSpawn == false)
         {
-            dropButtonPressed = true;
+            
             modelSelectedInScene[0].SetActive(false);
 
             GameObject SpawnedCoin = Instantiate(modelSelect[0], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
             SpawnedInObjects.Add(SpawnedCoin);
 
             Debug.Log("Coin Spawned");
+            dropButtonPressed = true;
         }
         else if (rapidSpawn == true && modelSelected == 1)
         {
@@ -433,13 +438,14 @@ public class GameManager : MonoBehaviour
 
         if (dropButton.interactable == true && modelSelected == 2 && dropButtonPressed == false && rapidSpawn == false)
         {
-            dropButtonPressed = true;
+            
             modelSelectedInScene[1].SetActive(false);
 
             GameObject SpawnedSphere = Instantiate(modelSelect[1], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
             SpawnedInObjects.Add(SpawnedSphere);
 
             Debug.Log("Sphere Spawned");
+            dropButtonPressed = true;
         }
         else if (rapidSpawn == true && modelSelected == 2)
         {

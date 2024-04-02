@@ -19,6 +19,7 @@ public class PrideColorLoop : MonoBehaviour
         objectLight = GetComponent<Light>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         CoinMaterial.color = Color.yellow;
+        SphereMaterial.color = Color.red;
     }
 
     private void Update()

@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: LootLockerConfig
   m_EditorClassIdentifier: 
   apiKey: prod_0ecde0b446a348a1b5d8da4e037fcbd7
-  token: 84a3c0f321185b992a4f385a5bc33a5e11ed8247
+  token: 8a99c7c74cd27c372949a30ac8eadd6a8744f92e
   adminToken: 
   refreshToken: 
   domainKey: jw7sv1he
   gameID: 0
   game_version: 1.0.0.0
   sdk_version: 2.1.2
-  deviceID: 84d07bd4-a8b6-4495-a1a0-cca779fc0532
+  deviceID: e1015735-d650-4c37-94f5-5a67a4ffcaa0
   url: https://api.lootlocker.io/v1
   adminUrl: https://jw7sv1he.api.lootlocker.io/admin
   playerUrl: https://jw7sv1he.api.lootlocker.io/player
   userUrl: https://jw7sv1he.api.lootlocker.io/game
   baseUrl: https://jw7sv1he.api.lootlocker.io
   clientSideRequestTimeOut: 5
-  currentDebugLevel: 3
+  currentDebugLevel: 0
   allowTokenRefresh: 1

@@ -1,20 +1,13 @@
-using LootLocker;
 using LootLocker.Requests;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.Properties;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 [System.Serializable]
 
@@ -184,14 +177,7 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
-    public IEnumerator SpinSafeArea()
-    {
-        while (cheats.spinScreen == true)
-        {
-            cheats.safeAreaObject.transform.Rotate(5 * Time.deltaTime, 5 * Time.deltaTime, 5 * Time.deltaTime);
-            yield return new WaitForSeconds(0.3f);
-        }
-    }
+
     public void GetRandomColor()
     {
         rainbowColorNumber = UnityEngine.Random.Range(0f, 1f);
@@ -417,10 +403,10 @@ public class GameManager : MonoBehaviour
 
     public void DropCoin()
     {
-        
+
         if (dropButton.interactable == true && modelSelected == 1 && dropButtonPressed == false && rapidSpawn == false)
         {
-            
+
             modelSelectedInScene[0].SetActive(false);
 
             GameObject SpawnedCoin = Instantiate(modelSelect[0], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
@@ -438,7 +424,7 @@ public class GameManager : MonoBehaviour
 
         if (dropButton.interactable == true && modelSelected == 2 && dropButtonPressed == false && rapidSpawn == false)
         {
-            
+
             modelSelectedInScene[1].SetActive(false);
 
             GameObject SpawnedSphere = Instantiate(modelSelect[1], MovingLAR.transform.position, Quaternion.Euler(90, 0, 0), SpawnedListObject.transform);
@@ -496,13 +482,10 @@ public class GameManager : MonoBehaviour
             PlayerSettingsPreferences.SetSFXVolume(-40);
             PlayerSettingsPreferences.SetMusicVolume(-40);
             PlayerSettingsPreferences.updated = false;
+            settingIsChanged = false;
             File.Delete(path);
 
-
             SceneManager.LoadScene(0);
-
-
-
 
         }
         else if (!File.Exists(path) || settingIsChanged == false)
@@ -510,25 +493,27 @@ public class GameManager : MonoBehaviour
             StartCoroutine(ResetButtonNoSaveFileFound());
         }
     }
-    /*public IEnumerator DeletePlayerFile()
+    public IEnumerator DeletePlayerRoutine()
     {
         bool done = false;
-        int playerFileId = PlayerPrefs.GetInt("PlayerID");
-        LootLockerSDKManager.DeletePlayerFile(playerFileId, response =>
-    {
-        if (response.success)
+        LootLockerSDKManager.DeletePlayer((response) =>
         {
-            done = true;
-            Debug.Log("Successfully deleted player file with id: " + playerFileId);
-        }
-        else
-        {
-            done = true;
-            Debug.Log("Error deleting player file");
-        }
-    });
+
+            if (response.success)
+            {
+                done = true;
+                Debug.Log("Successfully Deleted The Player");
+            }
+            else
+            {
+                done = true;
+                Debug.LogWarning("Failed To Delete Player" + response.errorData);
+            }
+
+        });
         yield return new WaitWhile(() => done == false);
-    }*/
+
+    }
     public IEnumerator ResetButtonNoSaveFileFound()
     {
         noSaveFileFoundText.gameObject.SetActive(true);

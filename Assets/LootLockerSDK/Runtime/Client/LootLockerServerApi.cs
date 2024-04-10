@@ -77,7 +77,7 @@ namespace LootLocker
                 using (UnityWebRequest webRequest = CreateWebRequest(url, request))
                 {
                     webRequest.downloadHandler = new DownloadHandlerBuffer();
-
+                    
                     float startTime = Time.time;
                     bool timedOut = false;
 

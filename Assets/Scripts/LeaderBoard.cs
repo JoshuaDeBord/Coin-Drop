@@ -32,7 +32,7 @@ public class LeaderBoard : MonoBehaviour
             }
             else
             {
-                Debug.Log("Failed" + response.errorData);
+                Debug.LogWarning("Failed" + response.errorData);
                 done = true;
             }
         });
@@ -97,7 +97,7 @@ public class LeaderBoard : MonoBehaviour
             }
             else
             {
-                Debug.Log("Failed" + response.errorData);
+                Debug.LogWarning("Failed" + response.errorData);
                 done = true;
             }
         });

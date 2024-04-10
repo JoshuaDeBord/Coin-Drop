@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);

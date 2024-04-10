@@ -1,20 +1,18 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering.UI;
-using UnityEngine.UI;
 
 public class Cheats : MonoBehaviour
 {
-    public string inputedCheatCode;
+
     public TMP_InputField CheatBox;
     public GameManager gameManager;
     public EventSystemHelper esh;
     public bool cupCoverIsOn = false;
-    public bool spinScreen = false;
-    
+
+
 
     public GameObject safeAreaObject;
     void Start()
@@ -27,30 +25,32 @@ public class Cheats : MonoBehaviour
     {
         if (gameManager.isCheatsUsed == true)
         {
-            if(gameManager.playerData.isCheatsEnabled == false)
+            if (gameManager.playerData.isCheatsEnabled == false)
             {
                 gameManager.playerData.isCheatsEnabled = true;
                 Debug.Log("Cheats are enabled and saved");
+                gameManager.SavePlayer();
             }
         }
 
     }
-    
-    public void PullInputedText()
-    {
-        inputedCheatCode = CheatBox.text.ToLower();
-        Debug.Log("Cheat Code Entered: " + inputedCheatCode);
-        
-        
 
-        if (inputedCheatCode == "give1000")
+    public void PullInputedText(string cheatCodeEntered)
+    {
+
+
+        Debug.Log("Cheat Code Entered: " + cheatCodeEntered);
+
+
+
+        if (cheatCodeEntered == "give1000")
         {
             gameManager.isCheatsUsed = true;
             gameManager.pointsAssign += 1000;
             StartCoroutine(CheatCodeActivate());
         }
-        
-        else if (inputedCheatCode == "pride")
+
+        else if (cheatCodeEntered == "pride")
         {
             if (gameManager.prideIsOn == false)
             {
@@ -66,15 +66,15 @@ public class Cheats : MonoBehaviour
                 StartCoroutine(CheatCodeActivate());
             }
         }
-        
-        else if (inputedCheatCode == "rapidfire")
+
+        else if (cheatCodeEntered == "rapidfire")
         {
             gameManager.isCheatsUsed = true;
             gameManager.rapidSpawn = true;
             StartCoroutine(CheatCodeActivate());
         }
-        
-        else if (inputedCheatCode == "covercups")
+
+        else if (cheatCodeEntered == "covercups")
         {
             if (cupCoverIsOn == false)
             {
@@ -92,26 +92,23 @@ public class Cheats : MonoBehaviour
             }
         }
 
-        else if (inputedCheatCode == "unplayable")
+        else if (cheatCodeEntered.StartsWith("debugscore"))
         {
-            if (spinScreen == false)
-            {
-                gameManager.isCheatsUsed = true;
-                StartCoroutine(CheatCodeActivate());
-                StartCoroutine(gameManager.SpinSafeArea());
-                spinScreen = true;
+            bool failed = false;
+            gameManager.isCheatsUsed = true;
+            try {int scoreSet = Convert.ToInt32(cheatCodeEntered.Substring(11));
+            Debug.Log("Score = " + scoreSet);
+            gameManager.pointsAssign = scoreSet; }
+            catch { StartCoroutine(CheatCodeDelayBadCode());
+                failed = true;
             }
-            else
-            {
-                StartCoroutine(CheatCodeDeactivate());
-                spinScreen = false;
-            }
+
+            if (failed == false)
+            StartCoroutine(CheatCodeActivate());
         }
 
 
-
-
-        else if (inputedCheatCode == "")
+        else if (cheatCodeEntered == "")
         {
 
             StartCoroutine(CheatCodeActivate());
@@ -123,12 +120,15 @@ public class Cheats : MonoBehaviour
             StartCoroutine(CheatCodeDelayBadCode());
         }
 
-        EventSystem.current.SetSelectedGameObject(esh.cheatBoxButtonObject.gameObject);
+        {
+            EventSystem.current.SetSelectedGameObject(esh.cheatBoxButtonObject.gameObject);
 
 #if UNITY_IOS || UNITY_ANDROID
-        esh.CheatBox.transform.localPosition = esh.CheatBoxOGSpawnLocation;
+            esh.CheatBox.transform.localPosition = esh.CheatBoxOGSpawnLocation;
 #endif
+        }
     }
+
 
     public void ResetText()
     {
@@ -161,5 +161,5 @@ public class Cheats : MonoBehaviour
         CheatBox.text = string.Empty;
     }
 
-    
+
 }

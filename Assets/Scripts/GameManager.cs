@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Button dropButton;
     public static PlayerInput PI;
     public Cheats cheats;
+    public TextMeshProUGUI cooldownNumber;
+    public GameObject refreshButtonObject;
 
     public PlayerData playerData;
     public MovingLeftAndRight MovingLAR;
@@ -32,11 +34,12 @@ public class GameManager : MonoBehaviour
     public CheatBoxEnable CheatBoxEnable;
     public int pointsAssign;
     public int totalHighScore;
+    public int Refreshcooldown = 5;
 
     public ScoreCounter scoreCounter;
     [Header("Bools")]
     public bool inMainMenuBool = true;
-
+    public bool isRefreshCooldownActive = false;
     public bool isPaused = true;
     public bool dropButtonPressed = false;
     public bool inSettings = false;
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
     public Button enableCheats;
     public Image cheatsUnabledTextInLeaderboard;
     public TMP_InputField CheatCodeBox;
+    public Animator refreshButtonAnimatior;
 
     public List<GameObject> SpawnedInObjects;
 
@@ -76,8 +80,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Start()
+    private void Start()
     {
+        string path = Application.persistentDataPath + "/player.save";
+        Debug.Log(path);
         string playerID = PlayerPrefs.GetString("PlayerID");
         Debug.Log(playerID);
         try { LoadPLayer(); }
@@ -103,7 +109,7 @@ public class GameManager : MonoBehaviour
         StopCoroutine(StartGameDelay());
     }
 
-    void Update()
+    private void Update()
     {
         movingLARObjectV3 = MovingLAR.gameObject.transform.position;
 
@@ -129,9 +135,10 @@ public class GameManager : MonoBehaviour
         {
             BackSettingsButton.SetActive(false);
         }
-        else BackSettingsButton.SetActive(true);
-
-
+        else
+        {
+            BackSettingsButton.SetActive(true);
+        }
 
         if (objectsInScene > spawnedObjectsMax)
         {
@@ -210,7 +217,7 @@ public class GameManager : MonoBehaviour
         inMainMenuBool = true;
 
 
-        StartCoroutine(respawnCoin.ClearObjectsFromLists());
+        _ = StartCoroutine(respawnCoin.ClearObjectsFromLists());
 
     }
 
@@ -221,6 +228,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToLeaderboard()
     {
+        Time.timeScale = 1f;
         inLeaderboard = true;
         LeaderboardPanel.SetActive(true);
         MainMenuPanel.SetActive(false);
@@ -246,10 +254,52 @@ public class GameManager : MonoBehaviour
             RefreshLeaderBoard();
         }
     }
+    
     public void RefreshLeaderBoard()
     {
+        if (isRefreshCooldownActive == false)
+        {
+            foreach (TextMeshProUGUI tmp in LeaderBoard.playerNames)
+            {
+                tmp.text = string.Empty;
+            }
+            foreach (TextMeshProUGUI tmp in LeaderBoard.playerScores)
+            {
+                tmp.text = string.Empty;
+            }
+            LeaderBoard.namesText.text = "Loading...";
+            LeaderBoard.scoresText.text = "Loading...";
+            LeaderBoard.highScoretext.text = string.Empty;
+            LeaderBoard.personalScore.text = string.Empty;
+            LeaderBoard.personalName.text = string.Empty;
 
-        StartCoroutine(LeaderBoard.FetchTopHighscoresRoutine());
+            cooldownNumber.gameObject.SetActive(true);
+            isRefreshCooldownActive = true;
+            refreshButtonAnimatior.SetTrigger("refreshspin");
+            StartCoroutine(RefreshCoolDown());
+            
+            StartCoroutine(LeaderBoard.FetchTopHighscoresRoutine());
+        }
+    }
+    IEnumerator RefreshCoolDown()
+    {
+        while (isRefreshCooldownActive == true)
+        {
+            yield return new WaitForSeconds(1);
+            
+            Refreshcooldown--;
+            cooldownNumber.text = Refreshcooldown.ToString();
+
+            if (Refreshcooldown == 0)
+            {
+                
+                Refreshcooldown = 5;
+                cooldownNumber.text = "5";
+                isRefreshCooldownActive = false;
+                cooldownNumber.gameObject.SetActive(false);
+                break;
+            }
+        }
     }
 
     public void OpenSettingsConsole(InputAction.CallbackContext context)
@@ -296,6 +346,10 @@ public class GameManager : MonoBehaviour
 #if UNITY_WSA || UNITY_PS4
             StopCoroutine(FlashInputFieldXSquare());
 #endif
+            refreshButtonAnimatior.playbackTime = 0;
+            refreshButtonAnimatior.StopPlayback();
+            refreshButtonObject.transform.rotation = Quaternion.identity;
+            
             inLeaderboard = false;
             LeaderboardPanel.SetActive(false);
             MainMenuPanel.SetActive(true);
@@ -418,7 +472,7 @@ public class GameManager : MonoBehaviour
         else if (rapidSpawn == true && modelSelected == 1)
         {
             Debug.Log("Coin Spawned");
-            StartCoroutine(RapidSpawn());
+            _ = StartCoroutine(RapidSpawn());
         }
 
 
@@ -436,7 +490,7 @@ public class GameManager : MonoBehaviour
         else if (rapidSpawn == true && modelSelected == 2)
         {
             Debug.Log("Coin Spawned");
-            StartCoroutine(RapidSpawn());
+            _ = StartCoroutine(RapidSpawn());
         }
 
 
@@ -490,7 +544,7 @@ public class GameManager : MonoBehaviour
         }
         else if (!File.Exists(path) || settingIsChanged == false)
         {
-            StartCoroutine(ResetButtonNoSaveFileFound());
+            _ = StartCoroutine(ResetButtonNoSaveFileFound());
         }
     }
     public IEnumerator DeletePlayerRoutine()
@@ -549,7 +603,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(InsufficientFunds());
+            _ = StartCoroutine(InsufficientFunds());
         }
 
     }
@@ -574,7 +628,11 @@ public class GameManager : MonoBehaviour
             SphereText.SetText("TOGGLE");
 
         }
-        else SphereText.SetText("200");
+        else
+        {
+            SphereText.SetText("200");
+        }
+
         StopCoroutine(InsufficientFunds());
     }
 
@@ -592,7 +650,9 @@ public class GameManager : MonoBehaviour
             else if (prideIsOn == false)
             {
                 foreach (GameObject obj in SpawnedInObjects)
+                {
                     obj.GetComponent<Light>().color = Color.HSVToRGB(0.15f, 1f, .5f);
+                }
             }
             yield return new WaitForSeconds(0.01f);
         }

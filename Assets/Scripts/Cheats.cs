@@ -15,13 +15,13 @@ public class Cheats : MonoBehaviour
 
 
     public GameObject safeAreaObject;
-    void Start()
+
+    private void Start()
     {
 
     }
 
-
-    void Update()
+    private void Update()
     {
         if (gameManager.isCheatsUsed == true)
         {
@@ -96,15 +96,22 @@ public class Cheats : MonoBehaviour
         {
             bool failed = false;
             gameManager.isCheatsUsed = true;
-            try {int scoreSet = Convert.ToInt32(cheatCodeEntered.Substring(11));
-            Debug.Log("Score = " + scoreSet);
-            gameManager.pointsAssign = scoreSet; }
-            catch { StartCoroutine(CheatCodeDelayBadCode());
+            try
+            {
+                int scoreSet = Convert.ToInt32(cheatCodeEntered[11..]);
+                Debug.Log("Score = " + scoreSet);
+                gameManager.pointsAssign = scoreSet;
+            }
+            catch
+            {
+                StartCoroutine(CheatCodeDelayBadCode());
                 failed = true;
             }
 
             if (failed == false)
-            StartCoroutine(CheatCodeActivate());
+            {
+                StartCoroutine(CheatCodeActivate());
+            }
         }
 
 

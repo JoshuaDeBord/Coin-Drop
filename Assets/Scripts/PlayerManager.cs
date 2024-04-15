@@ -50,7 +50,6 @@ public class PlayerManager : MonoBehaviour
     {
         yield return LoginRoutine();
         yield return leaderBoard.FetchTopHighscoresRoutine();
-
     }
 
 

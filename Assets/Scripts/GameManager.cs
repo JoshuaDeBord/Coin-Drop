@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI noSaveFileFoundText;
     public TMP_InputField nameInputField;
     public Button dropButton;
-    public static PlayerInput PI;
+    public PlayerInput PI;
     public Cheats cheats;
     public TextMeshProUGUI cooldownNumber;
     public GameObject refreshButtonObject;
@@ -30,13 +30,26 @@ public class GameManager : MonoBehaviour
     public MovingLeftAndRight MovingLAR;
     public ShopPoints ShopPoints;
     public RespawnCoin RespawnCoin;
-    public LeaderBoard LeaderBoard;
+
+    public ClassicGamemodeLeaderboard Classicleaderboard;
+    public TimedGamemodeLeaderboard TimedLeaderboard;
+    public BombsGamemodeLeaderboard BombsLeaderboard;
+    public GameModesController gameModesController;
+    public Timer timedTimer;
+    public GameObject TimedTimerSettingsPopup;
+
+
     public CheatBoxEnable CheatBoxEnable;
-    public int pointsAssign;
+
+    public int classicSavedPoints; //these points are saved
+    public int timedSavedPoints; //this is not saved
+    public int bombsSavedPoints; //this is not saved
+
     public int totalHighScore;
     public int Refreshcooldown = 5;
 
     public ScoreCounter scoreCounter;
+
     [Header("Bools")]
     public bool inMainMenuBool = true;
     public bool isRefreshCooldownActive = false;
@@ -109,6 +122,7 @@ public class GameManager : MonoBehaviour
         StopCoroutine(StartGameDelay());
     }
 
+
     private void Update()
     {
         movingLARObjectV3 = MovingLAR.gameObject.transform.position;
@@ -134,6 +148,7 @@ public class GameManager : MonoBehaviour
         if (inMainMenuBool == true)
         {
             BackSettingsButton.SetActive(false);
+            Time.timeScale = 1;
         }
         else
         {
@@ -147,9 +162,14 @@ public class GameManager : MonoBehaviour
 
         }
 
+        if (gameModesController.chosenGamemode == 0)
+            scoreCounter.score = classicSavedPoints;
+        if (gameModesController.chosenGamemode == 1)
+            scoreCounter.score = timedSavedPoints;
+        if (gameModesController.chosenGamemode == 2)
+            scoreCounter.score = bombsSavedPoints;
 
 
-        scoreCounter.score = pointsAssign;
 
 
 
@@ -254,31 +274,33 @@ public class GameManager : MonoBehaviour
             RefreshLeaderBoard();
         }
     }
-    
+
     public void RefreshLeaderBoard()
     {
         if (isRefreshCooldownActive == false)
         {
-            foreach (TextMeshProUGUI tmp in LeaderBoard.playerNames)
+            foreach (TextMeshProUGUI tmp in Classicleaderboard.classicPlayerNames)
             {
                 tmp.text = string.Empty;
             }
-            foreach (TextMeshProUGUI tmp in LeaderBoard.playerScores)
+            foreach (TextMeshProUGUI tmp in Classicleaderboard.ClassicPlayerScores)
             {
                 tmp.text = string.Empty;
             }
-            LeaderBoard.namesText.text = "Loading...";
-            LeaderBoard.scoresText.text = "Loading...";
-            LeaderBoard.highScoretext.text = string.Empty;
-            LeaderBoard.personalScore.text = string.Empty;
-            LeaderBoard.personalName.text = string.Empty;
+            Classicleaderboard.ClassicNamesText.text = "Loading...";
+            Classicleaderboard.ClssicScoresText.text = "Loading...";
+            Classicleaderboard.ClassicHighScoretext.text = string.Empty;
+            Classicleaderboard.ClassicPersonalScore.text = string.Empty;
+            Classicleaderboard.ClassicPersonalName.text = string.Empty;
 
             cooldownNumber.gameObject.SetActive(true);
             isRefreshCooldownActive = true;
             refreshButtonAnimatior.SetTrigger("refreshspin");
             StartCoroutine(RefreshCoolDown());
-            
-            StartCoroutine(LeaderBoard.FetchTopHighscoresRoutine());
+
+            StartCoroutine(Classicleaderboard.FetchTopHighscoresRoutine());
+            StartCoroutine(TimedLeaderboard.FetchTopHighscoresRoutine());
+            StartCoroutine(BombsLeaderboard.FetchTopHighscoresRoutine());
         }
     }
     IEnumerator RefreshCoolDown()
@@ -286,13 +308,13 @@ public class GameManager : MonoBehaviour
         while (isRefreshCooldownActive == true)
         {
             yield return new WaitForSeconds(1);
-            
+
             Refreshcooldown--;
             cooldownNumber.text = Refreshcooldown.ToString();
 
             if (Refreshcooldown == 0)
             {
-                
+
                 Refreshcooldown = 5;
                 cooldownNumber.text = "5";
                 isRefreshCooldownActive = false;
@@ -304,8 +326,13 @@ public class GameManager : MonoBehaviour
 
     public void OpenSettingsConsole(InputAction.CallbackContext context)
     {
-        OpenSettings();
-        EventSystem.current.SetSelectedGameObject(settingsOption1);
+        if (gameModesController.timerStarted == false)
+        {
+            OpenSettings();
+            EventSystem.current.SetSelectedGameObject(settingsOption1);
+            PauseGame();
+            EventSystem.current.SetSelectedGameObject(GameObject.Find("HIGH GRAVITY BUTTON"));
+        }
     }
     public void OpenSettings()
     {
@@ -314,6 +341,12 @@ public class GameManager : MonoBehaviour
         inSettings = true;
     }
 
+    public IEnumerator OpenSettingsPopUp()
+    {
+        TimedTimerSettingsPopup.SetActive(true);
+        yield return new WaitForSeconds(2);
+        TimedTimerSettingsPopup.SetActive(false);
+    }
     public void GoBack()
     {
         if (inSettings == true && inMainMenuBool == false)
@@ -325,6 +358,7 @@ public class GameManager : MonoBehaviour
             PI.SwitchCurrentActionMap("Player");
             UnPauseGame();
             InMainGame();
+            TimedTimerSettingsPopup.SetActive(false);
         }
         if (inShop == true)
         {
@@ -349,7 +383,7 @@ public class GameManager : MonoBehaviour
             refreshButtonAnimatior.playbackTime = 0;
             refreshButtonAnimatior.StopPlayback();
             refreshButtonObject.transform.rotation = Quaternion.identity;
-            
+
             inLeaderboard = false;
             LeaderboardPanel.SetActive(false);
             MainMenuPanel.SetActive(true);
@@ -513,12 +547,13 @@ public class GameManager : MonoBehaviour
 
             gainedSkins = data.gainedSkins;
 
-            pointsAssign = data.pointsAssign;
+            classicSavedPoints = data.classicSavedPoints;
+
 
             totalHighScore = data.highScore;
 
             isCheatsUsed = data.isCheatsEnabled;
-            Debug.Log($"loaded save Points: {pointsAssign}");
+            Debug.Log($"loaded save Points for Classic gamemode: {classicSavedPoints}");
 
 
             gainedSkins = data.gainedSkins;
@@ -584,7 +619,10 @@ public class GameManager : MonoBehaviour
     {
         if (sphereGained == false && ShopPoints.TotalPoints >= 200)
         {
-            pointsAssign -= 200;
+            if (gameModesController.chosenGamemode == 0)
+                classicSavedPoints -= 200;
+
+
             Debug.Log("Pentagon has been bought from the shop. 200 points reducted");
             sphereGained = true;
             SphereText.text = "TOGGLE";

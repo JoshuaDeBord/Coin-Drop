@@ -12,6 +12,7 @@ public class ShopPoints : MonoBehaviour
     public GameManager gameManager;
     public int TotalPoints = 0;
     public string TPointsText;
+    public GameModesController gameModeController;
 
 
     void Start()
@@ -24,7 +25,10 @@ public class ShopPoints : MonoBehaviour
     {
         TPointsText = TotalPoints.ToString("N0");
 
-        TotalPoints = gameManager.pointsAssign;
+        if (gameModeController.chosenGamemode == 0)
+        TotalPoints = gameManager.classicSavedPoints;
+        
+
         TPoints.text = $"Total Points: \n{TPointsText}";    
         Debug.Log("Points assigned to shop");
 

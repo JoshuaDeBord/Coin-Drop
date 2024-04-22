@@ -7,7 +7,9 @@ using LootLocker;
 
 public class PlayerManager : MonoBehaviour
 {
-    public LeaderBoard leaderBoard;
+    public ClassicGamemodeLeaderboard classicLeaderBoard;
+    public TimedGamemodeLeaderboard timedLeaderBoard;
+    public BombsGamemodeLeaderboard bombsLeaderBoard;
     public TMP_InputField playerNameInputField;
     protected string PlayerName;
     public string[] badWords;
@@ -49,7 +51,9 @@ public class PlayerManager : MonoBehaviour
     IEnumerator SetupRoutine()
     {
         yield return LoginRoutine();
-        yield return leaderBoard.FetchTopHighscoresRoutine();
+        yield return classicLeaderBoard.FetchTopHighscoresRoutine();
+        yield return timedLeaderBoard.FetchTopHighscoresRoutine();
+        yield return bombsLeaderBoard.FetchTopHighscoresRoutine();
     }
 
 

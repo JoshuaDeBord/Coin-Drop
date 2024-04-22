@@ -6,8 +6,10 @@ using System.Collections.Generic;
 [System.Serializable]
 public class PlayerData
 {
-    
-    public int pointsAssign; // Cuurent Score
+
+    public int classicSavedPoints;
+    public int timedSavedPoints;
+    public int bombsSavedPoints;
     public int highScore;
     public bool gainedSkins;
     public bool settingsChanged = false;
@@ -18,9 +20,14 @@ public class PlayerData
     public PlayerData(ScoreCounter scoreCounter, GameManager gameManager)
     {
         settingsChanged = gameManager.settingIsChanged;
-        pointsAssign = gameManager.pointsAssign;
+
+        classicSavedPoints = gameManager.classicSavedPoints;
+        
+
         highScore = gameManager.totalHighScore;
+
         gainedSkins = gameManager.gainedSkins;
+
         isCheatsEnabled = gameManager.isCheatsUsed;
         
     }

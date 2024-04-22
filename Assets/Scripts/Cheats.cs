@@ -11,7 +11,7 @@ public class Cheats : MonoBehaviour
     public GameManager gameManager;
     public EventSystemHelper esh;
     public bool cupCoverIsOn = false;
-
+    public GameModesController gameModeController;
 
 
     public GameObject safeAreaObject;
@@ -46,7 +46,10 @@ public class Cheats : MonoBehaviour
         if (cheatCodeEntered == "give1000")
         {
             gameManager.isCheatsUsed = true;
-            gameManager.pointsAssign += 1000;
+            
+            if (gameModeController.chosenGamemode == 0)
+                gameManager.classicSavedPoints += 1000;
+
             StartCoroutine(CheatCodeActivate());
         }
 
@@ -100,7 +103,10 @@ public class Cheats : MonoBehaviour
             {
                 int scoreSet = Convert.ToInt32(cheatCodeEntered[11..]);
                 Debug.Log("Score = " + scoreSet);
-                gameManager.pointsAssign = scoreSet;
+
+                if (gameModeController.chosenGamemode == 0)
+                    gameManager.classicSavedPoints = scoreSet;
+                
             }
             catch
             {

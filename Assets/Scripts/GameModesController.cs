@@ -1,6 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameModesController : MonoBehaviour
 {
@@ -9,4 +11,91 @@ public class GameModesController : MonoBehaviour
 
     [Header("GameObjects")]
     public GameObject[] mainMenuButtons;
+    public GameObject gamemodeChooser;
+    public GameObject backButton;
+    public GameObject timer;
+    public GameObject startButton;
+    public GameObject dropButton;
+    public GameObject restartButton;
+    public Button settingsButton;
+
+    [Header("Text Objects")]
+    public TextMeshProUGUI mainmenuTitle;
+
+    [Header("Booleons")]
+    public bool timerStarted = false;
+
+    [Header("integers")]
+    public int chosenGamemode = 0;
+
+    private void Update()
+    {
+        if (gamemodeChooser.gameObject.activeInHierarchy == true)
+        {
+            mainmenuTitle.text = "Game Modes";
+        }
+        else mainmenuTitle.text = "Coin Dropper";
+
+        if (chosenGamemode == 1 && timerStarted == true)
+        {
+            dropButton.GetComponent<Button>().interactable = true;
+        }
+        
+        if (timerStarted == true)
+        {
+            settingsButton.interactable = false;
+        } else if (chosenGamemode == 1)
+        {
+            settingsButton.interactable = true;
+        }
+    }
+
+    public void ToggleGameModeChooser(bool toggleGamemodeScreen)
+    {
+        foreach (GameObject button in mainMenuButtons)
+        {
+            button.SetActive(!toggleGamemodeScreen);
+        }
+        gamemodeChooser.SetActive(toggleGamemodeScreen);
+
+
+    }
+
+
+    public void PlayGame(int gameMode)
+    {
+        StartCoroutine(LoadGameMode(gameMode));
+    }
+
+    public IEnumerator LoadGameMode(int gameMode)
+    {
+        chosenGamemode = gameMode;
+
+        //waits a second before executing everything past this
+        yield return new WaitForSeconds(1);
+
+        gameManager.MainGamePanel.SetActive(true);
+        gameManager.InMainGame();
+        gameManager.UnPauseGame();
+        gameManager.MainMenuPanel.SetActive(false);
+        gameManager.PI.SwitchCurrentActionMap("Player");
+
+        if (gameMode == 0) //classic gamemode
+        {
+            startButton.SetActive(false);
+            timer.SetActive(false);
+            dropButton.SetActive(true);
+            restartButton.SetActive(true);
+        }
+        else if (gameMode == 1) //timed gamemode
+        {
+            startButton.SetActive(true);
+            timer.SetActive(true);
+            dropButton.SetActive(false);
+            restartButton.SetActive(false);
+
+        }
+    }
 }
+
+

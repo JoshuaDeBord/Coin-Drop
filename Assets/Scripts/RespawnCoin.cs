@@ -13,7 +13,8 @@ public class RespawnCoin : MonoBehaviour
     public Transform CoinMain;
     public PrideColorLoop DropTheCoin;
     public GameManager gameManager;
-    public LeaderBoard leaderBoard;
+    public TimedGamemodeLeaderboard leaderBoard;
+    public GameModesController gameModeController;
     public Cheats cheats;
     private MovingLeftAndRight MovingLAR;
     public PrideColorLoop PCL;
@@ -31,8 +32,11 @@ public class RespawnCoin : MonoBehaviour
 
     public void RespawnTheCoinCall(InputAction.CallbackContext context)
     {
-        RestartGame();
-        MovingLAR.rightLeftPressed = false;
+        if (gameModeController.chosenGamemode < 0)
+        {
+            RestartGame();
+            MovingLAR.rightLeftPressed = false;
+        }
     }
 
 
@@ -87,7 +91,7 @@ public class RespawnCoin : MonoBehaviour
 
             /*if (gameManager.pointsAssign > 0 && gameManager.isCheatsUsed == false)
             {
-                StartCoroutine(leaderBoard.SubmitScoreRoutine(gameManager.totalHighScore));
+                StartCoroutine(classicLeaderBoard.SubmitScoreRoutine(gameManager.totalHighScore));
             }*/
         }
 
@@ -100,7 +104,7 @@ public class RespawnCoin : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
         }
 
-        StartCoroutine(RemoveWait(1f));
+        StartCoroutine(RemoveWait(0.3f));
 
         if (gameManager.rapidSpawn == false)
         {

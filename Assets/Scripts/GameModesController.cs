@@ -8,6 +8,7 @@ public class GameModesController : MonoBehaviour
 {
     [Header("Script Links")]
     public GameManager gameManager;
+    private BombsGamemodeController bombsGamemodeController;
 
     [Header("GameObjects")]
     public GameObject[] mainMenuButtons;
@@ -28,6 +29,10 @@ public class GameModesController : MonoBehaviour
     [Header("integers")]
     public int chosenGamemode = 0;
 
+    private void Start()
+    {
+        bombsGamemodeController = this.GetComponent<BombsGamemodeController>();
+    }
     private void Update()
     {
         if (gamemodeChooser.gameObject.activeInHierarchy == true)
@@ -36,15 +41,16 @@ public class GameModesController : MonoBehaviour
         }
         else mainmenuTitle.text = "Coin Dropper";
 
-        if (chosenGamemode == 1 && timerStarted == true)
+        if (chosenGamemode == 1)
         {
             dropButton.GetComponent<Button>().interactable = true;
         }
-        
-        if (timerStarted == true)
+
+        if (timerStarted == true && chosenGamemode == 1)
         {
             settingsButton.interactable = false;
-        } else if (chosenGamemode == 1)
+        }
+        else if (chosenGamemode == 1)
         {
             settingsButton.interactable = true;
         }
@@ -57,10 +63,7 @@ public class GameModesController : MonoBehaviour
             button.SetActive(!toggleGamemodeScreen);
         }
         gamemodeChooser.SetActive(toggleGamemodeScreen);
-
-
     }
-
 
     public void PlayGame(int gameMode)
     {
@@ -80,20 +83,29 @@ public class GameModesController : MonoBehaviour
         gameManager.MainMenuPanel.SetActive(false);
         gameManager.PI.SwitchCurrentActionMap("Player");
 
-        if (gameMode == 0) //classic gamemode
+        if (chosenGamemode == 0) //classic gamemode
         {
             startButton.SetActive(false);
             timer.SetActive(false);
             dropButton.SetActive(true);
             restartButton.SetActive(true);
         }
-        else if (gameMode == 1) //timed gamemode
+        else if (chosenGamemode == 1) //timed gamemode
         {
             startButton.SetActive(true);
             timer.SetActive(true);
             dropButton.SetActive(false);
             restartButton.SetActive(false);
 
+        }
+        else if (chosenGamemode == 2)
+        {
+            startButton.SetActive(true);
+            timer.SetActive(false);
+            dropButton.SetActive(false);
+            restartButton.SetActive(true);
+            bombsGamemodeController.StartGamemode();
+            
         }
     }
 }

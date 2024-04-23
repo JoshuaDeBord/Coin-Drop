@@ -30,14 +30,13 @@ public class GameManager : MonoBehaviour
     public MovingLeftAndRight MovingLAR;
     public ShopPoints ShopPoints;
     public RespawnCoin RespawnCoin;
-
     public ClassicGamemodeLeaderboard Classicleaderboard;
     public TimedGamemodeLeaderboard TimedLeaderboard;
     public BombsGamemodeLeaderboard BombsLeaderboard;
     public GameModesController gameModesController;
     public Timer timedTimer;
     public GameObject TimedTimerSettingsPopup;
-
+    public Timer timer;
 
     public CheatBoxEnable CheatBoxEnable;
 
@@ -436,15 +435,20 @@ public class GameManager : MonoBehaviour
     {
         dropButtonHeldDown = false;
     }
+
+    
     public void DropCoinCall(InputAction.CallbackContext context)
     {
+        if (gameModesController.chosenGamemode > 0 && gameModesController.timerStarted == false)
+        {
+            timer.StartTimer(60);
+        }
         if (context.performed == true)
         {
             dropButtonHeldDown = true;
             DropCoin();
         }
         else { dropButtonHeldDown = false; }
-
     }
 
     public void ClearSpawned()

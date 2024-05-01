@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,29 +17,36 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
     public void StartTimer(int timeToSet)
     {
-        seconds = timeToSet;
-        controller.timerStarted = true;
-        StartCoroutine(CountdownTimer());
-        startbutton.gameObject.SetActive(false);
+        if (controller.chosenGamemode == 1)
+        {
+            seconds = timeToSet;
+            controller.timerStarted = true;
+            StartCoroutine(CountdownTimer());
+            startbutton.gameObject.SetActive(false);
+            countdownTMP.text = "1:00";
+            controller.dropButton.gameObject.SetActive(true);
+            manager.DropCoin();
+        }
+    }
+
+    public void resetTimerAndScore()
+    {
         countdownTMP.text = "1:00";
-        controller.dropButton.gameObject.SetActive(true);
-        manager.DropCoin();
-        
     }
 
     public IEnumerator CountdownTimer()
     {
         while (true)
         {
-            
+
             yield return new WaitForSeconds(1);
             seconds--;
             if (seconds > 9)
-            countdownTMP.text = "0:" + seconds.ToString();
+                countdownTMP.text = "0:" + seconds.ToString();
 
             else countdownTMP.text = "0:0" + seconds.ToString();
 
@@ -49,12 +55,11 @@ public class Timer : MonoBehaviour
                 controller.timerStarted = false;
                 leftButton.gameObject.SetActive(false);
                 rightButton.gameObject.SetActive(false);
-                
-                respawnCoin.RestartGame();
-                
-                finishcontroller.OpenScoreBoard();
+
+
+                finishcontroller.OpenTimedFinishBoard();
                 break;
             }
-        } 
+        }
     }
 }

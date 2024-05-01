@@ -12,15 +12,19 @@ public class GamemodeFinishController : MonoBehaviour
     public int finalScore = 0;
     public int rankOnLeaderboard = 0;
 
-    string TimedLeaderBoardKey = "TimedKey";
+    const string TimedLeaderBoardKey = "TimedKey";
+    const string BombLeaderBoardKey = "BombKey";
 
     public TextMeshProUGUI information;
 
     public GameObject informationScreen;
 
+    
     public GameModesController gameModeController;
     public GameManager gameManager;
+    public BombsGamemodeController bombsGamemodeController;
     public Timer timer;
+    public RespawnCoin respawnCoin;
 
     public ParticleSystem[] finishParticles;
 
@@ -35,50 +39,77 @@ public class GamemodeFinishController : MonoBehaviour
 
     }
 
-    public void OpenScoreBoard()
+    private void Update()
     {
-        StartCoroutine(OpenBoard());
+        if (gameModeController.chosenGamemode == 1 && gameModeController.timerStarted == false || gameModeController.chosenGamemode == 2 && informationScreen.activeInHierarchy == true)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+        }
+    }
+
+    public void OpenBombsFinishBoard()
+    {
+        StartCoroutine(OpenBombsBoard());
+    }
+    public void OpenTimedFinishBoard()
+    {
+        StartCoroutine(OpenTimedBoard());
 
     }
 
-    public IEnumerator OpenBoard()
+    public IEnumerator OpenTimedBoard()
     {
-        yield return GetPlayerHighScore();
+        yield return GetPlayerTimedHighScore();
     }
 
-    public void CloseScoreBoard()
+    public IEnumerator OpenBombsBoard()
     {
-
-        numberOf5 = new();
-        numberOf10 = new();
-        numberOf15 = new();
-        numberOf20 = new();
-        rankOnLeaderboard = new();
-        finalScore = new();
-        information.text = FinalInformation();
-        informationScreen.SetActive(false);
-        Restart();
+        yield return GetPlayerBombHighScore();
     }
 
-    public void Restart()
+
+    public void RestartGamemode()
     {
-        numberOf5 = new();
-        numberOf10 = new();
-        numberOf15 = new();
-        numberOf20 = new();
-        rankOnLeaderboard = new();
-        finalScore = new();
-        information.text = FinalInformation();
-        gameManager.timedSavedPoints = 0;
-        timer.countdownTMP.text = "1:00";
-        timer.seconds = 60;
-        timer.controller.timerStarted = false;
-        timer.leftButton.gameObject.SetActive(true);
-        timer.rightButton.gameObject.SetActive(true);
-        timer.startbutton.gameObject.SetActive(true);
-
+        if (gameModeController.chosenGamemode == 2)
+        {
+            bombsGamemodeController.livesLeft = 3;
+            bombsGamemodeController.livesLeftText.text = "3     left";
+            informationScreen.SetActive(false);
+            numberOf5 = new();
+            numberOf10 = new();
+            numberOf15 = new();
+            numberOf20 = new();
+            rankOnLeaderboard = new();
+            finalScore = new();
+            information.text = FinalInformation();
+            gameManager.bombsSavedPoints = 0;
+            timer.leftButton.gameObject.SetActive(true);
+            timer.rightButton.gameObject.SetActive(true);
+            timer.startbutton.gameObject.SetActive(true);
+            respawnCoin.RestartGame();
+            bombsGamemodeController.StartGamemode();
+        }
+        else if (gameModeController.chosenGamemode == 1)
+        {
+            informationScreen.SetActive(false);
+            numberOf5 = new();
+            numberOf10 = new();
+            numberOf15 = new();
+            numberOf20 = new();
+            rankOnLeaderboard = new();
+            finalScore = new();
+            information.text = FinalInformation();
+            gameManager.timedSavedPoints = 0;
+            timer.countdownTMP.text = "1:00";
+            timer.seconds = 60;
+            timer.controller.timerStarted = false;
+            timer.leftButton.gameObject.SetActive(true);
+            timer.rightButton.gameObject.SetActive(true);
+            timer.startbutton.gameObject.SetActive(true);
+            respawnCoin.RestartGame();
+        }
     }
-
 
     public void Add5()
     {
@@ -101,7 +132,39 @@ public class GamemodeFinishController : MonoBehaviour
             numberOf20++;
     }
 
-    public IEnumerator GetPlayerHighScore()
+    public IEnumerator GetPlayerBombHighScore()
+    {
+        bool done = false;
+
+        string playerID = PlayerPrefs.GetString("PlayerID");
+        LootLockerSDKManager.GetMemberRank(BombLeaderBoardKey, playerID, (response) =>
+        {
+            if (response.success)
+            {
+                Debug.Log("Successfully retrieved player's highscore!");
+
+                rankOnLeaderboard = response.rank;
+                finalScore = gameManager.bombsSavedPoints;
+                information.text = FinalInformation();
+                informationScreen.SetActive(true);
+
+                foreach (ParticleSystem particle in finishParticles)
+                {
+                    particle.Play();
+                }
+            }
+
+
+            else
+            {
+                Debug.LogWarning("Failed to retrieve player's rank!");
+                done = true;
+            }
+        });
+        yield return new WaitWhile(() => done == false);
+    }
+
+    public IEnumerator GetPlayerTimedHighScore()
     {
         bool done = false;
 
@@ -117,7 +180,7 @@ public class GamemodeFinishController : MonoBehaviour
                 information.text = FinalInformation();
                 informationScreen.SetActive(true);
 
-                foreach(ParticleSystem particle in finishParticles)
+                foreach (ParticleSystem particle in finishParticles)
                 {
                     particle.Play();
                 }

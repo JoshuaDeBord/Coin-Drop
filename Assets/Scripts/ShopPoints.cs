@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 
 using UnityEngine;
@@ -25,11 +23,10 @@ public class ShopPoints : MonoBehaviour
     {
         TPointsText = TotalPoints.ToString("N0");
 
-        if (gameModeController.chosenGamemode == 0)
         TotalPoints = gameManager.classicSavedPoints;
-        
 
-        TPoints.text = $"Total Points: \n{TPointsText}";    
+
+        TPoints.text = $"Total Points: \n{TPointsText}";
         Debug.Log("Points assigned to shop");
 
     }

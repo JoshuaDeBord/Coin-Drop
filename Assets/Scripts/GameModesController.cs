@@ -9,6 +9,7 @@ public class GameModesController : MonoBehaviour
     [Header("Script Links")]
     public GameManager gameManager;
     private BombsGamemodeController bombsGamemodeController;
+    
 
     [Header("GameObjects")]
     public GameObject[] mainMenuButtons;
@@ -19,6 +20,8 @@ public class GameModesController : MonoBehaviour
     public GameObject dropButton;
     public GameObject restartButton;
     public Button settingsButton;
+    public GameObject livesLeftObj;
+    
 
     [Header("Text Objects")]
     public TextMeshProUGUI mainmenuTitle;
@@ -28,7 +31,7 @@ public class GameModesController : MonoBehaviour
 
     [Header("integers")]
     public int chosenGamemode = 0;
-
+    
     private void Start()
     {
         bombsGamemodeController = this.GetComponent<BombsGamemodeController>();
@@ -41,7 +44,7 @@ public class GameModesController : MonoBehaviour
         }
         else mainmenuTitle.text = "Coin Dropper";
 
-        if (chosenGamemode == 1)
+        if (chosenGamemode > 0)
         {
             dropButton.GetComponent<Button>().interactable = true;
         }
@@ -89,6 +92,8 @@ public class GameModesController : MonoBehaviour
             timer.SetActive(false);
             dropButton.SetActive(true);
             restartButton.SetActive(true);
+            livesLeftObj.SetActive(false);
+            bombsGamemodeController.ResetPinsColors();
         }
         else if (chosenGamemode == 1) //timed gamemode
         {
@@ -96,16 +101,27 @@ public class GameModesController : MonoBehaviour
             timer.SetActive(true);
             dropButton.SetActive(false);
             restartButton.SetActive(false);
+            livesLeftObj.SetActive(false);
+            bombsGamemodeController.ResetPinsColors();
 
         }
-        else if (chosenGamemode == 2)
+        else if (chosenGamemode == 2) //bombs gamemode
         {
             startButton.SetActive(true);
             timer.SetActive(false);
             dropButton.SetActive(false);
-            restartButton.SetActive(true);
+            restartButton.SetActive(false);
+            livesLeftObj.SetActive(true);
             bombsGamemodeController.StartGamemode();
             
+        }
+    }
+    public void StartButtonBombGamemode()
+    {
+        if (chosenGamemode == 2)
+        {
+            startButton.gameObject.SetActive(false);
+            dropButton.gameObject.SetActive(true);
         }
     }
 }

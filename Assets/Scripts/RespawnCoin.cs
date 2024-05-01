@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,6 +12,7 @@ public class RespawnCoin : MonoBehaviour
     public GameManager gameManager;
     public TimedGamemodeLeaderboard leaderBoard;
     public GameModesController gameModeController;
+    public BombsGamemodeController bombsGamemodeController;
     public Cheats cheats;
     private MovingLeftAndRight MovingLAR;
     public PrideColorLoop PCL;
@@ -61,9 +59,25 @@ public class RespawnCoin : MonoBehaviour
         gameManager.SpawnedInObjects.Clear();
     }
 
+    public void ToggleCoinsOn(bool toggleObjectsActive, bool toggleDropButtonPressed)
+    {
+        gameManager.dropButtonPressed = toggleDropButtonPressed;
+
+        if (gameManager.modelSelected == 1 && gameManager.inMainMenuBool == false)
+        {
+            gameManager.modelSelectedInScene[0].SetActive(toggleObjectsActive);
+        }
+        else if (gameManager.modelSelected == 2 && gameManager.inMainMenuBool == false)
+        {
+            gameManager.modelSelectedInScene[1].SetActive(toggleObjectsActive);
+        }
+
+    }
 
     public void RestartGame()
     {
+
+
         MovingLAR.rightLeftPressed = false;
         try
         {
@@ -79,29 +93,23 @@ public class RespawnCoin : MonoBehaviour
             if (gameManager.modelSelected == 1 && gameManager.inMainMenuBool == false)
             {
                 gameManager.modelSelectedInScene[0].SetActive(true);
-
             }
             else if (gameManager.modelSelected == 2 && gameManager.inMainMenuBool == false)
             {
                 gameManager.modelSelectedInScene[1].SetActive(true);
-
             }
-
-            
-
-            /*if (gameManager.pointsAssign > 0 && gameManager.isCheatsUsed == false)
-            {
-                StartCoroutine(classicLeaderBoard.SubmitScoreRoutine(gameManager.totalHighScore));
-            }*/
         }
 
-        foreach (GameObject obj in gameManager.SpawnedInObjects)
+        if (gameModeController.chosenGamemode == 0)
         {
-            Destroy(obj);
-            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
-            Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            foreach (GameObject obj in gameManager.SpawnedInObjects)
+            {
+                Destroy(obj);
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+                Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
+            }
         }
 
         StartCoroutine(RemoveWait(0.3f));
@@ -120,35 +128,6 @@ public class RespawnCoin : MonoBehaviour
 
 
         Debug.Log("Coin Reseted");
-        /*CoinMain.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        try
-        {
-            CoinMain.GetComponent<Rigidbody>().useGravity = false;
-            transform.position = respawnPos;
-            gameManager.modelSelect[0].transform.localPosition = new Vector3(0, 0, 0);
-            gameManager.rbCoin[0].constraints = RigidbodyConstraints.FreezePosition;
-            gameManager.rbCoin[0].constraints = RigidbodyConstraints.FreezeRotation;
-        }
-        finally
-        {
-            try
-            {
-                gameManager.rbCoin[1].useGravity = false;
-                gameManager.rbCoin[1].velocity = Vector3.zero;
-                gameManager.modelSelect[1].transform.position = respawnPos;
-                gameManager.rbCoin[1].constraints = RigidbodyConstraints.FreezePosition;
-                gameManager.rbCoin[1].constraints = RigidbodyConstraints.FreezeRotation;
-                gameManager.rbCoin[1].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-            }
-            finally
-            {
-                left.interactable = true;
-                right.interactable = true;
-                MovingLAR.dropButtonAfterPress.interactable = false;
-                AddPoint.coinEnter = false;
-                AddPoint.coinEntered = false;
-            }
-        }*/
     }
 }

@@ -99,20 +99,19 @@ public class Cheats : MonoBehaviour
         {
             bool failed = false;
             gameManager.isCheatsUsed = true;
-            try
-            {
-                int scoreSet = Convert.ToInt32(cheatCodeEntered[11..]);
+            
+            
+                int scoreSet = Convert.ToInt32(cheatCodeEntered[11]);
                 Debug.Log("Score = " + scoreSet);
 
                 if (gameModeController.chosenGamemode == 0)
                     gameManager.classicSavedPoints = scoreSet;
-                
-            }
-            catch
-            {
-                StartCoroutine(CheatCodeDelayBadCode());
-                failed = true;
-            }
+                if (gameModeController.chosenGamemode == 1)
+                    gameManager.timedSavedPoints = scoreSet;
+                if (gameModeController.chosenGamemode == 2)
+                    gameManager.bombsSavedPoints = scoreSet;
+
+            
 
             if (failed == false)
             {

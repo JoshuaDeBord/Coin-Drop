@@ -18,6 +18,8 @@ public class BombsGamemodeLeaderboard : MonoBehaviour
     public float BombYouTextOffsetNumber;
     public int BombRankOnleaderboard;
 
+    public PlayerManager playerManager;
+
     void Start()
     {
 
@@ -118,30 +120,40 @@ public class BombsGamemodeLeaderboard : MonoBehaviour
 
                     if (BombRankOnleaderboard == members[0].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in BombPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in BombPlayerScores) { tmp.color = Color.black; };
                         BombPlayerNames[0].color = Color.blue;
                         BombPlayerScores[0].color = Color.blue;
                         BombYouText.gameObject.transform.localPosition = new(BombAlignBox.transform.localPosition.x, BombPlayerNames[0].transform.localPosition.y + BombYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (BombRankOnleaderboard == members[1].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in BombPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in BombPlayerScores) { tmp.color = Color.black; };
                         BombPlayerNames[1].color = Color.blue;
                         BombPlayerScores[1].color = Color.blue;
                         BombYouText.gameObject.transform.localPosition = new(BombAlignBox.transform.localPosition.x, BombPlayerNames[1].transform.localPosition.y + BombYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (BombRankOnleaderboard == members[2].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in BombPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in BombPlayerScores) { tmp.color = Color.black; };
                         BombPlayerNames[2].color = Color.blue;
                         BombPlayerScores[2].color = Color.blue;
                         BombYouText.gameObject.transform.localPosition = new(BombAlignBox.transform.localPosition.x, BombPlayerNames[2].transform.localPosition.y + BombYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (BombRankOnleaderboard == members[3].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in BombPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in BombPlayerScores) { tmp.color = Color.black; };
                         BombPlayerNames[3].color = Color.blue;
                         BombPlayerScores[3].color = Color.blue;
                         BombYouText.gameObject.transform.localPosition = new(BombAlignBox.transform.localPosition.x, BombPlayerNames[3].transform.localPosition.y + BombYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (BombRankOnleaderboard == members[4].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in BombPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in BombPlayerScores) { tmp.color = Color.black; };
                         BombPlayerNames[4].color = Color.blue;
                         BombPlayerScores[4].color = Color.blue;
                         BombYouText.gameObject.transform.localPosition = new(BombAlignBox.transform.localPosition.x, BombPlayerNames[4].transform.localPosition.y + BombYouTextOffsetNumber, transform.localPosition.z);
@@ -161,12 +173,13 @@ public class BombsGamemodeLeaderboard : MonoBehaviour
     public IEnumerator FetchTopHighscoresRoutine()
     {
         bool done = false;
-        LootLockerSDKManager.GetScoreList(BombLeaderBoardKey, 5, 0, (System.Action<LootLockerGetScoreListResponse>)((response) =>
+        LootLockerSDKManager.GetScoreList(BombLeaderBoardKey, 5, 0, (response) =>
         {
 
             if (response.success)
             {
                 Debug.Log("SUCCESSFULLY FETCHED LEADERBOARD INFORMATION FOR THE BOMBS GAMEMODE!");
+                playerManager.signInButton.SetActive(false);
 
                 LootLockerLeaderboardMember[] members = response.items;
 
@@ -222,9 +235,19 @@ public class BombsGamemodeLeaderboard : MonoBehaviour
                 Debug.LogWarning("Failed" + response.errorData);
                 this.BombNamesText.text = "Failed To Load...";
                 BombScoresText.text = "Try Again...";
+                foreach (TextMeshProUGUI tmp in BombPlayerNames)
+                {
+                    tmp.text = string.Empty;
+                }
+                foreach (TextMeshProUGUI tmp in BombPlayerScores)
+                {
+                    tmp.text = string.Empty;
+                }
+                BombYouText.gameObject.SetActive(false);
+                playerManager.signInButton.SetActive(true);
                 done = true;
             }
-        }));
+        });
         yield return new WaitWhile(() => done == false);
     }
 
@@ -232,4 +255,6 @@ public class BombsGamemodeLeaderboard : MonoBehaviour
     {
         StartCoroutine(FetchTopHighscoresRoutine());
     }
+
+    
 }

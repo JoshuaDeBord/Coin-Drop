@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public ClassicGamemodeLeaderboard classicLeaderBoard;
     public TimedGamemodeLeaderboard timedLeaderBoard;
     public BombsGamemodeLeaderboard bombsLeaderBoard;
+    public GameObject signInButton;
     public TMP_InputField playerNameInputField;
     protected string PlayerName;
     public string[] badWords;
@@ -48,7 +49,8 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    IEnumerator SetupRoutine()
+   
+    public IEnumerator SetupRoutine()
     {
         yield return LoginRoutine();
         yield return classicLeaderBoard.FetchTopHighscoresRoutine();
@@ -66,16 +68,20 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("Player was logged in");
                 PlayerPrefs.SetString("PlayerID", response.player_id.ToString());
+                signInButton.SetActive(false);
                 done = true;
             }
             else
             {
+                signInButton.SetActive(true);
                 Debug.Log("Could not start session");
                 done = true;
             }
         });
         yield return new WaitWhile(() => done == false);
     }
-
-    
+    public void AttemptSignIn()
+    {
+        StartCoroutine(SetupRoutine());
+    }
 }

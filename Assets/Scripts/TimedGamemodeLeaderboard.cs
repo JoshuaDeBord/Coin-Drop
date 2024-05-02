@@ -18,6 +18,8 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
     public float TimedYouTextOffsetNumber;
     public int TimedRankOnleaderboard;
 
+    public PlayerManager playerManager;
+
 
     void Start()
     {
@@ -120,6 +122,8 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
 
                     if (TimedRankOnleaderboard == members[0].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in TimedPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in TimedPlayerScores) { tmp.color = Color.black; };
                         TimedPlayerNames[0].color = Color.blue;
                         TimedPlayerScores[0].color = Color.blue;
                         TimedYouText.gameObject.transform.localPosition = new(TimedAlignBox.transform.localPosition.x, TimedPlayerNames[0].transform.localPosition.y + TimedYouTextOffsetNumber, transform.localPosition.z);
@@ -127,24 +131,32 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
 
                     if (TimedRankOnleaderboard == members[1].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in TimedPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in TimedPlayerScores) { tmp.color = Color.black; };
                         TimedPlayerNames[1].color = Color.blue;
                         TimedPlayerScores[1].color = Color.blue;
                         TimedYouText.gameObject.transform.localPosition = new(TimedAlignBox.transform.localPosition.x, TimedPlayerNames[1].transform.localPosition.y + TimedYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (TimedRankOnleaderboard == members[2].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in TimedPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in TimedPlayerScores) { tmp.color = Color.black; };
                         TimedPlayerNames[2].color = Color.blue;
                         TimedPlayerScores[2].color = Color.blue;
                         TimedYouText.gameObject.transform.localPosition = new(TimedAlignBox.transform.localPosition.x, TimedPlayerNames[2].transform.localPosition.y + TimedYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (TimedRankOnleaderboard == members[3].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in TimedPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in TimedPlayerScores) { tmp.color = Color.black; };
                         TimedPlayerNames[3].color = Color.blue;
                         TimedPlayerScores[3].color = Color.blue;
                         TimedYouText.gameObject.transform.localPosition = new(TimedAlignBox.transform.localPosition.x, TimedPlayerNames[3].transform.localPosition.y + TimedYouTextOffsetNumber, transform.localPosition.z);
                     }
                     if (TimedRankOnleaderboard == members[4].rank)
                     {
+                        foreach (TextMeshProUGUI tmp in TimedPlayerNames) { tmp.color = Color.black; }
+                        foreach (TextMeshProUGUI tmp in TimedPlayerScores) { tmp.color = Color.black; };
                         TimedPlayerNames[4].color = Color.blue;
                         TimedPlayerScores[4].color = Color.blue;
                         TimedYouText.gameObject.transform.localPosition = new(TimedAlignBox.transform.localPosition.x, TimedPlayerNames[4].transform.localPosition.y + TimedYouTextOffsetNumber, transform.localPosition.z);
@@ -170,6 +182,7 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("SUCCESSFULLY FETCHED LEADERBOARD INFORMATION FOR THE TIMED GAMEMODE!");
+                playerManager.signInButton.SetActive(false);
 
                 LootLockerLeaderboardMember[] members = response.items;
 
@@ -225,6 +238,16 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
                 Debug.LogWarning("Failed" + response.errorData);
                 TimedNamesText.text = "Failed To Load...";
                 TimedScoresText.text = "Try Again...";
+                foreach (TextMeshProUGUI tmp in TimedPlayerNames)
+                {
+                    tmp.text = string.Empty;
+                }
+                foreach (TextMeshProUGUI tmp in TimedPlayerScores)
+                {
+                    tmp.text = string.Empty;
+                }
+                TimedYouText.gameObject.SetActive(false);
+                playerManager.signInButton.SetActive(true);
                 done = true;
             }
         });

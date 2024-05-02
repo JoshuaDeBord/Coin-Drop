@@ -18,6 +18,8 @@ public class ClassicGamemodeLeaderboard : MonoBehaviour
     public float ClassicYouTextOffsetNumber;
     public int ClassicRankOnleaderboard;
 
+    public PlayerManager playerManager;
+
 
     void Start()
     {
@@ -120,30 +122,40 @@ public class ClassicGamemodeLeaderboard : MonoBehaviour
 
                 if (ClassicRankOnleaderboard == members[0].rank)
                 {
+                    foreach (TextMeshProUGUI tmp in classicPlayerNames) { tmp.color = Color.black; }
+                    foreach (TextMeshProUGUI tmp in ClassicPlayerScores) { tmp.color = Color.black; };
                     classicPlayerNames[0].color = Color.blue;
                     ClassicPlayerScores[0].color = Color.blue;
                     ClassicYouText.gameObject.transform.localPosition = new(ClassicAlignBox.transform.localPosition.x, classicPlayerNames[0].transform.localPosition.y + ClassicYouTextOffsetNumber, transform.localPosition.z);
                 }
                 if (ClassicRankOnleaderboard == members[1].rank)
                 {
+                    foreach (TextMeshProUGUI tmp in classicPlayerNames) { tmp.color = Color.black; }
+                    foreach (TextMeshProUGUI tmp in ClassicPlayerScores) { tmp.color = Color.black; };
                     classicPlayerNames[1].color = Color.blue;
                     ClassicPlayerScores[1].color = Color.blue;
                     ClassicYouText.gameObject.transform.localPosition = new(ClassicAlignBox.transform.localPosition.x, classicPlayerNames[1].transform.localPosition.y + ClassicYouTextOffsetNumber, transform.localPosition.z);
                 }
                 if (ClassicRankOnleaderboard == members[2].rank)
                 {
+                    foreach (TextMeshProUGUI tmp in classicPlayerNames) { tmp.color = Color.black; }
+                    foreach (TextMeshProUGUI tmp in ClassicPlayerScores) { tmp.color = Color.black; };
                     classicPlayerNames[2].color = Color.blue;
                     ClassicPlayerScores[2].color = Color.blue;
                     ClassicYouText.gameObject.transform.localPosition = new(ClassicAlignBox.transform.localPosition.x, classicPlayerNames[2].transform.localPosition.y + ClassicYouTextOffsetNumber, transform.localPosition.z);
                 }
                 if (ClassicRankOnleaderboard == members[3].rank)
                 {
+                    foreach (TextMeshProUGUI tmp in classicPlayerNames) { tmp.color = Color.black; }
+                    foreach (TextMeshProUGUI tmp in ClassicPlayerScores) { tmp.color = Color.black; };
                     classicPlayerNames[3].color = Color.blue;
                     ClassicPlayerScores[3].color = Color.blue;
                     ClassicYouText.gameObject.transform.localPosition = new(ClassicAlignBox.transform.localPosition.x, classicPlayerNames[3].transform.localPosition.y + ClassicYouTextOffsetNumber, transform.localPosition.z);
                 }
                 if (ClassicRankOnleaderboard == members[4].rank)
                 {
+                    foreach (TextMeshProUGUI tmp in classicPlayerNames) { tmp.color = Color.black; }
+                    foreach (TextMeshProUGUI tmp in ClassicPlayerScores) { tmp.color = Color.black; };
                     classicPlayerNames[4].color = Color.blue;
                     ClassicPlayerScores[4].color = Color.blue;
                     ClassicYouText.gameObject.transform.localPosition = new(ClassicAlignBox.transform.localPosition.x, classicPlayerNames[4].transform.localPosition.y + ClassicYouTextOffsetNumber, transform.localPosition.z);
@@ -167,6 +179,7 @@ public class ClassicGamemodeLeaderboard : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("SUCCESSFULLY FETCHED LEADERBOARD INFORMATION FOR THE CLASSIC GAMEMODE!");
+                playerManager.signInButton.SetActive(false);
 
                 LootLockerLeaderboardMember[] members = response.items;
 
@@ -222,6 +235,16 @@ public class ClassicGamemodeLeaderboard : MonoBehaviour
                 Debug.LogWarning("Failed" + response.errorData);
                 ClassicNamesText.text = "Failed To Load...";
                 ClssicScoresText.text = "Try Again...";
+                foreach (TextMeshProUGUI tmp in classicPlayerNames)
+                {
+                    tmp.text = string.Empty;
+                }
+                foreach (TextMeshProUGUI tmp in ClassicPlayerScores)
+                {
+                    tmp.text = string.Empty;
+                }
+                ClassicYouText.gameObject.SetActive(false);
+                playerManager.signInButton.SetActive(true);
                 done = true;
             }
         });

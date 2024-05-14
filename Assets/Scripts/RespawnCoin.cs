@@ -30,7 +30,7 @@ public class RespawnCoin : MonoBehaviour
 
     public void RespawnTheCoinCall(InputAction.CallbackContext context)
     {
-        if (gameModeController.chosenGamemode < 0)
+        if (gameModeController.chosenGamemode == 0)
         {
             RestartGame();
             MovingLAR.rightLeftPressed = false;
@@ -45,12 +45,7 @@ public class RespawnCoin : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
             gameManager.SpawnedInObjects.RemoveRange(0, gameManager.SpawnedInObjects.Count);
-
-
-
-
         }
-
     }
 
     public IEnumerator RemoveWait(float waittime)

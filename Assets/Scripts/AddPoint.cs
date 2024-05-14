@@ -14,6 +14,7 @@ public class AddPoint : MonoBehaviour
     private GameModesController GameModeController;
     private GamemodeFinishController gmFController;
     private BombsGamemodeController bombController;
+    private Timer timer;
     private RespawnCoin respawnCoin;
     public Cheats cheats;
     public Collider colObj;
@@ -29,6 +30,19 @@ public class AddPoint : MonoBehaviour
         gmFController = ClassicLeaderboard.gameObject.gameObject.GetComponent<GamemodeFinishController>();
         bombController = GameModeController.gameObject.GetComponent<BombsGamemodeController>();
 
+
+    }
+
+    private void Update()
+    {
+        try
+        {
+            if (timer == null)
+            {
+                timer = GameObject.Find("Timer (TIMED GAMEMODE)").GetComponent<Timer>();
+            }
+        }
+        catch { }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -54,7 +68,13 @@ public class AddPoint : MonoBehaviour
                     Debug.Log("YESSSSSS");
                     gameManager.timedSavedPoints += scoreToAdd;
 
-                    respawnCoin.RestartGame();
+                    if (GameModeController.chosenGamemode == 1)
+                    {
+                        if (timer.seconds > 0)
+                            respawnCoin.RestartGame();
+                    }
+                    else respawnCoin.RestartGame();
+
                     if (scoreToAdd == 5)
                     {
                         gmFController.Add5();

@@ -21,10 +21,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI noSaveFileFoundText;
     public TMP_InputField nameInputField;
     public Button dropButton;
+    public Slider musicSlider;
+
     public PlayerInput PI;
     public Cheats cheats;
     public TextMeshProUGUI cooldownNumber;
     public GameObject refreshButtonObject;
+    public GameObject InfoScreen;
 
     public PlayerData playerData;
     public MovingLeftAndRight MovingLAR;
@@ -34,7 +37,7 @@ public class GameManager : MonoBehaviour
     public TimedGamemodeLeaderboard TimedLeaderboard;
     public BombsGamemodeLeaderboard BombsLeaderboard;
     public GameModesController gameModesController;
-    public Timer timedTimer;
+    
     public GameObject TimedTimerSettingsPopup;
     public Timer timer;
 
@@ -87,6 +90,9 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> SpawnedInObjects;
 
+    public Navigation ChangingSettings, LeftSongToCheats;
+    public Button LeftSongButton;
+
     private void Awake()
     {
 
@@ -111,6 +117,8 @@ public class GameManager : MonoBehaviour
             CheatCodeBox.gameObject.SetActive(true);
             enableCheats.gameObject.SetActive(false);
             cheatsUnabledTextInLeaderboard.gameObject.SetActive(true);
+            musicSlider.navigation = ChangingSettings;
+            LeftSongButton.navigation = LeftSongToCheats;
         }
     }
 
@@ -180,15 +188,15 @@ public class GameManager : MonoBehaviour
             SphereText.fontSize = 82.9f;
         }
 
-        /*if (PI.currentActionMap.name == "UI")
+       if (PI.currentActionMap.name == "UI")
         {
             Debug.Log("Action map is on UI");
         }
         else if (PI.currentActionMap.name == "Player")
         {
             Debug.Log("Action map is on Player");
-        }*/
-
+        }
+       
         if (inMainMenuBool == true)
         {
             Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
@@ -265,12 +273,17 @@ public class GameManager : MonoBehaviour
     {
         inCredits = true;
     }
-
+    
     public void UIRefreshLeaderboard()
     {
         if (LeaderboardPanel.activeInHierarchy == true)
         {
             RefreshLeaderBoard();
+        }
+        else if (GameObject.Find("GameMode Chooser PANEL").activeInHierarchy == true)
+        {
+           InfoScreen.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
@@ -389,14 +402,21 @@ public class GameManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(LeaderboardMMButton);
 
         }
+        if (InfoScreen.activeInHierarchy == true)
+        {
+            GameObject.Find("Info Screen").SetActive(false);
+            EventSystem.current.SetSelectedGameObject(gameModesController.gamemodeChoices[0].gameObject);
+        }
     }
 
     public void OpenNameInputField()
     {
+        Debug.Log("hdhdh");
         if (LeaderboardPanel.activeInHierarchy == true)
         {
             nameInputField.ActivateInputField();
         }
+        
 
     }
     public void UnPauseGame()
@@ -439,14 +459,23 @@ public class GameManager : MonoBehaviour
     
     public void DropCoinCall(InputAction.CallbackContext context)
     {
-        if (gameModesController.chosenGamemode > 0 && gameModesController.timerStarted == false)
-        {
-            timer.StartTimer(60);
-        }
+        
         if (context.performed == true)
         {
+            
+            if (gameModesController.chosenGamemode == 1 && gameModesController.timerStarted == false)
+        {
+            timer.StartTimer(60);
             dropButtonHeldDown = true;
             DropCoin();
+        }
+            else if (gameModesController.chosenGamemode == 2)
+            {
+                timer.startbutton.gameObject.SetActive(false);
+                gameModesController.dropButton.SetActive(true);
+                dropButtonHeldDown = true;
+            DropCoin();
+            }
         }
         else { dropButtonHeldDown = false; }
     }

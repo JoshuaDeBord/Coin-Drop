@@ -1,67 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1647843088338152645
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 971949059034431989}
-  - component: {fileID: 7474773801269555037}
-  - component: {fileID: 2558657278202070422}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &971949059034431989
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647843088338152645}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.4335019, z: -0, w: 0.9011527}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7806356263536994101}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7474773801269555037
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647843088338152645}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &2558657278202070422
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647843088338152645}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2.86
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1789677297868106910
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,6 +19,7 @@ GameObject:
   - component: {fileID: -5164739692931867658}
   - component: {fileID: 1710838898638706343}
   - component: {fileID: -8737861542180155377}
+  - component: {fileID: 4128188184538121849}
   m_Layer: 11
   m_Name: CoinMain
   m_TagString: Coin Is Dropped
@@ -88,22 +27,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7806356263536994101
-Transform:
+--- !u!224 &7806356263536994101
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789677297868106910}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.4335019, z: 0, w: 0.9011527}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.24622868}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 971949059034431989}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -51.38, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.010600865, y: -0.005816197}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &5119417288437276677
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -277,8 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2dda923287219c40a59cf2f99d9564c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectLight: {fileID: 0}
-  rainbowColorNumber: 0
+  objectLight: {fileID: 8473090362974219381}
+  rainbowColorNumber: 0.44575495
   SphereMaterial: {fileID: 2100000, guid: 61b1051e8dd01ed41906057d32394cfe, type: 2}
   CoinMaterial: {fileID: 2100000, guid: b0fd845b3b348c44694de5f36b35d8da, type: 2}
   coinMainRB: {fileID: 0}
@@ -5181,3 +5123,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!222 &4128188184538121849
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789677297868106910}
+  m_CullTransparentMesh: 1

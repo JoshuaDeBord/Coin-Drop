@@ -16,21 +16,26 @@ public class CheatBoxEnable : MonoBehaviour
 
     public TMP_InputField CheatCodeBox;
 
-    private GameManager gameManager;
+    public GameManager gameManager;
 
     private void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        
         
         
     }
-    
-    
+
+    private void Start()
+    {
+        
+    }
     public void OpenCheatBox()
     {
         CheatCodeBox.gameObject.SetActive(true);
 
         gameManager.isCheatsUsed = true;
+        gameManager.musicSlider.navigation = gameManager.ChangingSettings;
+        gameManager.LeftSongButton.navigation = gameManager.LeftSongToCheats;
     }
     public void hGButtonHeldDown()
     {

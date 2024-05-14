@@ -55,7 +55,7 @@ public class Timer : MonoBehaviour
                 controller.timerStarted = false;
                 leftButton.gameObject.SetActive(false);
                 rightButton.gameObject.SetActive(false);
-
+                manager.PI.SwitchCurrentActionMap("UI");
 
                 finishcontroller.OpenTimedFinishBoard();
                 break;

@@ -2,6 +2,8 @@ using LootLocker.Requests;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GamemodeFinishController : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class GamemodeFinishController : MonoBehaviour
     public TextMeshProUGUI information;
 
     public GameObject informationScreen;
-
+    public GameObject restartScreenButton;
     
     public GameModesController gameModeController;
     public GameManager gameManager;
@@ -60,11 +62,13 @@ public class GamemodeFinishController : MonoBehaviour
 
     public IEnumerator OpenTimedBoard()
     {
+        EventSystem.current.SetSelectedGameObject(restartScreenButton.gameObject);
         yield return GetPlayerTimedHighScore();
     }
 
     public IEnumerator OpenBombsBoard()
     {
+        EventSystem.current.SetSelectedGameObject(restartScreenButton.gameObject);
         yield return GetPlayerBombHighScore();
     }
 
@@ -89,6 +93,7 @@ public class GamemodeFinishController : MonoBehaviour
             timer.startbutton.gameObject.SetActive(true);
             respawnCoin.RestartGame();
             bombsGamemodeController.StartGamemode();
+            StartCoroutine(SelectStartButton());
         }
         else if (gameModeController.chosenGamemode == 1)
         {
@@ -108,9 +113,17 @@ public class GamemodeFinishController : MonoBehaviour
             timer.rightButton.gameObject.SetActive(true);
             timer.startbutton.gameObject.SetActive(true);
             respawnCoin.RestartGame();
+            
+            StartCoroutine(SelectStartButton());
         }
     }
 
+    public IEnumerator SelectStartButton()
+    {
+        yield return new WaitForSeconds(0.2f);
+        gameManager.PI.SwitchCurrentActionMap("Player");
+        EventSystem.current.SetSelectedGameObject(gameModeController.startButton.gameObject);
+    }
     public void Add5()
     {
         if (gameModeController.chosenGamemode > 0)
@@ -167,7 +180,7 @@ public class GamemodeFinishController : MonoBehaviour
     public IEnumerator GetPlayerTimedHighScore()
     {
         bool done = false;
-
+        
         string playerID = PlayerPrefs.GetString("PlayerID");
         LootLockerSDKManager.GetMemberRank(TimedLeaderBoardKey, playerID, (response) =>
         {
@@ -179,6 +192,7 @@ public class GamemodeFinishController : MonoBehaviour
                 finalScore = gameManager.timedSavedPoints;
                 information.text = FinalInformation();
                 informationScreen.SetActive(true);
+                
 
                 foreach (ParticleSystem particle in finishParticles)
                 {

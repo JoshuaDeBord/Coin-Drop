@@ -26,7 +26,7 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
 
         TimedAlignBox.SetActive(false);
     }
-
+    
     public IEnumerator SubmitScoreRoutine(int scoreToUpload)
     {
         bool done = false;
@@ -50,7 +50,7 @@ public class TimedGamemodeLeaderboard : MonoBehaviour
     public IEnumerator GetPlayerHighScore()
     {
         bool done = false;
-
+        
         string playerID = PlayerPrefs.GetString("PlayerID");
         LootLockerSDKManager.GetMemberRank(TimedLeaderBoardKey, playerID, (response) =>
         {

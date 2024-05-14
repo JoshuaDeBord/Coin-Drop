@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,10 +7,10 @@ using UnityEngine.UI;
 
 public class EventSystemHelper : MonoBehaviour
 {
-    public Button settingsButton1, settingsButton2, settingsButton3, quitButton, resetButton, cheatBoxButtonObject, noResetButton, yesResetButton;
+    public Button settingsButton1, settingsButton2, settingsButton3, quitButton, resetButton, cheatBoxButtonObject, noResetButton, yesResetButton, yesCheatsButton,noCheatsButton, enableCheatsButton;
     
     public TMP_InputField cheatBox;
-    public GameObject SelectionBox1, SelectionBox2, SelectionBox3, quitSelectionBox, resetSelectionBox, CheatBoxSelection, noSelectionBox, yesSelectionBox;
+    public GameObject SelectionBox1, SelectionBox2, SelectionBox3, quitSelectionBox, resetSelectionBox, CheatBoxSelection, resetNoSelectionBox, resetYesSelectionBox, yesCheatsBox, noCheatsBox;
     public GameObject CheatBox, settingsBackButton, xboxBackIconSettings, xboxBackIconLeaderboard, nameInputFieldOpenIcon;
     public TextMeshProUGUI goBackText;
     public RectTransform settingsBackButtonRect;
@@ -25,6 +22,8 @@ public class EventSystemHelper : MonoBehaviour
 
     public AudioManager audioManager;
     public GameManager gameManager;
+
+    
 
 #if UNITY_WSA
 
@@ -71,6 +70,21 @@ public class EventSystemHelper : MonoBehaviour
             resetSelectionBox.SetActive(false);
             CheatBoxSelection.SetActive(false);
         }
+        else if (EventSystem.current.currentSelectedGameObject == enableCheatsButton.gameObject)
+        {
+            SelectionBox1.SetActive(false);
+            SelectionBox2.SetActive(false);
+            SelectionBox3.gameObject.SetActive(false);
+            quitSelectionBox.SetActive(false);
+            CheatBoxSelection.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            isOnReset = false;
+            resetSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(false);
+        }
         else if (EventSystem.current.currentSelectedGameObject == quitButton.gameObject)
         {
             SelectionBox1.SetActive(false);
@@ -79,9 +93,14 @@ public class EventSystemHelper : MonoBehaviour
             quitSelectionBox.SetActive(true);
             isOnReset = false;
             resetSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
             CheatBoxSelection.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(false);
         }
-        else if (EventSystem.current.currentSelectedGameObject == resetButton.gameObject && isOnReset == false)
+        else if (EventSystem.current.currentSelectedGameObject == resetButton.gameObject)
         {
             SelectionBox1.SetActive(false);
             SelectionBox2.SetActive(false);
@@ -89,19 +108,29 @@ public class EventSystemHelper : MonoBehaviour
             quitSelectionBox.SetActive(false);
             isOnReset = true;
             CheatBoxSelection.SetActive(false);
-            StartCoroutine(ResetColorLoop());
-            
+            resetSelectionBox.SetActive(true);
+            resetSelectionBox.SetActive(false);
+            resetNoSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(false);
+
         }
         else if (EventSystem.current.currentSelectedGameObject == cheatBoxButtonObject.gameObject)
         {
             SelectionBox1.SetActive(false);
             SelectionBox2.SetActive(false);
-            SelectionBox3.SetActive(false);
+            SelectionBox3.gameObject.SetActive(false);
             quitSelectionBox.SetActive(false);
             CheatBoxSelection.SetActive(true);
             resetSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
             isOnReset = false;
-
+            resetSelectionBox.SetActive(false);
+            resetNoSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(false);
         }
         else if (EventSystem.current.currentSelectedGameObject == noResetButton.gameObject)
         {
@@ -109,11 +138,14 @@ public class EventSystemHelper : MonoBehaviour
             SelectionBox2.SetActive(false);
             SelectionBox3.SetActive(false);
             quitSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
             CheatBoxSelection.SetActive(false);
             resetSelectionBox.SetActive(false);
             isOnReset = false;
-            noSelectionBox.SetActive(true);
-            yesSelectionBox.SetActive(false);
+            resetNoSelectionBox.SetActive(true);
+            resetYesSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(false);
         }
         else if (EventSystem.current.currentSelectedGameObject == yesResetButton.gameObject)
         {
@@ -124,8 +156,44 @@ public class EventSystemHelper : MonoBehaviour
             CheatBoxSelection.SetActive(false);
             resetSelectionBox.SetActive(false);
             isOnReset = false;
-            noSelectionBox.SetActive(false);
-            yesSelectionBox.SetActive(true);
+            resetSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            resetNoSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(true);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(false);
+        }
+        else if (EventSystem.current.currentSelectedGameObject == yesCheatsButton.gameObject)
+        {
+            SelectionBox1.SetActive(false);
+            SelectionBox2.SetActive(false);
+            SelectionBox3.SetActive(false);
+            quitSelectionBox.SetActive(false);
+            CheatBoxSelection.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            isOnReset = false;
+            resetSelectionBox.SetActive(false);
+            resetNoSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(true);
+            noCheatsBox.SetActive(false);
+        }
+        else if (EventSystem.current.currentSelectedGameObject == noCheatsButton.gameObject)
+        {
+            SelectionBox1.SetActive(false);
+            SelectionBox2.SetActive(false);
+            SelectionBox3.SetActive(false);
+            quitSelectionBox.SetActive(false);
+            CheatBoxSelection.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            resetSelectionBox.SetActive(false);
+            isOnReset = false;
+            resetSelectionBox.SetActive(false);
+            resetNoSelectionBox.SetActive(false);
+            resetYesSelectionBox.SetActive(false);
+            yesCheatsBox.SetActive(false);
+            noCheatsBox.SetActive(true);
         }
 
         Debug.Log(EventSystem.current.currentSelectedGameObject);

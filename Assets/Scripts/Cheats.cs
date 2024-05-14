@@ -46,7 +46,7 @@ public class Cheats : MonoBehaviour
         if (cheatCodeEntered == "give1000")
         {
             gameManager.isCheatsUsed = true;
-            
+
             if (gameModeController.chosenGamemode == 0)
                 gameManager.classicSavedPoints += 1000;
 
@@ -99,19 +99,19 @@ public class Cheats : MonoBehaviour
         {
             bool failed = false;
             gameManager.isCheatsUsed = true;
-            
-            
-                int scoreSet = Convert.ToInt32(cheatCodeEntered[11]);
-                Debug.Log("Score = " + scoreSet);
 
-                if (gameModeController.chosenGamemode == 0)
-                    gameManager.classicSavedPoints = scoreSet;
-                if (gameModeController.chosenGamemode == 1)
-                    gameManager.timedSavedPoints = scoreSet;
-                if (gameModeController.chosenGamemode == 2)
-                    gameManager.bombsSavedPoints = scoreSet;
 
-            
+            int scoreSet = Convert.ToInt32(cheatCodeEntered[13..]);
+            Debug.Log("Score = " + scoreSet);
+
+            if (gameModeController.chosenGamemode == 0)
+                gameManager.classicSavedPoints = scoreSet;
+            if (gameModeController.chosenGamemode == 1)
+                gameManager.timedSavedPoints = scoreSet;
+            if (gameModeController.chosenGamemode == 2)
+                gameManager.bombsSavedPoints = scoreSet;
+
+
 
             if (failed == false)
             {

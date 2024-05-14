@@ -56,13 +56,20 @@ public class LoadingScreen : MonoBehaviour
     }
     public void StartClosing()
     {
+
         loadingAnimator.SetBool("isDown", false);
         loadingAnimator.SetBool("isUp", true);
         //loadingAnimator.Play("LoadingScreenGoingUp");
 
         StartCoroutine(ResetLoadingScreen());
+        StartCoroutine(SetActionMap());
+        gameManager.UnPauseGame();
+    }
 
-
+    public IEnumerator SetActionMap()
+    {
+        yield return new WaitForSeconds(1);
+        //gameManager.PI.SwitchCurrentActionMap("Player");
     }
 
     public IEnumerator ResetLoadingScreen()

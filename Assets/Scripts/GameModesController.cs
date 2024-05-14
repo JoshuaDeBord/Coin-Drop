@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -9,7 +11,7 @@ public class GameModesController : MonoBehaviour
     [Header("Script Links")]
     public GameManager gameManager;
     private BombsGamemodeController bombsGamemodeController;
-    
+    public LoadingScreen loadingScreen;
 
     [Header("GameObjects")]
     public GameObject[] mainMenuButtons;
@@ -21,7 +23,12 @@ public class GameModesController : MonoBehaviour
     public GameObject restartButton;
     public Button settingsButton;
     public GameObject livesLeftObj;
+    public GameObject[] selectionBox;
+    public GameObject loadingScreenStartButton;
     
+
+    [Header("Buttons")]
+    public Button[] gamemodeChoices;
 
     [Header("Text Objects")]
     public TextMeshProUGUI mainmenuTitle;
@@ -57,6 +64,24 @@ public class GameModesController : MonoBehaviour
         {
             settingsButton.interactable = true;
         }
+
+        if (EventSystem.current.currentSelectedGameObject == backButton)
+        {
+            selectionBox[0].SetActive(false); selectionBox[1].SetActive(false); selectionBox[2].SetActive(false);
+        }
+        else if (EventSystem.current.currentSelectedGameObject == gamemodeChoices[0].gameObject)
+        {
+            selectionBox[0].SetActive(true); selectionBox[1].SetActive(false); selectionBox[2].SetActive(false);
+        }
+        else if (EventSystem.current.currentSelectedGameObject == gamemodeChoices[1].gameObject.gameObject)
+        {
+            selectionBox[0].SetActive(false); selectionBox[1].SetActive(true); selectionBox[2].SetActive(false);
+        }
+        else if (EventSystem.current.currentSelectedGameObject == gamemodeChoices[2].gameObject)
+        {
+            selectionBox[0].SetActive(false); selectionBox[1].SetActive(false); selectionBox[2].SetActive(true);
+        }
+        
     }
 
     public void ToggleGameModeChooser(bool toggleGamemodeScreen)
@@ -66,11 +91,14 @@ public class GameModesController : MonoBehaviour
             button.SetActive(!toggleGamemodeScreen);
         }
         gamemodeChooser.SetActive(toggleGamemodeScreen);
+
+        EventSystem.current.SetSelectedGameObject(gamemodeChoices[0].gameObject);
     }
 
     public void PlayGame(int gameMode)
     {
         StartCoroutine(LoadGameMode(gameMode));
+        EventSystem.current.SetSelectedGameObject(loadingScreenStartButton.gameObject);
     }
 
     public IEnumerator LoadGameMode(int gameMode)
@@ -82,9 +110,10 @@ public class GameModesController : MonoBehaviour
 
         gameManager.MainGamePanel.SetActive(true);
         gameManager.InMainGame();
-        gameManager.UnPauseGame();
+        
         gameManager.MainMenuPanel.SetActive(false);
-        gameManager.PI.SwitchCurrentActionMap("Player");
+        
+        
 
         if (chosenGamemode == 0) //classic gamemode
         {
@@ -118,7 +147,7 @@ public class GameModesController : MonoBehaviour
     }
     public void StartButtonBombGamemode()
     {
-        if (chosenGamemode == 2)
+        if (chosenGamemode > 0)
         {
             startButton.gameObject.SetActive(false);
             dropButton.gameObject.SetActive(true);

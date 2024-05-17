@@ -29,7 +29,7 @@ public class Cheats : MonoBehaviour
             {
                 gameManager.playerData.isCheatsEnabled = true;
                 Debug.Log("Cheats are enabled and saved");
-                gameManager.SavePlayer();
+                
             }
         }
 

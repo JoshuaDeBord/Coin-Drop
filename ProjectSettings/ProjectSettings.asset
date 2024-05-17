@@ -141,7 +141,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 0.1.0
+  bundleVersion: 1.0.0
   preloadedAssets:
   - {fileID: 11400000, guid: 8b5a5602ee5bcfd408fa0ac6e33efa2a, type: 2}
   metroInputSource: 0
@@ -172,7 +172,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 34
   AndroidPreferredInstallLocation: 1
@@ -827,7 +827,7 @@ PlayerSettings:
     tvOS: 1
   incrementalIl2cppBuild: {}
   suppressCommonWarnings: 1
-  allowUnsafeCode: 0
+  allowUnsafeCode: 1
   useDeterministicCompilation: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
@@ -837,15 +837,27 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: CoinDropper
-  metroPackageVersion: 1.9.4.0
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: Green Country Technology Center
   metroCertificateIssuer: Green Country Technology Center
   metroCertificateNotAfter: 8051a2088d73db01
   metroApplicationDescription: Coin Drop
-  wsaImages: {}
-  metroTileShortName: CDropper
+  wsaImages:
+    65636: Assets/My Images/cd50x50.png
+    65661: Assets/My Images/cd63x63.png
+    65686: Assets/My Images/cd75x75.png
+    65736: Assets/My Images/cd100x100.png
+    65936: Assets/My Images/cd200x200.png
+    131272: Assets/My Images/cd1240x600.png
+    2031640: Assets/My Images/cd24x24.png
+    2031816: Assets/My Images/cd88x88.png
+    2097352: Assets/My Images/cd142x142.png
+    2162888: Assets/My Images/cd300x300.png
+    2228424: Assets/My Images/cd620x620.png
+    2293960: Assets/My Images/cd620x300.png
+  metroTileShortName: Coin Dropper
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
@@ -854,7 +866,7 @@ PlayerSettings:
   metroLastRequiredScene: 0
   metroDefaultTileSize: 1
   metroTileForegroundText: 2
-  metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
+  metroTileBackgroundColor: {r: 0.09554112, g: 0.13540027, b: 0.1792453, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
   metroSplashScreenUseBackgroundColor: 0
   platformCapabilities: {}

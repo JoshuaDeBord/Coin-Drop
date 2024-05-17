@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
@@ -53,7 +54,9 @@ public class LoadingScreen : MonoBehaviour
                 done = true;
             }
         }
+        
     }
+    
     public void StartClosing()
     {
 
@@ -64,6 +67,7 @@ public class LoadingScreen : MonoBehaviour
         StartCoroutine(ResetLoadingScreen());
         StartCoroutine(SetActionMap());
         gameManager.UnPauseGame();
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public IEnumerator SetActionMap()

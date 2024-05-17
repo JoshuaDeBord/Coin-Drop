@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public TimedGamemodeLeaderboard TimedLeaderboard;
     public BombsGamemodeLeaderboard BombsLeaderboard;
     public GameModesController gameModesController;
-    
+
     public GameObject TimedTimerSettingsPopup;
     public Timer timer;
 
@@ -100,10 +100,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        string path = Application.persistentDataPath + "/player.save";
-        Debug.Log(path);
-        string playerID = PlayerPrefs.GetString("PlayerID");
-        Debug.Log(playerID);
         try { LoadPLayer(); }
         catch { }
         PI = gameObject.GetComponent<PlayerInput>();
@@ -188,7 +184,7 @@ public class GameManager : MonoBehaviour
             SphereText.fontSize = 82.9f;
         }
 
-       if (PI.currentActionMap.name == "UI")
+        if (PI.currentActionMap.name == "UI")
         {
             Debug.Log("Action map is on UI");
         }
@@ -196,7 +192,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Action map is on Player");
         }
-       
+
         if (inMainMenuBool == true)
         {
             Destroy(GameObject.FindGameObjectWithTag("Coin Is Dropped"));
@@ -209,6 +205,8 @@ public class GameManager : MonoBehaviour
 
         }
 #endif
+
+
     }
 
 
@@ -273,7 +271,7 @@ public class GameManager : MonoBehaviour
     {
         inCredits = true;
     }
-    
+
     public void UIRefreshLeaderboard()
     {
         if (LeaderboardPanel.activeInHierarchy == true)
@@ -282,7 +280,7 @@ public class GameManager : MonoBehaviour
         }
         else if (GameObject.Find("GameMode Chooser PANEL").activeInHierarchy == true)
         {
-           InfoScreen.SetActive(true);
+            InfoScreen.SetActive(true);
             EventSystem.current.SetSelectedGameObject(null);
         }
     }
@@ -416,7 +414,7 @@ public class GameManager : MonoBehaviour
         {
             nameInputField.ActivateInputField();
         }
-        
+
 
     }
     public void UnPauseGame()
@@ -456,25 +454,36 @@ public class GameManager : MonoBehaviour
         dropButtonHeldDown = false;
     }
 
-    
+
     public void DropCoinCall(InputAction.CallbackContext context)
     {
-        
+
         if (context.performed == true)
         {
-            
-            if (gameModesController.chosenGamemode == 1 && gameModesController.timerStarted == false)
-        {
-            timer.StartTimer(60);
             dropButtonHeldDown = true;
-            DropCoin();
-        }
+            if (gameModesController.chosenGamemode == 0)
+            {
+
+                DropCoin();
+
+            }
+            else if (gameModesController.chosenGamemode == 1)
+            {
+
+                dropButtonHeldDown = true;
+                DropCoin();
+                if (gameModesController.timerStarted == false)
+                {
+                    timer.StartTimer(60);
+                }
+            }
+
             else if (gameModesController.chosenGamemode == 2)
             {
                 timer.startbutton.gameObject.SetActive(false);
                 gameModesController.dropButton.SetActive(true);
                 dropButtonHeldDown = true;
-            DropCoin();
+                DropCoin();
             }
         }
         else { dropButtonHeldDown = false; }
@@ -538,8 +547,8 @@ public class GameManager : MonoBehaviour
         }
         else if (rapidSpawn == true && modelSelected == 1)
         {
-            Debug.Log("Coin Spawned");
-            _ = StartCoroutine(RapidSpawn());
+            Debug.Log("Coin Rapid Spawned");
+            StartCoroutine(RapidSpawn());
         }
 
 
@@ -596,7 +605,7 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-        string path = Application.persistentDataPath + "/savefile.save";
+        string path = Application.persistentDataPath + "/player.save";
 
         if (File.Exists(path) || settingIsChanged == true || isCheatsUsed == true)
         {
@@ -605,6 +614,7 @@ public class GameManager : MonoBehaviour
             PlayerSettingsPreferences.SetMusicVolume(-40);
             PlayerSettingsPreferences.updated = false;
             settingIsChanged = false;
+            isCheatsUsed = false;
             File.Delete(path);
 
             SceneManager.LoadScene(0);

@@ -132,6 +132,7 @@ public class GameModesController : MonoBehaviour
             restartButton.SetActive(false);
             livesLeftObj.SetActive(false);
             bombsGamemodeController.ResetPinsColors();
+            
 
         }
         else if (chosenGamemode == 2) //bombs gamemode
